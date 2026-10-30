@@ -32,8 +32,8 @@ The steps of `init_db.py` also exist separately: `flask db upgrade`, `scripts/se
 questions, 16 lessons). Tests always run on `sample_bank/` (`TestConfig`); `test_content_bank.py` also validates the
 private bank when present, with the stricter coverage rules. Never copy private-bank content into `sample_bank/`.
 
-**Demo** (`Dockerfile`, Hugging Face Spaces): `DEMO_MODE=1` drops `/admin`, sets cross-site session cookies, and
-generates a random `SECRET_KEY` if none is given.
+**Demo** (`Dockerfile` + `render.yaml`, Render free plan): `DEMO_MODE=1` drops `/admin`, marks session cookies
+`Secure`, and generates a random `SECRET_KEY` if none is given.
 
 New migrations: `flask db migrate -m "..."` (render_as_batch is on for SQLite). New NOT NULL columns need a
 `server_default`. Back up the DB before upgrading.

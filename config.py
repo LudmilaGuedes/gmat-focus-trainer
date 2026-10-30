@@ -30,9 +30,8 @@ class Config:
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     CONTENT_BANK_DIR = resolve_content_bank_dir()
-    # Public demo: no curation UI, and session cookies that work inside the Hugging Face iframe.
+    # Public demo (served over HTTPS): no curation UI, and session cookies sent only over HTTPS.
     if DEMO_MODE:
-        SESSION_COOKIE_SAMESITE = "None"
         SESSION_COOKIE_SECURE = True
 
 

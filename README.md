@@ -11,7 +11,7 @@ Plataforma de estudo adaptativa para o **GMAT Focus Edition**, rodando localment
 preparação inteira: trilha de teoria, testes de fixação, prática adaptativa por assunto, revisão espaçada, caderno de
 erros, simulados no estilo CAT e estimativa de nota.
 
-**Demo:** _link do Hugging Face Spaces (a publicar)_
+**Demo:** _link do Render (a publicar)_
 
 ---
 
@@ -173,8 +173,9 @@ Variáveis de ambiente opcionais: `SECRET_KEY`, `DATABASE_URL`, `GMAT_CONTENT_DI
 
 O **Guia** (no menu) explica a prova, os níveis e o método.
 
-## Demo pública (Hugging Face Spaces)
+## Demo pública (Render)
 
-O `Dockerfile` sobe o app com o banco de exemplo, em modo demo, num contêiner pronto para o Hugging Face Spaces
-(gratuito). Passo a passo em [`docs/deploy-huggingface.md`](docs/deploy-huggingface.md). Na demo o banco SQLite é
-compartilhado entre visitantes e recriado a cada reinício do Space.
+O `Dockerfile` sobe o app com o banco de exemplo, em modo demo, e o [`render.yaml`](render.yaml) publica esse
+contêiner no plano gratuito do Render, com deploy automático a cada push. Passo a passo em
+[`docs/deploy-render.md`](docs/deploy-render.md). Na demo o banco SQLite é compartilhado entre visitantes e recriado a
+cada deploy; no plano gratuito o app "dorme" após ~15 minutos sem uso e leva cerca de 1 minuto para acordar.
