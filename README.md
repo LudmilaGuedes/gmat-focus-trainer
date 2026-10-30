@@ -47,15 +47,6 @@ O GMAT Focus Trainer decide **o que** estudar (os assuntos mais fracos, no ritmo
   Sufficiency, Table Analysis, Graphics Interpretation, Two-Part Analysis e Multi-Source Reasoning, sobre um único
   formato de resposta (sem crédito parcial, como na prova).
 
-## Telas
-
-<!-- Capturas em docs/screenshots/ — ver a lista em docs/screenshots/README.md -->
-| | |
-|---|---|
-| ![Plano diário](docs/screenshots/01-hoje.png) | ![Prática adaptativa](docs/screenshots/02-pratica.png) |
-| ![Feedback com explicação](docs/screenshots/03-feedback.png) | ![Simulado CAT](docs/screenshots/04-simulado.png) |
-| ![Resultado do simulado](docs/screenshots/05-resultado.png) | ![Progresso por assunto](docs/screenshots/06-progresso.png) |
-
 ## Como a IA foi usada
 
 Este projeto foi construído com IA de ponta a ponta, mas com as decisões de produto e de arquitetura do meu lado.
