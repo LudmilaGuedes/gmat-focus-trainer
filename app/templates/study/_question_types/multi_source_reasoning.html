@@ -1,0 +1,10 @@
+{% from "study/_question_types/_macros.html" import render_group with context %}
+<div class="question-text">{{ question.stem_text | reflow }}</div>
+{% set media = question.media_json or {} %}
+{% if media.statements %}
+  {% for statement in media.statements %}
+    {{ render_group(statement.key, answer_groups.get(statement.key, []), label=statement.text) }}
+  {% endfor %}
+{% else %}
+  {{ render_group('single', answer_groups.get('single', [])) }}
+{% endif %}

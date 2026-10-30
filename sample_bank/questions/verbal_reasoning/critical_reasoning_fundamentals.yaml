@@ -1,0 +1,122 @@
+# Banco de exemplo — Critical Reasoning, N2 (questões originais). Alimentam o teste de fixação de cada tipo.
+
+questions:
+  - slug: vr-cr-asm-s-n2-1
+    subtopic: vr_cr_assumption
+    question_type: multiple_choice
+    difficulty: 2
+    stem: |
+      Marisol's bakery has sold out of sourdough bread every day for the past month, usually before noon. Marisol
+      concludes that if she doubles the number of sourdough loaves she bakes each day, her daily sourdough sales will
+      also double.
+
+      Marisol's conclusion depends on which of the following assumptions?
+    options:
+      - { label: A, text: "Sourdough is the most profitable item that the bakery currently sells.", correct: false }
+      - { label: B, text: "The bakery has enough oven space to bake its other breads as well.", correct: false }
+      - { label: C, text: "Enough customers would buy sourdough to absorb twice as many loaves.", correct: true }
+      - { label: D, text: "Customers who found no sourdough left usually bought another bread.", correct: false }
+      - { label: E, text: "Other bakeries nearby do not sell sourdough bread at lower prices.", correct: false }
+    explanation: |
+      Esgotar todo dia mostra que a demanda é MAIOR que a produção atual, não que seja o dobro. Negue C: se não houver
+      clientes para o dobro, as vendas não dobram. A e E não são necessárias. B fala de outros pães. D até sugere que
+      parte da demanda migra para outros pães, mas não é exigida pelo argumento.
+
+  - slug: vr-cr-asm-s-n2-2
+    subtopic: vr_cr_assumption
+    question_type: multiple_choice
+    difficulty: 2
+    stem: |
+      To reduce litter in Riverside Park, the city plans to double the number of trash cans in the park. City planners
+      reason that most people who litter in the park do so because they cannot find a trash can nearby.
+
+      The planners' reasoning assumes which of the following?
+    options:
+      - { label: A, text: "Riverside Park has more visitors than any other park in the city.", correct: false }
+      - { label: B, text: "Littering is a more serious problem in parks than on city streets.", correct: false }
+      - { label: C, text: "Most park visitors would support stricter fines for littering.", correct: false }
+      - { label: D, text: "The new cans would cost less than cleaning up the park's litter.", correct: false }
+      - { label: E, text: "The new cans will be placed where park visitors can easily see them.", correct: true }
+    explanation: |
+      O plano ataca a causa "não achar uma lixeira". Mais lixeiras só resolvem se os visitantes as encontrarem.
+      Negue E: se ficarem escondidas, o problema continua. A, B e C são irrelevantes. D trata de custo, não de
+      eficácia.
+
+  - slug: vr-cr-str-s-n2-1
+    subtopic: vr_cr_strengthen
+    question_type: multiple_choice
+    difficulty: 2
+    stem: |
+      Students at Lakeview High School who belong to the school's chess club have higher math grades, on average,
+      than students who do not. The principal concludes that playing chess improves students' math performance.
+
+      Which of the following, if true, most strengthens the principal's conclusion?
+    options:
+      - { label: A, text: "The chess club meets twice a week after school in the library.", correct: false }
+      - { label: B, text: "Members' math grades rose after they joined the club.", correct: true }
+      - { label: C, text: "Some students who are not in the club also play chess at home.", correct: false }
+      - { label: D, text: "The chess club was founded by a teacher who also teaches history.", correct: false }
+      - { label: E, text: "Several members of the club are also members of the debate team.", correct: false }
+    explanation: |
+      A correlação poderia ser o inverso: quem já vai bem em matemática entra no clube. B mostra melhora DEPOIS de
+      entrar, o que apoia a causa xadrez → notas. As demais alternativas não afetam a relação causal.
+
+  - slug: vr-cr-str-s-n2-2
+    subtopic: vr_cr_strengthen
+    question_type: multiple_choice
+    difficulty: 2
+    stem: |
+      After the town of Corley lowered the speed limit on Main Street from 40 to 25 miles per hour, the number of
+      pedestrian injuries on Main Street fell sharply. The town council concludes that the lower speed limit made Main
+      Street safer for pedestrians.
+
+      Which of the following, if true, most strengthens the council's conclusion?
+    options:
+      - { label: A, text: "Several other streets in Corley still have a speed limit of 40 mph.", correct: false }
+      - { label: B, text: "Some drivers on Main Street still exceed the new speed limit.", correct: false }
+      - { label: C, text: "The town council voted unanimously to lower the speed limit.", correct: false }
+      - { label: D, text: "The number of people walking on Main Street did not fall.", correct: true }
+      - { label: E, text: "Pedestrian injuries are more common at night than during the day.", correct: false }
+    explanation: |
+      Uma explicação alternativa seria haver menos pedestres na rua. D descarta isso, então a queda de acidentes passa
+      a ser atribuída à velocidade menor. B enfraquece um pouco. A, C e E são irrelevantes.
+
+  - slug: vr-cr-wk-s-n2-1
+    subtopic: vr_cr_weaken
+    question_type: multiple_choice
+    difficulty: 2
+    stem: |
+      A survey found that people who use Brightsmile toothpaste have fewer cavities, on average, than people who use
+      other brands. The makers of Brightsmile conclude that their toothpaste prevents cavities.
+
+      Which of the following, if true, most seriously weakens the conclusion?
+    options:
+      - { label: A, text: "Brightsmile is sold in more stores than most competing brands.", correct: false }
+      - { label: B, text: "Brightsmile costs slightly more than most other toothpaste brands.", correct: false }
+      - { label: C, text: "Some people in the survey used more than one toothpaste brand.", correct: false }
+      - { label: D, text: "The survey included people from several different cities.", correct: false }
+      - { label: E, text: "Brightsmile users visit the dentist more often than others do.", correct: true }
+    explanation: |
+      E traz uma causa alternativa: quem usa Brightsmile vai mais ao dentista, e isso explicaria as poucas cáries.
+      C enfraquece pouco (são só alguns). A, B e D não afetam a causalidade.
+
+  - slug: vr-cr-wk-s-n2-2
+    subtopic: vr_cr_weaken
+    question_type: multiple_choice
+    difficulty: 2
+    stem: |
+      To attract more visitors, the Hollis Museum plans to stay open until 9 p.m. on weekdays instead of closing at
+      5 p.m. The museum's director argues that many local residents work during the day and therefore cannot visit
+      before 5 p.m.
+
+      Which of the following, if true, most seriously calls into question whether the plan will succeed?
+    options:
+      - { label: A, text: "Most residents who never visit say the exhibits do not interest them.", correct: true }
+      - { label: B, text: "Staying open late would require the museum to hire more guards.", correct: false }
+      - { label: C, text: "Several other museums in the city already stay open until 9 p.m.", correct: false }
+      - { label: D, text: "Many of the museum's current visitors are retirees and students.", correct: false }
+      - { label: E, text: "Weekday attendance at the museum is highest around lunchtime.", correct: false }
+    explanation: |
+      O plano supõe que o horário é o que impede as visitas. A mostra que o motivo real é falta de interesse, e isso o
+      novo horário não resolve. B é custo, não atrai nem afasta visitantes. D e E descrevem o público atual sem
+      atingir o objetivo do plano. C é irrelevante.

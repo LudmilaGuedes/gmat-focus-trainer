@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Simulado{% endblock %}
+{% block content %}
+  <h1>Simulado</h1>
+  {% if in_progress %}
+    <div class="feedback warn">Você tem um simulado em andamento (iniciado {{ in_progress.started_at.strftime('%d/%m %H:%M') }} UTC).
+      <a href="{{ url_for('mock_exam.resume', mock_exam_id=in_progress.id) }}">Continuar</a> — ou comece outro abaixo (o anterior será abandonado).</div>
+  {% endif %}
+  <div class="grid">
+    <form class="card" method="post" action="{{ url_for('mock_exam.start') }}">
+      <input type="hidden" name="kind" value="full">
+      <h2>Prova completa</h2>
+      <p class="muted small">
+        Igual à prova real: Quant ({{ counts.QR }} questões), Verbal ({{ counts.VR }}) e Data Insights ({{ counts.DI }}),
+        45 min cada, na ordem que você escolher. Uma pausa opcional de 10 min após a 1ª ou a 2ª seção.
+        Dificuldade adaptativa, sem mostrar o nível das questões.
+      </p>
+      <label class="muted small">Ordem das seções</label><br>
+      <select name="order">{% for o in orders %}<option>{{ o }}</option>{% endfor %}</select>
+      <p><button class="btn" type="submit">Iniciar prova completa (~2h25)</button></p>
+    </form>
+    <form class="card" method="post" action="{{ url_for('mock_exam.start') }}">
+      <input type="hidden" name="kind" value="section">
+      <h2>Uma seção</h2>
+      <p class="muted small">45 minutos de uma seção só, com as mesmas regras. Bom para treinar ritmo no meio da semana.</p>
+      <select name="section_code">
+        <option value="QR">Quantitative Reasoning</option>
+        <option value="VR">Verbal Reasoning</option>
+        <option value="DI">Data Insights</option>
+      </select>
+      <p><button class="btn secondary" type="submit">Iniciar seção</button></p>
+    </form>
+  </div>
+  <div class="card flat">
+    <h2>Regras (como na prova real)</h2>
+    <ul class="small">
+      <li>O cronômetro de cada seção não pausa. Ao zerar, a seção fecha — <strong>questões não respondidas penalizam a nota</strong> (mais do que errar chutando).</li>
+      <li>Você pode <strong>marcar</strong> questões. Ao responder a última, abre a tela de revisão: enquanto houver tempo, dá para rever e <strong>trocar até 3 respostas</strong> por seção.</li>
+      <li>Data Insights permite calculadora na prova real — use a do computador. Quant não.</li>
+      <li>A nota é uma <strong>estimativa</strong> (IRT simplificado com o nível das questões). Compare sempre com os simulados oficiais.</li>
+      <li>Simulados não mudam seu nível nos assuntos; erros vão para a revisão espaçada.</li>
+    </ul>
+  </div>
+{% endblock %}

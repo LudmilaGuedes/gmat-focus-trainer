@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Revisão — correção{% endblock %}
+{% block page_class %}{{ 'wide' if question.question_set else '' }}{% endblock %}
+{% block content %}
+  <div class="q-toolbar">
+    <strong>Revisão <span class="muted">· faltam {{ remaining }}</span></strong>
+    <a class="btn" href="{{ url_for('review.item') }}">{{ 'Próximo →' if remaining else 'Concluir' }}</a>
+  </div>
+  <div class="feedback {{ 'correct' if last.correct else 'incorrect' }}">
+    <strong>{{ 'Acertou — próximo intervalo maior.' if last.correct else 'Errou de novo — volta amanhã.' }}</strong>
+    <span class="muted num">⏱ {{ last.seconds | mmss }} (meta {{ target_seconds | mmss }})</span>
+    {% if item %}<div class="small">Próxima revisão: {{ item.due_at.strftime('%d/%m') }}{% if item.graduated %} — <strong>dominada!</strong> saiu da fila.{% endif %}</div>{% endif %}
+    {% if last.correct and not (item and item.graduated) %}{% with question_id=question.id, known=False %}{% include "review/_known_button.html" %}{% endwith %}{% endif %}
+  </div>
+  <div class="card">
+    {% set selected_answer = last.selected %}
+    {% include "study/_question_body.html" %}
+  </div>
+  <div class="card">
+    <h2>Sua resposta</h2>
+    {% include "study/_breakdown.html" %}
+    <h2>Solução</h2>
+    <div class="explanation">{{ question.explanation_text | mathfmt }}</div>
+    {% if lesson and not last.correct %}
+      <p class="small"><a href="{{ url_for('learn.lesson_review', subtopic_id=question.subtopic_id) }}">Revisar a teoria de {{ question.subtopic.name }}</a></p>
+    {% endif %}
+  </div>
+  {% if not last.correct %}
+    <div class="card">
+      <h2>Por que errou desta vez?</h2>
+      <div id="reason-box">{% include "review/_reason_form.html" %}</div>
+    </div>
+  {% endif %}
+  <a class="btn" href="{{ url_for('review.item') }}">{{ 'Próximo →' if remaining else 'Concluir' }}</a>
+{% endblock %}

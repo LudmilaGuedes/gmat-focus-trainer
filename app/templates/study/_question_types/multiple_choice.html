@@ -1,0 +1,4 @@
+{% from "study/_question_types/_macros.html" import render_group with context %}
+{% if question.stimulus_text %}<div class="stimulus">{{ question.stimulus_text | mathfmt }}</div>{% endif %}
+<div class="question-text">{{ question.stem_text | reflow }}</div>
+{{ render_group('single', answer_groups.get('single', [])) }}

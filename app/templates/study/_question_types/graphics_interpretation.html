@@ -1,0 +1,19 @@
+{% from "study/_question_types/_macros.html" import render_group with context %}
+{% if question.stimulus_text %}<div class="stimulus">{{ question.stimulus_text | mathfmt }}</div>{% endif %}
+{% set media = question.media_json or {} %}
+{% if media.chart_data %}
+  <div style="max-width:720px"><canvas id="chart-{{ question.id }}" height="240"></canvas></div>
+  <script src="{{ url_for('static', filename='js/chart.min.js') }}"></script>
+  <script>
+    (function () {
+      const cfg = {{ media.chart_data | tojson }};
+      const dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (dark) { Chart.defaults.color = '#d0d0d4'; Chart.defaults.borderColor = '#3a3a42'; }
+      new Chart(document.getElementById('chart-{{ question.id }}').getContext('2d'), cfg);
+    })();
+  </script>
+{% endif %}
+<div class="question-text">{{ question.stem_text | reflow }}</div>
+{% for statement in media.statements or [] %}
+  {{ render_group(statement.key, answer_groups.get(statement.key, []), label=statement.text) }}
+{% endfor %}

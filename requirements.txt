@@ -1,0 +1,10 @@
+Flask==3.0.3
+Werkzeug==3.1.8
+Flask-SQLAlchemy==3.1.1
+SQLAlchemy==2.0.52
+Flask-Migrate==4.0.7
+Flask-Admin==1.6.1
+WTForms==3.2.2
+PyYAML==6.0.2
+Markdown==3.7
+gunicorn==23.0.0

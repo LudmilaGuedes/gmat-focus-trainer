@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% from "study/_question_types/_macros.html" import level_badge %}
+{% block title %}Progresso{% endblock %}
+{% block content %}
+  <h1>Progresso</h1>
+
+  <div class="grid">
+    <div class="card hl">
+      <div class="muted small">Nota estimada hoje</div>
+      <div class="big num">{{ estimate.total if estimate.complete else '—' }}</div>
+      <div class="muted small">faixa {{ estimate.low }}–{{ estimate.high }} · meta {{ target }}</div>
+      {% if estimate.complete %}
+        {% set gap = target - estimate.total %}
+        <div class="small" style="margin-top:6px">{% if gap > 0 %}Faltam <strong>{{ gap }}</strong> pontos para a meta.{% else %}✅ Na meta ou acima.{% endif %}</div>
+      {% endif %}
+    </div>
+    {% for code, s in estimate.sections.items() %}
+      <div class="card">
+        <div class="muted small">{{ s.name }}</div>
+        <div class="big num">{{ s.score if s.n else '—' }}</div>
+        <div class="muted small">faixa {{ s.low }}–{{ s.high }} · {{ s.n }} questões</div>
+      </div>
+    {% endfor %}
+  </div>
+  <p class="muted small">
+    Como é calculada: um modelo de IRT (3PL) sobre sua <strong>primeira</strong> tentativa em cada questão (prática, testes de
+    fixação e simulados; revisões não contam), com mais peso para o recente (meia-vida de 30 dias). Cada nível de
+    dificuldade foi escrito para corresponder a uma faixa real de nota (N3 ≈ 555-645, N4 ≈ 645-705).
+    {% if estimate.offset %}Calibração com seus simulados oficiais aplicada: {{ '%+d' % estimate.offset }} pontos.{% endif %}
+  </p>
+
+  <div class="card">
+    <h2>Evolução</h2>
+    <canvas id="evolution" height="200"></canvas>
+  </div>
+
+  <div class="card" id="oficiais">
+    <h2>Simulados oficiais (calibração)</h2>
+    <p class="muted small">
+      Registre aqui as notas dos Official Practice Exams da GMAC (e a da prova real, se refizer). O app compara com a
+      estimativa dele no mesmo dia e passa a corrigir a própria estimativa pela diferença média.
+    </p>
+    <table class="stats-table">
+      <thead><tr><th>Data</th><th>Fonte</th><th>Total</th><th>QR</th><th>VR</th><th>DI</th><th>App no dia</th><th></th></tr></thead>
+      {% for o in officials %}
+        <tr><td>{{ o.taken_on.strftime('%d/%m/%Y') }}</td><td class="small">{{ o.source }}</td><td><strong>{{ o.total }}</strong></td>
+          <td>{{ o.qr or '—' }}</td><td>{{ o.vr or '—' }}</td><td>{{ o.di or '—' }}</td><td class="small">{{ o.app_estimate_total or '—' }}</td>
+          <td><form method="post" action="{{ url_for('progress.delete_official', score_id=o.id) }}" class="inline-form" onsubmit="return confirm('Apagar este registro?')"><button class="btn small ghost">×</button></form></td></tr>
+      {% else %}<tr><td colspan="8" class="muted">Nenhum ainda.</td></tr>{% endfor %}
+    </table>
+    <form method="post" action="{{ url_for('progress.add_official') }}" class="row" style="margin-top:10px">
+      <input type="date" name="taken_on" value="{{ today.isoformat() }}">
+      <input type="text" name="source" placeholder="Official Practice Exam 1" style="width:200px">
+      <input type="number" name="total" placeholder="Total" min="205" max="805" step="10" required style="width:90px">
+      <input type="number" name="qr" placeholder="QR" min="60" max="90" style="width:70px">
+      <input type="number" name="vr" placeholder="VR" min="60" max="90" style="width:70px">
+      <input type="number" name="di" placeholder="DI" min="60" max="90" style="width:70px">
+      <button class="btn small">Registrar</button>
+    </form>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Acerto por nível</h2>
+      <table class="stats-table">
+        <thead><tr><th>Nível</th><th>Questões</th><th>%</th><th>Tempo médio</th></tr></thead>
+        {% for lvl, b in by_level | dictsort %}
+          <tr><td>{{ level_badge(lvl) }}</td><td class="num">{{ b.total }}</td>
+            <td class="num">{{ ('%.0f%%' | format(100 * b.correct / b.total)) if b.total else '—' }}</td>
+            <td class="num">{{ b.avg_seconds | mmss }}</td></tr>
+        {% endfor %}
+      </table>
+      <p class="muted small">Para 645: ~70% no N3 e ~50% no N4 (as questões do N4/N5 são as que diferenciam 600 de 700).</p>
+    </div>
+    <div class="card">
+      <h2>Por tipo de questão</h2>
+      <table class="stats-table">
+        <thead><tr><th>Tipo</th><th>Questões</th><th>%</th><th>Tempo médio</th></tr></thead>
+        {% for name, b in by_type | dictsort %}
+          <tr><td class="small">{{ name }}</td><td class="num">{{ b.total }}</td>
+            <td class="num">{{ '%.0f%%' | format(100 * b.correct / b.total) if b.total else '—' }}</td><td class="num">{{ b.avg_seconds | mmss }}</td></tr>
+        {% else %}<tr><td class="muted">Sem dados.</td></tr>{% endfor %}
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Atividade (últimos 28 dias)</h2>
+    <canvas id="activity" height="120"></canvas>
+    <p class="muted small">Banco: {{ attempted }} de {{ total_questions }} questões já respondidas ao menos uma vez.</p>
+  </div>
+
+  <div class="card">
+    <h2>Mudanças de nível recentes</h2>
+    <table class="stats-table">
+      {% for adj in adjustments %}
+        <tr><td class="small">{{ adj.created_at.strftime('%d/%m') }}</td><td>{{ adj.subtopic.name }}</td>
+          <td>N{{ adj.previous_level }} → {{ level_badge(adj.new_level) }}</td>
+          <td class="small muted">{{ {'auto_promote':'subiu', 'auto_demote':'desceu', 'manual':'manual'}[adj.triggered_by] }}{% if adj.reason_text %} — {{ adj.reason_text }}{% endif %}</td></tr>
+      {% else %}<tr><td class="muted">Nenhuma ainda.</td></tr>{% endfor %}
+    </table>
+  </div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/chart.min.js') }}"></script>
+<script>
+  (function () {
+    const snaps = {{ snapshots | map(attribute='day') | map('string') | list | tojson }};
+    const totals = {{ snapshots | map(attribute='total') | list | tojson }};
+    const mocks = {{ mocks | map(attribute='completed_at') | map('string') | list | tojson }};
+    const mockTotals = {{ mocks | map(attribute='total_scaled_score') | list | tojson }};
+    const off = {{ officials | map(attribute='taken_on') | map('string') | list | tojson }};
+    const offTotals = {{ officials | map(attribute='total') | list | tojson }};
+    const pts = (xs, ys) => xs.map((x, i) => ({ x: x.slice(0, 10), y: ys[i] }));
+    const labels = Array.from(new Set([...snaps, ...mocks.map(m => m.slice(0, 10)), ...off])).sort();
+    new Chart(document.getElementById('evolution'), {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          { label: 'Estimativa do app', data: pts(snaps, totals), borderColor: '#5b45c9', tension: 0.2, spanGaps: true },
+          { label: 'Simulados do app', data: pts(mocks, mockTotals), borderColor: '#d0612b', showLine: false, pointRadius: 5 },
+          { label: 'Simulados oficiais', data: pts(off, offTotals), borderColor: '#2f9e5f', backgroundColor: '#2f9e5f', showLine: false, pointRadius: 7, pointStyle: 'rectRot' },
+          { label: 'Meta', data: labels.map(l => ({ x: l, y: {{ target }} })), borderColor: '#999', borderDash: [6, 6], pointRadius: 0 }
+        ]
+      },
+      options: { scales: { y: { min: 305, max: 805 } } }
+    });
+    const act = {{ activity | tojson }};
+    new Chart(document.getElementById('activity'), {
+      type: 'bar',
+      data: { labels: act.map(a => a.label), datasets: [{ label: 'Questões', data: act.map(a => a.questions), backgroundColor: '#9c8cf2' }] },
+      options: { plugins: { legend: { display: false } } }
+    });
+  })();
+</script>
+{% endblock %}

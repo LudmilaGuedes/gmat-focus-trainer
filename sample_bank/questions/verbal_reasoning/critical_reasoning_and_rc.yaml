@@ -1,0 +1,388 @@
+# Banco de exemplo — Verbal (N4-N5, questões originais): Critical Reasoning (Assumption, Strengthen, Weaken) e uma passagem longa
+# de Reading Comprehension (≈330 palavras, 4 questões), no formato da prova oficial.
+
+question_sets:
+  - slug: rc-b6-standard-time
+    section: VR
+    set_type: reading_passage
+    stimulus: |
+      Before the 1880s, most towns in the United States kept their own local time, set so that the sun stood highest
+      in the sky at noon. Because the sun's position shifts with longitude, clocks in Boston ran about twelve minutes
+      ahead of those in New York, and a traveler crossing the country might pass through dozens of local times. For
+      most of the century this variety caused little trouble: few people traveled far, and those who did moved slowly
+      enough that a few minutes' difference hardly mattered.
+
+      The railroads changed this. Each company ran its trains on a time of its own choosing, usually that of its
+      headquarters city, so that a single station might post several clocks showing different "railroad times."
+      Schedules became difficult to coordinate, and on single-track lines, where trains running in opposite directions
+      depended on precise timing to avoid one another, confusion over time could be deadly. In November 1883 the major
+      railroads, acting without any government mandate, adopted four standard time zones, and most cities soon followed.
+
+      The standard account treats this change as a straightforward triumph of technical rationality over local custom.
+      Recent historians have complicated that picture. They point out that resistance to "railroad time" was widespread
+      and persisted for decades: some cities kept local time for years, and Congress did not make the zones law until
+      1918. Opponents were not simply clinging to tradition. For them, local solar time expressed a natural order that
+      anyone could observe, whereas standard time was imposed by private corporations whose interests did not
+      necessarily coincide with those of the towns they served.
+
+      Yet the historians' revision should not be pushed too far. The railroads' decision succeeded largely because many
+      towns found the new system convenient and adopted it voluntarily, well before any law required them to.
+      Standardization, in this light, was neither a purely technical inevitability nor merely a corporate imposition,
+      but a compromise that spread because enough communities found it useful.
+
+questions:
+  # ------------------------------------------------ assumption
+  - slug: vr-cr-asm-b6-n4-1
+    subtopic: vr_cr_assumption
+    question_type: multiple_choice
+    difficulty: 4
+    stem: |
+      Two years ago the public library in the town of Velden stopped charging fines for overdue books. Since then,
+      the number of active library cards held by Velden residents has risen by 22 percent. The library's director
+      concludes that the fines had been discouraging many residents, especially those who owed unpaid fines, from
+      using the library.
+
+      The director's argument depends on which of the following assumptions?
+    options:
+      - { label: A, text: "Most residents who owed fines before the policy change have since returned their overdue books.", correct: false }
+      - { label: B, text: "Velden's population did not grow by anything close to 22 percent over the past two years.", correct: true }
+      - { label: C, text: "Libraries in nearby towns that still charge fines have not seen their card numbers decline.", correct: false }
+      - { label: D, text: "The library's budget was not cut as a result of the revenue it lost from overdue fines.", correct: false }
+      - { label: E, text: "Residents who got cards after the change borrow more books than longtime cardholders do.", correct: false }
+    explanation: |
+      A conclusão atribui a alta de 22% nos cartões ao fim das multas. Uma explicação alternativa óbvia é o
+      crescimento da população. Negue B: se a população cresceu ~22%, a alta nos cartões não mostra nada sobre o efeito
+      das multas. A é forte demais (o argumento é sobre usar a biblioteca, não devolver livros). C não é necessária:
+      bibliotecas vizinhas podem até ter perdido usuários por outros motivos. D e E não afetam a ligação
+      multas → uso.
+
+  - slug: vr-cr-asm-b6-n4-2
+    subtopic: vr_cr_assumption
+    question_type: multiple_choice
+    difficulty: 4
+    stem: |
+      Tarrow Logistics recently replaced its five-day in-person orientation for newly hired warehouse supervisors with
+      online modules that take two days to complete. Tarrow's operations director argues that the change will raise
+      the company's productivity, since new supervisors now begin performing their actual duties three days earlier
+      than they did before.
+
+      Which of the following is an assumption on which the director's argument depends?
+    options:
+      - { label: A, text: "Most newly hired supervisors at Tarrow prefer online training to in-person training sessions.", correct: false }
+      - { label: B, text: "The online modules cost Tarrow less to maintain than the in-person sessions cost to run.", correct: false }
+      - { label: C, text: "Other logistics firms in Tarrow's region have also moved their orientation programs online.", correct: false }
+      - { label: D, text: "Experienced supervisors at Tarrow will also be required to complete the modules each year.", correct: false }
+      - { label: E, text: "Errors made by online-trained supervisors will not offset the time saved.", correct: true }
+    explanation: |
+      O argumento conta só os três dias ganhos. Ele precisa supor que o treinamento mais curto não gera perdas que anulem
+      esse ganho. Negue E: se os erros dos novos supervisores consumirem mais do que três dias de trabalho, a
+      produtividade não sobe. A (preferência) e C (concorrentes) não afetam a conclusão. B é sobre custo, não
+      produtividade. D é irrelevante para os novos contratados.
+
+  - slug: vr-cr-asm-b6-n5-1
+    subtopic: vr_cr_assumption
+    question_type: multiple_choice
+    difficulty: 5
+    stem: |
+      Chemical analysis of jars excavated at Tel Harun, a settlement occupied from roughly 3200 to 2900 BC, found
+      residues of tartaric acid, a compound that in this region and period occurs almost exclusively in grape wine.
+      Climate reconstructions show that the area around Tel Harun was too dry for grapevines throughout that period.
+      The excavation's director therefore concludes that the settlement's inhabitants obtained wine through trade with
+      grape-growing communities to the north.
+
+      The director's conclusion depends on which of the following assumptions?
+    options:
+      - { label: A, text: "The jars with the residue were not brought to Tel Harun by settlers migrating from the north.", correct: true }
+      - { label: B, text: "Wine was consumed at Tel Harun only on ceremonial occasions rather than with ordinary meals.", correct: false }
+      - { label: C, text: "The communities to the north of Tel Harun also imported goods from settlements farther south.", correct: false }
+      - { label: D, text: "Tel Harun's inhabitants exported goods of some kind to the communities that supplied its wine.", correct: false }
+      - { label: E, text: "Tartaric acid residues can survive in buried pottery for considerably longer than 5,000 years.", correct: false }
+    explanation: |
+      Os dados mostram que o vinho veio de fora. A conclusão vai além: veio por COMÉRCIO. Uma alternativa é os
+      fundadores terem trazido os jarros (com o vinho) ao migrar do norte. Negue A e a conclusão de comércio cai.
+      D é a armadilha: parece que "comércio exige exportar", mas o pagamento poderia ser em serviços, metais etc.,
+      e a negação de D não destrói o argumento. E é desnecessária: os resíduos já foram encontrados. B e C são
+      irrelevantes.
+
+  - slug: vr-cr-asm-b6-n5-2
+    subtopic: vr_cr_assumption
+    question_type: multiple_choice
+    difficulty: 5
+    stem: |
+      Under a proposal before the Merrow city council, private cars entering the downtown core on weekdays would pay a
+      daily charge; buses and commercial vehicles would be exempt. In other cities, similar charges have cut private
+      car trips into the charged zone by about 15 percent. A council member argues that, because vehicle exhaust is the
+      main source of downtown air pollution, adopting the charge will improve downtown air quality.
+
+      The council member's argument relies on which of the following assumptions?
+    options:
+      - { label: A, text: "Most private car trips into downtown Merrow are made by commuters rather than by shoppers.", correct: false }
+      - { label: B, text: "The money raised by the charge would be spent on improving Merrow's public transportation.", correct: false }
+      - { label: C, text: "Air quality in neighborhoods next to downtown would not worsen as drivers avoided the zone.", correct: false }
+      - { label: D, text: "Exempt vehicles would not enter the zone far more often once traffic there became lighter.", correct: true }
+      - { label: E, text: "The charge would cut private car trips into downtown Merrow by at least 15 percent, as elsewhere.", correct: false }
+    explanation: |
+      A cobrança reduz carros particulares, mas ônibus e veículos comerciais ficam isentos. Se, com as ruas mais vazias,
+      os veículos isentos (muitas vezes a diesel) entrassem muito mais no centro, a emissão total poderia não cair.
+      Negue D e o argumento desmorona. E é forte demais: qualquer redução relevante serve, não precisa ser 15%.
+      C trata dos bairros vizinhos, fora do escopo (a conclusão é sobre o centro). A e B não afetam a qualidade do ar.
+
+  # ------------------------------------------------ strengthen
+  - slug: vr-cr-str-b6-n4-1
+    subtopic: vr_cr_strengthen
+    question_type: multiple_choice
+    difficulty: 4
+    stem: |
+      In twelve of its forty stores, the Halvor grocery chain replaced the candy displayed beside its checkout lanes
+      with single pieces of fresh fruit. In the six months after the change, fruit sales in those twelve stores rose
+      30 percent. Halvor's management concluded that placing fruit at the checkout leads customers to buy more fruit.
+
+      Which of the following, if true, most strengthens management's conclusion?
+    options:
+      - { label: A, text: "Halvor earns a higher profit on each piece of fruit it sells than on each candy bar.", correct: false }
+      - { label: B, text: "Some customers in the twelve stores complained that candy was no longer sold at checkout.", correct: false }
+      - { label: C, text: "Fruit sales did not rise in Halvor's other stores over the same six-month period.", correct: true }
+      - { label: D, text: "Candy sales in the twelve stores fell by a smaller amount than fruit sales there rose.", correct: false }
+      - { label: E, text: "The twelve stores were chosen from neighborhoods where incomes exceed the chain's average.", correct: false }
+    explanation: |
+      Para atribuir a alta à mudança, é preciso descartar uma causa geral, como a época do ano, preços ou uma tendência
+      de consumo. C funciona como grupo de controle: onde nada mudou, as vendas de fruta não subiram. A e D falam de
+      lucro e de doces, não da causa da alta. B não mostra efeito sobre fruta. E enfraquece, porque sugere que as lojas
+      escolhidas já tinham clientes mais propensos a comprar fruta.
+
+  - slug: vr-cr-str-b6-n4-2
+    subtopic: vr_cr_strengthen
+    question_type: multiple_choice
+    difficulty: 4
+    stem: |
+      After Delmont Textiles began rotating its machine operators among three different workstations every two hours,
+      the rate of repetitive-strain injuries among those operators fell by half within a year. Delmont's safety
+      officer attributes the decline to the rotation schedule, which keeps any one set of muscles from performing the
+      same motion all day.
+
+      Which of the following, if true, most strongly supports the safety officer's explanation?
+    options:
+      - { label: A, text: "That year, Delmont changed neither its machines nor the pace of its production lines.", correct: true }
+      - { label: B, text: "Operators at Delmont reported that the rotation schedule made their work less monotonous.", correct: false }
+      - { label: C, text: "Repetitive-strain injuries are among the injuries most often reported by textile workers.", correct: false }
+      - { label: D, text: "Several of Delmont's competitors have recently adopted rotation schedules for operators.", correct: false }
+      - { label: E, text: "Several operators injured before the rotation began were later reassigned to office jobs.", correct: false }
+    explanation: |
+      A explicação concorrente mais natural é outra mudança no mesmo ano: máquinas mais ergonômicas ou um ritmo de
+      produção mais lento. A descarta isso. B fala de monotonia, não de lesões. C e D são gerais demais. E enfraquece:
+      tirar da linha os operadores propensos a lesões, por si só, reduziria a taxa.
+
+  - slug: vr-cr-str-b6-n4-3
+    subtopic: vr_cr_strengthen
+    question_type: multiple_choice
+    difficulty: 4
+    stem: |
+      Last year Eastvale's water utility began billing households monthly instead of every three months. Over the year,
+      average household water consumption in Eastvale fell by 8 percent. The utility concludes that receiving bills
+      more often made customers more aware of how much water they used, leading them to use less.
+
+      Which of the following, if true, would most strengthen the utility's conclusion?
+    options:
+      - { label: A, text: "Many Eastvale households pay their water bills automatically through their banks.", correct: false }
+      - { label: B, text: "Nearby towns that kept quarterly billing saw no similar drop in household water use last year.", correct: true }
+      - { label: C, text: "Eastvale's utility raised its water rates slightly at the beginning of last year.", correct: false }
+      - { label: D, text: "Monthly billing costs the utility considerably more to administer than quarterly billing used to cost.", correct: false }
+      - { label: E, text: "Some Eastvale households used more water last year than they had the year before.", correct: false }
+    explanation: |
+      A queda pode ter outras causas regionais (chuva, campanhas, clima). B mostra que cidades vizinhas, sujeitas às
+      mesmas condições mas sem a mudança de cobrança, não tiveram queda. Isso isola o efeito da conta mensal.
+      A enfraquece (quem paga no automático talvez nem olhe a conta). C traz causa alternativa (preço) e enfraquece.
+      D é custo administrativo, irrelevante. E é compatível com uma queda média e não muda nada.
+
+  - slug: vr-cr-str-b6-n5-1
+    subtopic: vr_cr_strengthen
+    question_type: multiple_choice
+    difficulty: 5
+    stem: |
+      Male Carran finches living in large cities sing songs whose lowest notes are pitched noticeably higher than those
+      of males living in rural areas. Because urban traffic noise is concentrated at low frequencies, some biologists
+      hypothesize that city finches raise the pitch of their songs so that the songs are not masked by traffic noise.
+
+      Which of the following, if true, most strongly supports the biologists' hypothesis?
+    options:
+      - { label: A, text: "Female Carran finches in both cities and rural areas prefer males whose songs include low notes.", correct: false }
+      - { label: B, text: "Carran finches in cities defend larger territories, on average, than Carran finches in rural areas.", correct: false }
+      - { label: C, text: "Rural Carran finches that are moved into urban aviaries start singing higher-pitched songs within months.", correct: false }
+      - { label: D, text: "Several other bird species that live in cities also sing at higher pitches than rural members do.", correct: false }
+      - { label: E, text: "On days when roads near their territories are closed, city finches sing at lower pitches than usual.", correct: true }
+    explanation: |
+      A hipótese não é só que "a cidade" muda o canto, mas que o RUÍDO do trânsito muda. E isola o ruído: tirando o
+      trânsito e mantendo todo o resto da cidade, o tom cai. C é a armadilha: confirma um efeito urbano, mas a cidade
+      difere do campo em muitas coisas (luz, temperatura, competição), então não aponta especificamente para o ruído.
+      D é genérica pelo mesmo motivo. A tornaria o tom mais alto custoso, sem apoiar a hipótese. B é irrelevante.
+
+  # ------------------------------------------------ weaken
+  - slug: vr-cr-wk-b6-n4-1
+    subtopic: vr_cr_weaken
+    question_type: multiple_choice
+    difficulty: 4
+    stem: |
+      Pellham County installed speed cameras at twenty of its intersections. In the year after the installation, the
+      number of collisions at those intersections fell by 25 percent compared with the year before. The county's
+      traffic commissioner concludes that the cameras reduce collisions and proposes installing them at forty more
+      intersections.
+
+      Which of the following, if true, most seriously weakens the commissioner's conclusion?
+    options:
+      - { label: A, text: "Drivers in Pellham County are fined only if they exceed the speed limit by more than 10 mph.", correct: false }
+      - { label: B, text: "Collisions at intersections without cameras in the county also fell slightly, by about 3 percent.", correct: false }
+      - { label: C, text: "Some county residents have complained that the cameras were installed mainly to raise revenue.", correct: false }
+      - { label: D, text: "The twenty intersections were chosen because they had unusually many collisions the year before.", correct: true }
+      - { label: E, text: "Speed cameras have been in use in several neighboring counties for more than a decade.", correct: false }
+    explanation: |
+      Se os cruzamentos foram escolhidos num ano atípico de muitas colisões, era de esperar uma queda no ano seguinte de
+      qualquer forma (regressão à média). D explica a queda sem as câmeras. B enfraquece pouco: 3% contra 25% ainda
+      deixa uma diferença grande. A, C e E não afetam a relação causal.
+
+  - slug: vr-cr-wk-b6-n4-2
+    subtopic: vr_cr_weaken
+    question_type: multiple_choice
+    difficulty: 4
+    stem: |
+      A survey at Brennick Insurance found that employees who used the company's on-site gym at least twice a week took
+      30 percent fewer sick days last year than employees who did not use the gym. Brennick's human resources director
+      concludes that paying employees a bonus for using the gym regularly would reduce the number of sick days the
+      company loses each year.
+
+      Which of the following, if true, most seriously undermines the director's conclusion?
+    options:
+      - { label: A, text: "The on-site gym is open only before and after regular working hours.", correct: false }
+      - { label: B, text: "Employees with chronic illnesses are far less likely than others to use the gym.", correct: true }
+      - { label: C, text: "Brennick's employees take fewer sick days, on average, than employees at similar firms.", correct: false }
+      - { label: D, text: "Some employees who use the gym exercise there more than four times a week.", correct: false }
+      - { label: E, text: "A bonus would cost Brennick less than the wages it pays for sick days each year.", correct: false }
+    explanation: |
+      A pesquisa mostra correlação. B sugere a direção inversa: quem já é doente falta mais E usa menos a academia.
+      Pagar bônus não muda a saúde de base, então a diferença de faltas pode não ser causada pela academia.
+      A e D são detalhes sem efeito na causalidade. C compara com outras empresas, fora do escopo. E fala de custo e,
+      se algo, apoia o plano.
+
+  - slug: vr-cr-wk-b6-n5-1
+    subtopic: vr_cr_weaken
+    question_type: multiple_choice
+    difficulty: 5
+    stem: |
+      In the province of Ostrava, most smallholder farmers apply far less fertilizer than agronomists recommend for
+      their crops, and crop yields there are among the lowest in the country. To raise yields, the provincial
+      government plans to use a subsidy to cut by half the price that farmers pay for fertilizer.
+
+      Which of the following, if true, most seriously calls into question whether the plan will achieve its goal?
+    options:
+      - { label: A, text: "Fertilizer manufacturers have said they will not raise their prices in response to the subsidy.", correct: false }
+      - { label: B, text: "The subsidy will be paid for by a new tax on the province's large commercial farms.", correct: false }
+      - { label: C, text: "Without irrigation, which most smallholders lack, extra fertilizer barely raises yields.", correct: true }
+      - { label: D, text: "Some smallholders in Ostrava already apply the full recommended amount of fertilizer.", correct: false }
+      - { label: E, text: "Yields in neighboring provinces rose after similar subsidies were introduced there.", correct: false }
+    explanation: |
+      O plano supõe que o preço é o que limita o uso de fertilizante e que mais fertilizante gera mais produção.
+      C ataca o segundo elo: sem irrigação, mesmo que os agricultores comprem mais, a produção quase não sobe.
+      D enfraquece pouco ("alguns", e a maioria ainda usa pouco). A e E fortalecem. B não afeta os pequenos produtores.
+
+  - slug: vr-cr-wk-b6-n5-2
+    subtopic: vr_cr_weaken
+    question_type: multiple_choice
+    difficulty: 5
+    stem: |
+      Columnist: Over the past decade, the share of adults in Vandor holding a university degree rose from 22 percent to
+      31 percent, yet the unemployment rate among Vandor's university graduates has held steady at about 3 percent.
+      Clearly, Vandor's economy has had no difficulty creating jobs that make use of the skills of its additional
+      graduates.
+
+      Which of the following, if true, most seriously weakens the columnist's argument?
+    options:
+      - { label: A, text: "A growing share of Vandor's graduates work in jobs that do not require a degree.", correct: true }
+      - { label: B, text: "The unemployment rate among Vandor adults without degrees rose over the same decade.", correct: false }
+      - { label: C, text: "Most of the new graduates earned degrees in fields such as engineering and medicine.", correct: false }
+      - { label: D, text: "Vandor's population of working-age adults grew only slightly during the decade.", correct: false }
+      - { label: E, text: "Graduates in Vandor earn substantially more, on average, than adults without degrees.", correct: false }
+    explanation: |
+      O desemprego estável mostra que os graduados têm ALGUM emprego, não que usam suas habilidades. A explora essa
+      lacuna: cada vez mais graduados ocupam vagas que não exigem diploma. B trata dos não graduados e pode até
+      sugerir que graduados tomaram vagas deles, o que não ataca a conclusão diretamente. C e E fortalecem.
+      D é neutra.
+
+  # ------------------------------------------------ reading comprehension: standard time
+  - slug: vr-rc-b6-time-q1
+    subtopic: vr_rc_main_idea
+    question_type: multiple_choice
+    question_set: rc-b6-standard-time
+    set_order: 1
+    difficulty: 4
+    stem: |
+      The primary purpose of the passage is to
+    options:
+      - { label: A, text: "explain why railroads preferred their own time standards to the local solar time of each town", correct: false }
+      - { label: B, text: "argue that resistance to standard time was motivated chiefly by attachment to tradition", correct: false }
+      - { label: C, text: "trace the steps by which Congress came to regulate railroad schedules in the 1880s", correct: false }
+      - { label: D, text: "describe how standard time arose and evaluate competing views of its acceptance", correct: true }
+      - { label: E, text: "show that standard time was imposed on reluctant towns by the power of corporations", correct: false }
+    explanation: |
+      O texto descreve a origem do horário padrão (parágrafos 1–2), apresenta a visão tradicional e a revisionista
+      (parágrafo 3) e propõe um meio-termo (parágrafo 4). D cobre o todo. A é detalhe do parágrafo 2. B contradiz o
+      texto ("not simply clinging to tradition"). C distorce: o Congresso só agiu em 1918. E é a visão que o último
+      parágrafo diz não levar longe demais.
+
+  - slug: vr-rc-b6-time-q2
+    subtopic: vr_rc_specific_detail
+    question_type: multiple_choice
+    question_set: rc-b6-standard-time
+    set_order: 2
+    difficulty: 4
+    stem: |
+      According to the passage, confusion over time was especially dangerous on single-track lines because
+    options:
+      - { label: A, text: "trains moving in opposite directions relied on exact timing to avoid each other", correct: true }
+      - { label: B, text: "they were run mostly by small companies that set times of their own choosing", correct: false }
+      - { label: C, text: "stations along them typically posted several clocks showing different railroad times", correct: false }
+      - { label: D, text: "they ran mainly through rural areas in which local time was not observed at all", correct: false }
+      - { label: E, text: "their schedules were set by the local time of each railroad's headquarters city", correct: false }
+    explanation: |
+      Parágrafo 2: "on single-track lines, where trains running in opposite directions depended on precise timing to
+      avoid one another, confusion over time could be deadly." C e E citam detalhes reais do texto, mas sobre as
+      ferrovias em geral, não sobre o perigo específico das linhas de via única. B e D não aparecem no texto.
+
+  - slug: vr-rc-b6-time-q3
+    subtopic: vr_rc_inference
+    question_type: multiple_choice
+    question_set: rc-b6-standard-time
+    set_order: 3
+    difficulty: 5
+    stem: |
+      It can be inferred from the passage that the opponents of "railroad time" described in the third paragraph would
+      most likely have agreed with which of the following?
+    options:
+      - { label: A, text: "Time zones would have been acceptable had Congress rather than the railroads created them.", correct: false }
+      - { label: B, text: "The inconvenience of many local times was greater than the railroads had claimed it was.", correct: false }
+      - { label: C, text: "Local solar time was more precise for scientific purposes than standard railroad time.", correct: false }
+      - { label: D, text: "Most towns ought to adopt standard time only once federal law had required them to.", correct: false }
+      - { label: E, text: "Who establishes a time standard bears on whether that standard deserves acceptance.", correct: true }
+    explanation: |
+      Os opositores contrapõem um horário "natural, que qualquer um pode observar" a um horário imposto por empresas
+      privadas cujos interesses diferem dos das cidades. Logo, para eles, QUEM define o padrão importa (E).
+      A vai longe demais: o texto não diz que aceitariam um padrão federal. B contradiz a posição deles. C não é
+      mencionado (o argumento deles não é de precisão científica). D não tem base: eles resistiam ao padrão em si.
+
+  - slug: vr-rc-b6-time-q4
+    subtopic: vr_rc_structure
+    question_type: multiple_choice
+    question_set: rc-b6-standard-time
+    set_order: 4
+    difficulty: 4
+    stem: |
+      The final paragraph functions primarily to
+    options:
+      - { label: A, text: "present new evidence that resistance to standard time lasted longer than once thought", correct: false }
+      - { label: B, text: "temper a revisionist view while still rejecting the account that it had challenged", correct: true }
+      - { label: C, text: "defend the standard account of standardization against recent historical criticism", correct: false }
+      - { label: D, text: "explain why Congress waited until 1918 to make the four time zones a matter of law", correct: false }
+      - { label: E, text: "suggest that the railroads adopted standard time mainly for reasons of passenger safety", correct: false }
+    explanation: |
+      O último parágrafo diz que a revisão "não deve ser levada longe demais" (modera a visão revisionista). Também
+      conclui que a padronização não foi "inevitabilidade puramente técnica", ou seja, continua rejeitando a visão
+      tradicional. Isso é B. C erra porque o parágrafo não volta à visão tradicional. A, D e E não são o papel do
+      parágrafo.

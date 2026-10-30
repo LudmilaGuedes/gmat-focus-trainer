@@ -1,0 +1,24 @@
+# Ordem da trilha de estudo do banco de exemplo (Hoje/Trilha seguem esta ordem).
+# Intercala Quant, Verbal e Data Insights.
+
+blocks:
+  - name: Base
+    subtopics:
+      - qr_arithmetic_absolute_value
+      - vr_cr_assumption
+      - qr_arithmetic_fractions_decimals_percent
+      - di_ds_quantitative
+      - vr_rc_main_idea
+      - qr_algebra_linear_equations
+      - vr_cr_strengthen
+      - qr_arithmetic_number_properties
+      - vr_cr_weaken
+  - name: Leitura e Data Insights
+    subtopics:
+      - vr_rc_specific_detail
+      - di_ta_statement_evaluation
+      - vr_rc_inference
+      - di_gi_chart_reading
+      - vr_rc_structure
+      - di_tpa_quantitative
+      - di_msr_synthesis

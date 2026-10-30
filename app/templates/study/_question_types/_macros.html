@@ -1,0 +1,23 @@
+{# selected_answer (optional, from the including template's context) pre-checks options — used by the mock-exam edit screen. #}
+{% macro render_group(group_key, options, label=None) %}
+  {% set sel = (selected_answer or {}).get(group_key) if selected_answer is defined else None %}
+  <fieldset>
+    {% if label %}<legend>{{ label | mathfmt }}</legend>{% endif %}
+    {% for opt in options %}
+      <label class="option">
+        <input type="radio" name="group_{{ group_key }}" value="{{ opt.id }}" required {% if sel is not none and sel|string == opt.id|string %}checked{% endif %}>
+        <span><strong>{{ opt.option_label }}.</strong> {{ opt.option_text | mathfmt }}</span>
+      </label>
+    {% endfor %}
+  </fieldset>
+{% endmacro %}
+
+{% macro level_badge(level) -%}
+  <span class="badge lv{{ level }}" title="{{ LEVEL_INFO[level].name }} — faixa {{ LEVEL_INFO[level].band }}">N{{ level }} · {{ LEVEL_INFO[level].name }}</span>
+{%- endmacro %}
+
+{% macro level_bar(level, target=None) -%}
+  <span class="levelbar" title="Nível {{ level }} de 5{% if target %} (meta: N{{ target }}){% endif %}">
+    {% for i in range(1, 6) %}<span class="{{ 'on l' ~ i if i <= level }} {{ 'target' if target and i == target }}"></span>{% endfor %}
+  </span>
+{%- endmacro %}

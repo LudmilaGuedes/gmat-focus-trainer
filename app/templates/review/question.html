@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% from "study/_question_types/_macros.html" import level_badge %}
+{% block title %}Revisão — questão{% endblock %}
+{% block page_class %}{{ 'wide' if question.question_set else '' }}{% endblock %}
+{% block content %}
+  <div class="q-toolbar">
+    <div><strong>Revisão</strong> <span class="muted">· item {{ position }} de {{ total }} · caixa {{ item.box + 1 }}/6</span></div>
+    {% include "study/_stopwatch.html" %}
+  </div>
+  <p class="muted small" style="margin-top:-4px">
+    {{ question.section.code }} · {{ question.subtopic.name }} · {{ level_badge(question.difficulty) }}
+    {% if item.error_reason %} · errou antes por: <em>{{ reasons.get(item.error_reason, item.error_reason) }}</em>{% endif %}
+    {% if item.note %} · sua nota: <em>{{ item.note }}</em>{% endif %}
+  </p>
+  <form method="post" action="{{ url_for('review.answer') }}" class="card">
+    <input type="hidden" name="question_id" value="{{ question.id }}">
+    {% include "study/_question_body.html" %}
+    <div class="spread" style="margin-top:10px">
+      <span class="muted small">Resolva de novo do zero — não tente lembrar a letra.</span>
+      <button class="btn" type="submit">Responder</button>
+    </div>
+  </form>
+{% endblock %}

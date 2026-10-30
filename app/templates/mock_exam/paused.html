@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% set hide_nav = true %}
+{% block title %}Simulado pausado{% endblock %}
+{% block content %}
+  <div class="card" style="margin-top:40px; text-align:center">
+    <h1>⏸ Simulado pausado</h1>
+    <div class="big num">{{ remaining_seconds | mmss }}</div>
+    <p class="muted">Tempo restante em {{ msec.section.name }} — o cronômetro está parado. Pode fechar a página e voltar
+      depois pelo "Continuar" em Simulados.</p>
+    <form method="post" action="{{ url_for('mock_exam.unpause', mock_exam_id=mock_exam.id, mock_section_id=msec.id) }}">
+      <button class="btn" type="submit">▶ Retomar</button>
+    </form>
+    <p class="muted small">A prova real não tem pausa: este simulado vai aparecer marcado como "com pausa" no histórico.</p>
+  </div>
+{% endblock %}

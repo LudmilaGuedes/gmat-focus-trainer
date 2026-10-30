@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% from "study/_question_types/_macros.html" import level_badge %}
+{% block title %}Questão {{ question.slug }}{% endblock %}
+{% block page_class %}{{ 'wide' if question.question_set else '' }}{% endblock %}
+{% block content %}
+  <a class="muted small" href="{{ url_for('review.errors') }}">&larr; Caderno de erros</a>
+  <p class="muted small">
+    {{ question.section.code }} · {{ question.content_area.name }} · {{ question.subtopic.name }} · {{ level_badge(question.difficulty) }}
+    · <code>{{ question.slug }}</code>
+    {% if question.source == 'official' %}<span class="badge accent">oficial{% if question.source_ref %}: {{ question.source_ref }}{% endif %}</span>{% endif %}
+    {% if question.flagged %}<span class="badge bad">reportada com erro</span>{% endif %}
+  </p>
+  <div class="card">{% include "study/_question_body.html" %}</div>
+  <div class="card">
+    {% if attempts %}<h2>Sua última resposta</h2>{% include "study/_breakdown.html" %}{% endif %}
+    <h2>Solução</h2>
+    <div class="explanation">{{ question.explanation_text | mathfmt }}</div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Histórico</h2>
+      <table class="stats-table">
+        {% for a in attempts %}
+          <tr><td class="small">{{ a.answered_at.strftime('%d/%m/%Y') }}</td><td class="small">{{ a.mode }}</td>
+            <td>{% if a.is_correct %}<span class="badge ok">certo</span>{% else %}<span class="badge bad">errado</span>{% endif %}</td>
+            <td class="num small">{{ a.time_spent_seconds | mmss }}</td></tr>
+        {% else %}<tr><td class="muted">Nunca respondida.</td></tr>{% endfor %}
+      </table>
+    </div>
+    <div class="card">
+      <h2>Revisão</h2>
+      {% if review_item %}
+        <p class="small">{% if review_item.graduated %}Dominada ✓{% else %}Caixa {{ review_item.box + 1 }}/6 · próxima em {{ review_item.due_at.strftime('%d/%m') }}{% endif %}</p>
+        {% set item = review_item %}
+        <div id="reason-box">{% include "review/_reason_form.html" %}</div>
+      {% else %}
+        <form method="post" action="{{ url_for('review.add', question_id=question.id) }}">
+          <button class="btn small secondary">Mandar para a revisão espaçada</button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Encontrou um erro nesta questão?</h2>
+    <form method="post" action="{{ url_for('questions.flag', question_id=question.id) }}" class="row">
+      {% if question.flagged %}
+        <span class="small">Nota: {{ question.flag_note or '—' }}</span>
+        <button class="btn small secondary" name="action" value="unflag">Marcar como corrigida</button>
+      {% else %}
+        <input type="text" name="note" placeholder="O que está errado?" style="flex:1; min-width:240px">
+        <button class="btn small danger">Reportar (deixa de ser servida)</button>
+      {% endif %}
+    </form>
+    <p class="muted small">Para corrigir de vez, edite <code>{{ question.slug }}</code> no YAML do banco de conteúdo e reimporte{% if not config.DEMO_MODE %}, ou use <a href="/admin">/admin</a>{% endif %}.</p>
+  </div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% from "study/_question_types/_macros.html" import render_group with context %}
+{% if question.stimulus_text %}<div class="stimulus">{{ question.stimulus_text | mathfmt }}</div>{% endif %}
+<div class="question-text">{{ question.stem_text | reflow }}</div>
+{% set media = question.media_json or {} %}
+{% set labels = media.part_labels or {} %}
+<div class="grid">
+  <div>{{ render_group('part1', answer_groups.get('part1', []), label=labels.get('part1', 'Parte 1')) }}</div>
+  <div>{{ render_group('part2', answer_groups.get('part2', []), label=labels.get('part2', 'Parte 2')) }}</div>
+</div>

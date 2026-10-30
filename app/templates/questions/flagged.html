@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Questões reportadas{% endblock %}
+{% block content %}
+  <h1>Questões reportadas com erro</h1>
+  <p class="muted">Estas não são servidas até você corrigir (no YAML ou em /admin) e desmarcar.</p>
+  <div class="card">
+    <table class="stats-table">
+      {% for q in questions %}
+        <tr><td><a href="{{ url_for('questions.detail', question_id=q.id) }}"><code>{{ q.slug }}</code></a></td><td class="small">{{ q.flag_note or '—' }}</td></tr>
+      {% else %}<tr><td class="muted">Nenhuma.</td></tr>{% endfor %}
+    </table>
+  </div>
+{% endblock %}

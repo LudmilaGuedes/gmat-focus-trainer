@@ -1,0 +1,179 @@
+# Lições de exemplo — Verbal Reasoning. Schema: sample_bank/README.md ("Schema de uma lição").
+
+lessons:
+  - slug: lesson-s-vr-cr-assumption
+    subtopic: vr_cr_assumption
+    title: "Assumption: a premissa escondida"
+    minutes: 12
+    content: |
+      Uma assumption é algo que o argumento **precisa** que seja verdade, mas não diz.
+
+      ## Método
+      1. Separe conclusão e evidência.
+      2. Procure a lacuna: o que liga uma à outra?
+      3. **Teste da negação**: negue a alternativa. Se o argumento desmorona, ela é a assumption.
+
+      ## O que costuma ser a resposta
+      - Descartar uma causa alternativa ("a população não cresceu 22%").
+      - Garantir que o plano funciona na prática ("as lixeiras ficarão visíveis").
+
+      ## Armadilhas
+      - Alternativas que **ajudam** o argumento mas não são necessárias.
+      - Alternativas fortes demais ("a maioria", "todos").
+    key_points: |
+      - Assumption = condição necessária não declarada.
+      - Use o teste da negação.
+      - Cuidado com alternativas fortes demais.
+    flashcards:
+      - { front: "Teste para Assumption", back: "Negar a alternativa: se o argumento cai, é ela" }
+      - { front: "Assumption precisa ser suficiente para provar a conclusão?", back: "Não, só necessária" }
+      - { front: "Erro típico em Assumption", back: "Escolher algo que ajuda mas não é necessário" }
+
+  - slug: lesson-s-vr-cr-strengthen
+    subtopic: vr_cr_strengthen
+    title: "Strengthen: fechar a lacuna"
+    minutes: 10
+    content: |
+      Strengthen pede a alternativa que torna a conclusão **mais provável**. Não precisa provar nada.
+
+      ## Onde a força costuma estar
+      - **Grupo de controle**: onde nada mudou, o resultado não mudou.
+      - **Descartar causa alternativa**: outra explicação é eliminada.
+      - **Ordem temporal**: a causa veio antes do efeito.
+
+      ## Armadilhas
+      - Alternativas sobre um tema vizinho (custo, opinião) sem efeito na conclusão.
+      - Alternativas que confirmam um efeito genérico ("a cidade muda o canto") em vez do mecanismo específico
+        ("o ruído muda o canto").
+    key_points: |
+      - Strengthen torna a conclusão mais provável.
+      - Grupo de controle e causa alternativa descartada são clássicos.
+      - Mire no mecanismo específico da conclusão.
+    flashcards:
+      - { front: "Correlação → causa: o que fortalece?", back: "Grupo de controle ou descartar causa alternativa" }
+      - { front: "Strengthen precisa provar a conclusão?", back: "Não, só torná-la mais provável" }
+      - { front: "Armadilha clássica de Strengthen", back: "Confirmar um efeito genérico, não o mecanismo" }
+
+  - slug: lesson-s-vr-cr-weaken
+    subtopic: vr_cr_weaken
+    title: "Weaken: atacar a ligação"
+    minutes: 10
+    content: |
+      Weaken pede o fato que torna a conclusão **menos provável**. Ataque a ligação entre evidência e conclusão,
+      não as premissas.
+
+      ## Ataques clássicos
+      - **Causa alternativa** ("quem usa a pasta vai mais ao dentista").
+      - **Causalidade reversa** ("quem é doente usa menos a academia").
+      - **Regressão à média** (cruzamentos escolhidos num ano atípico).
+      - **Plano que não atinge a meta** (o obstáculo real é outro).
+
+      ## Armadilhas
+      - Alternativas que enfraquecem só um pouco ("alguns", "levemente").
+      - Alternativas que na verdade fortalecem.
+    key_points: |
+      - Weaken ataca a ligação evidência → conclusão.
+      - Causa alternativa, causalidade reversa, regressão à média.
+      - Em planos: mostre que o obstáculo real é outro.
+    flashcards:
+      - { front: "Locais escolhidos por terem muitos acidentes melhoram depois. Que falha é essa?", back: "Regressão à média" }
+      - { front: "Academia ↔ menos faltas: que ataque é 'doentes usam menos a academia'?", back: "Causalidade reversa" }
+      - { front: "Weaken ataca as premissas?", back: "Não, aceita as premissas e ataca a conclusão" }
+
+  - slug: lesson-s-vr-rc-main-idea
+    subtopic: vr_rc_main_idea
+    title: "Ideia principal e propósito"
+    minutes: 10
+    content: |
+      A pergunta "primary purpose" quer o verbo e o objeto que cobrem o texto **inteiro**.
+
+      ## Método
+      1. Ao ler, resuma cada parágrafo em 5-8 palavras.
+      2. Junte os resumos: qual é o movimento do texto (descrever, comparar, contestar, conciliar)?
+      3. Escolha a alternativa cujo verbo bate com esse movimento.
+
+      ## Armadilhas
+      - Alternativas que descrevem só um parágrafo.
+      - Verbos fortes demais ("prove", "refute") para textos que apenas avaliam.
+      - A visão que o autor apresenta e depois critica.
+    key_points: |
+      - Resuma cada parágrafo.
+      - O verbo da resposta deve bater com o movimento do texto.
+      - Rejeite alternativas de um parágrafo só.
+    flashcards:
+      - { front: "Primary purpose: primeiro passo", back: "Resumir cada parágrafo em poucas palavras" }
+      - { front: "Erro clássico em main idea", back: "Escolher o resumo de um parágrafo só" }
+      - { front: "Texto apresenta duas visões e propõe meio-termo. Verbo provável?", back: "Avaliar / conciliar" }
+
+  - slug: lesson-s-vr-rc-detail
+    subtopic: vr_rc_specific_detail
+    title: "Detalhe específico: volte ao texto"
+    minutes: 8
+    content: |
+      "According to the passage" significa que a resposta está **escrita** no texto, quase sempre parafraseada.
+
+      ## Método
+      1. Identifique a palavra-chave da pergunta.
+      2. Volte ao trecho exato e leia uma frase antes e uma depois.
+      3. Escolha a paráfrase fiel.
+
+      ## Armadilhas
+      - Detalhes verdadeiros do texto que respondem a **outra** pergunta.
+      - Palavras copiadas do texto, mas com o sentido trocado.
+    key_points: |
+      - "According to the passage" = está escrito.
+      - Volte ao trecho; não confie na memória.
+      - Cuidado com detalhes verdadeiros, mas fora da pergunta.
+    flashcards:
+      - { front: "Detail question: onde está a resposta?", back: "Escrita no texto, parafraseada" }
+      - { front: "Armadilha clássica de detalhe", back: "Fato verdadeiro do texto que responde outra pergunta" }
+      - { front: "Quanto ler ao redor da palavra-chave?", back: "Uma frase antes e uma depois" }
+
+  - slug: lesson-s-vr-rc-inference
+    subtopic: vr_rc_inference
+    title: "Inferência: o mínimo que precisa ser verdade"
+    minutes: 10
+    content: |
+      Uma inferência de RC é algo que **tem de ser verdade** a partir do texto. É um passo curto, não uma especulação.
+
+      ## Método
+      1. Ache o trecho de onde a pergunta parte.
+      2. Prefira alternativas modestas, que reformulam o trecho com um passo lógico.
+      3. Rejeite o que "poderia" ser verdade mas o texto não garante.
+
+      ## Armadilhas
+      - Ir longe demais ("eles aceitariam se fosse o governo").
+      - Contradizer o texto com uma palavra (only, never, most).
+    key_points: |
+      - Inferência = tem de ser verdade.
+      - Prefira alternativas modestas.
+      - Desconfie de extrapolações.
+    flashcards:
+      - { front: "Inferência em RC é…", back: "Algo que precisa ser verdade a partir do texto" }
+      - { front: "Alternativa plausível, mas não garantida pelo texto?", back: "Errada: vai longe demais" }
+      - { front: "Palavras que costumam estragar uma inferência", back: "only, never, always, most" }
+
+  - slug: lesson-s-vr-rc-structure
+    subtopic: vr_rc_structure
+    title: "Estrutura: a função de cada parte"
+    minutes: 8
+    content: |
+      Perguntas de estrutura ("functions primarily to") pedem o **papel** de um parágrafo ou frase, não o conteúdo.
+
+      ## Papéis comuns
+      apresentar uma visão · trazer evidência · objetar · qualificar (moderar) · concluir/conciliar.
+
+      ## Método
+      Releia o parágrafo e o anterior. Pergunte: o que ele faz com o que veio antes? Concorda, contesta, modera?
+
+      ## Armadilhas
+      - Descrever o conteúdo em vez da função.
+      - Confundir "moderar uma visão" com "defender a visão oposta".
+    key_points: |
+      - Pergunta de função = papel, não conteúdo.
+      - Relacione o trecho com o anterior.
+      - Moderar ≠ rejeitar.
+    flashcards:
+      - { front: "'Yet X should not be pushed too far' faz o quê?", back: "Modera (qualifica) a visão X" }
+      - { front: "Pergunta de função pede…", back: "O papel do trecho no argumento" }
+      - { front: "Primeiro passo numa pergunta de estrutura", back: "Ver o que o trecho faz com o anterior" }

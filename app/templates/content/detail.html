@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% from "study/_question_types/_macros.html" import level_badge, level_bar %}
+{% block title %}{{ content_area.name }}{% endblock %}
+{% block content %}
+  <a class="muted small" href="{{ url_for('content.section_detail', section_code=content_area.section.code) }}">&larr; {{ content_area.section.name }}</a>
+  <div class="spread">
+    <h1>{{ content_area.name }}</h1>
+    <a class="btn" href="{{ url_for('study.area', content_area_id=content_area.id) }}">Praticar {{ content_area.name }}</a>
+  </div>
+  <p class="muted">{{ content_area.description or '' }}</p>
+
+  <div class="card">
+    <h2>Assuntos</h2>
+    <table class="stats-table">
+      <thead><tr><th>Assunto</th><th>Nível</th><th>Recentes</th><th>Questões no banco (N1…N5)</th><th></th></tr></thead>
+      <tbody>
+      {% for row in rows %}
+        <tr>
+          <td><a href="{{ url_for('learn.lesson', subtopic_id=row.subtopic.id) }}">{{ row.subtopic.name }}</a>{% if row.weak %} <span class="badge bad">fraco</span>{% endif %}
+            {% if row.progress and row.progress.manually_locked %}<span class="badge ghost">travado</span>{% endif %}</td>
+          <td style="white-space:nowrap">{{ level_bar(row.level, target_level) }} <span class="small">N{{ row.level }}</span></td>
+          <td class="num small">{% if row.recent_total %}{{ row.recent_correct }}/{{ row.recent_total }}{% else %}—{% endif %}</td>
+          <td class="num small">{% for lvl in levels %}{{ row.counts[lvl] }}{% if not loop.last %} · {% endif %}{% endfor %}</td>
+          <td><a class="btn small ghost" href="{{ url_for('study.subtopic', subtopic_id=row.subtopic.id) }}">Praticar</a></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Acertos por nível (prática)</h2>
+    <table class="stats-table">
+      <thead><tr><th>Nível</th><th>Tentativas</th><th>Acertos</th><th>%</th></tr></thead>
+      {% for lvl in levels %}
+        {% set s = stats.get(lvl) %}
+        <tr><td>{{ level_badge(lvl) }}</td><td>{{ s.attempts if s else 0 }}</td><td>{{ s.correct if s else 0 }}</td>
+          <td>{{ '%.0f' | format(100 * s.correct / s.attempts) if s and s.attempts else '—' }}{{ '%' if s and s.attempts }}</td></tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Ajustar nível manualmente</h2>
+    <p class="muted small">
+      O nível sobe/desce sozinho na prática. Use isto quando um simulado mostrar algo diferente (ex.: errou fáceis num
+      assunto que aqui já está no N4). Simulados <strong>nunca</strong> mudam seu nível sozinhos — é sempre decisão sua.
+    </p>
+    <form method="post" action="" id="level-form" class="row" onsubmit="this.action='/subtopic/' + this.subtopic.value + '/level'">
+      <select name="subtopic">{% for row in rows %}<option value="{{ row.subtopic.id }}">{{ row.subtopic.name }} (N{{ row.level }})</option>{% endfor %}</select>
+      <select name="new_level">{% for lvl in levels %}<option value="{{ lvl }}">N{{ lvl }} · {{ LEVEL_INFO[lvl].name }}</option>{% endfor %}</select>
+      <input type="text" name="reason" placeholder="Motivo (opcional)" style="min-width:220px">
+      <label class="small"><input type="checkbox" name="lock" value="1"> travar (não mudar sozinho)</label>
+      <input type="hidden" name="next" value="{{ request.path }}">
+      <button class="btn small secondary" type="submit">Aplicar</button>
+    </form>
+
+    {% if adjustments %}
+      <h3>Histórico de níveis</h3>
+      <table class="stats-table">
+        <thead><tr><th>Data</th><th>Assunto</th><th>Mudança</th><th>Por quê</th></tr></thead>
+        {% for adj in adjustments %}
+          <tr><td class="small">{{ adj.created_at.strftime('%d/%m %H:%M') }}</td><td class="small">{{ adj.subtopic.name }}</td>
+            <td>N{{ adj.previous_level }} → N{{ adj.new_level }}</td>
+            <td class="small">{{ {'auto_promote':'subiu', 'auto_demote':'desceu', 'manual':'manual'}[adj.triggered_by] }}{% if adj.reason_text %} — {{ adj.reason_text }}{% endif %}</td></tr>
+        {% endfor %}
+      </table>
+    {% endif %}
+  </div>
+{% endblock %}

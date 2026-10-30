@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% from "study/_question_types/_macros.html" import level_badge %}
+{% block title %}Resultado do simulado{% endblock %}
+{% block content %}
+  <h1>Resultado do simulado</h1>
+  <p class="muted">{{ mock_exam.started_at.strftime('%d/%m/%Y') }} · {{ 'prova completa' if mock_exam.kind == 'full' else 'seção avulsa' }}{% if mock_exam.pause_count %} · ⏸ com pausa ({{ mock_exam.pause_count }}×) — não foi em condições reais de prova{% endif %}</p>
+
+  {% if result %}
+    <div class="grid">
+      {% if result.total_scaled_score %}
+        <div class="card hl"><div class="muted small">Nota total estimada</div><div class="big num">{{ result.total_scaled_score }}</div><div class="muted small">escala 205–805</div></div>
+      {% endif %}
+      {% for s in sections %}
+        <div class="card"><div class="muted small">{{ s.msec.section.name }}</div><div class="big num">{{ s.msec.scaled_score }}</div>
+          <div class="muted small">{{ s.attempts | selectattr('is_correct') | list | length }}/{{ s.attempts | length }} certas{% if s.unanswered %} · <strong>{{ s.unanswered }} sem resposta</strong>{% endif %}</div></div>
+      {% endfor %}
+    </div>
+    <p class="muted small">
+      Estimativa por IRT simplificado (a nota depende do nível das questões que você acertou, não só de quantas).
+      Não é o algoritmo oficial — compare com os simulados oficiais da GMAC em Progresso.
+    </p>
+  {% endif %}
+
+  {% for s in sections %}
+    <div class="card">
+      <h2>{{ s.msec.section.name }}</h2>
+      <div class="grid">
+        <div>
+          <h3>Por conteúdo</h3>
+          <table class="stats-table">
+            {% for area, e in s.by_area.items() %}<tr><td>{{ area }}</td><td class="num">{{ e.correct }}/{{ e.total }}</td></tr>{% endfor %}
+          </table>
+        </div>
+        <div>
+          <h3>Ritmo</h3>
+          <p class="small">Meta ~{{ s.target | mmss }}/questão. {{ s.slow }} questão(ões) acima de {{ (s.target * 1.6) | int | mmss }}.
+            {% if s.unanswered %}<br><strong>Você não terminou a seção</strong> — na prova real isso custa caro. Treine chutar
+            com consciência quando uma questão passar de ~3 min.{% endif %}</p>
+          <canvas id="pace-{{ loop.index }}" height="140"></canvas>
+        </div>
+      </div>
+      <h3>Questão a questão</h3>
+      <table class="stats-table">
+        <thead><tr><th>#</th><th>Assunto</th><th>Nível</th><th></th><th>Tempo</th><th></th></tr></thead>
+        {% for a in s.attempts %}
+          <tr>
+            <td class="num">{{ a.sequence_number }}{% if a.bookmarked %} 🔖{% endif %}</td>
+            <td class="small">{{ a.question.content_area.name }} · {{ a.question.subtopic.name }}</td>
+            <td>{{ level_badge(a.difficulty_presented) }}</td>
+            <td>{% if a.is_correct %}<span class="badge ok">certo</span>{% else %}<span class="badge bad">errado</span>{% endif %}{% if a.edited %} <span class="badge ghost">alterada</span>{% endif %}</td>
+            <td class="num small {{ 'timer over' if (a.time_spent_seconds or 0) > s.target * 1.6 }}">{{ a.time_spent_seconds | mmss }}</td>
+            <td><a class="small" href="{{ url_for('mock_exam.review_question', mock_exam_id=mock_exam.id, attempt_id=a.id) }}">ver solução</a></td>
+          </tr>
+        {% endfor %}
+      </table>
+      {% if s.missed_subtopics %}
+        <h3>Assuntos em que você errou</h3>
+        <p class="small">
+          {% for st in s.missed_subtopics %}<a href="{{ url_for('content.content_detail', content_area_id=st.content_area_id) }}">{{ st.name }}</a>{% if not loop.last %} · {% endif %}{% endfor %}
+        </p>
+        <p class="muted small">As questões erradas já estão na sua revisão espaçada. Se algum assunto em que você está num nível alto
+          foi mal aqui, ajuste o nível manualmente na página do conteúdo.</p>
+      {% endif %}
+    </div>
+  {% endfor %}
+
+  <a class="btn" href="{{ url_for('mock_exam.history') }}">Histórico de simulados</a>
+  <a class="btn secondary" href="{{ url_for('home.index') }}">Plano de hoje</a>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/chart.min.js') }}"></script>
+<script>
+  {% for s in sections %}
+    new Chart(document.getElementById('pace-{{ loop.index }}'), {
+      type: 'line',
+      data: {
+        labels: {{ range(1, s.pacing | length + 1) | list | tojson }},
+        datasets: [
+          { label: 'Seu tempo acumulado (min)', data: {{ s.pacing | tojson }}, borderColor: '#5b45c9', tension: 0.2 },
+          { label: 'Ritmo-alvo', data: {{ s.ideal | tojson }}, borderColor: '#9a9a9a', borderDash: [5, 5], pointRadius: 0 }
+        ]
+      },
+      options: { plugins: { legend: { labels: { boxWidth: 12 } } }, scales: { y: { beginAtZero: true } } }
+    });
+  {% endfor %}
+</script>
+{% endblock %}

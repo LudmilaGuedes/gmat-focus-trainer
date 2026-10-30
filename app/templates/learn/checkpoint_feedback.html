@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Teste de fixação{% endblock %}
+{% block content %}
+  <div class="q-toolbar">
+    <strong>Teste de fixação · {{ number }} de {{ total }}</strong>
+    <a class="btn" href="{{ url_for('learn.checkpoint_result') if finished else url_for('learn.checkpoint_question') }}">
+      {{ 'Ver resultado' if finished else 'Próxima →' }}</a>
+  </div>
+  <div class="feedback {{ 'correct' if is_correct else 'incorrect' }}">
+    <strong>{{ 'Certo!' if is_correct else 'Errado.' }}</strong> <span class="muted num">⏱ {{ seconds | mmss }}</span>
+  </div>
+  <div class="card">
+    {% include "study/_question_body.html" %}
+    <h2>Sua resposta</h2>
+    {% include "study/_breakdown.html" %}
+    <h2>Solução</h2>
+    <div class="explanation">{{ question.explanation_text | mathfmt }}</div>
+  </div>
+  <a class="btn" href="{{ url_for('learn.checkpoint_result') if finished else url_for('learn.checkpoint_question') }}">
+    {{ 'Ver resultado' if finished else 'Próxima →' }}</a>
+{% endblock %}

@@ -1,0 +1,7 @@
+<div id="reason-box">
+  <p class="small" style="margin:0 0 6px">
+    ✓ Anotado no caderno de erros{% if item.error_reason %}: <strong>{{ reasons[item.error_reason] }}</strong>{% endif %}.
+    Volta para revisão em {{ item.due_at.strftime('%d/%m') }}.
+  </p>
+  {% include "review/_reason_form.html" %}
+</div>

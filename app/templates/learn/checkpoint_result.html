@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% from "study/_question_types/_macros.html" import level_badge %}
+{% block title %}Resultado do teste — {{ subtopic.name }}{% endblock %}
+{% block content %}
+  <h1>Teste de fixação: {{ subtopic.name }}</h1>
+  <div class="feedback {{ 'correct' if passed else 'incorrect' }}">
+    <div class="big num">{{ correct }}/{{ total }}</div>
+    {% if passed %}
+      <p><strong>Aprovado!</strong> O assunto entrou na sua prática diária no {{ level_badge(progress.level) }}.
+      {% if progress.level >= 2 %}Como você gabaritou, já começa no nível 2.{% endif %}</p>
+    {% else %}
+      <p><strong>Ainda não.</strong> Releia a lição (principalmente os exemplos e as armadilhas) e refaça o teste.
+      Os erros já foram para a sua revisão espaçada.</p>
+    {% endif %}
+  </div>
+  <div class="row">
+    {% if passed %}
+      <a class="btn" href="{{ url_for('home.index') }}">Voltar para o plano de hoje</a>
+      <a class="btn secondary" href="{{ url_for('study.subtopic', subtopic_id=subtopic.id) }}">Praticar mais este assunto</a>
+    {% else %}
+      <a class="btn" href="{{ url_for('learn.lesson', subtopic_id=subtopic.id) }}">Reler a lição</a>
+      <a class="btn secondary" href="{{ url_for('learn.checkpoint_start', subtopic_id=subtopic.id) }}">Refazer o teste</a>
+    {% endif %}
+    <a class="btn ghost" href="{{ url_for('learn.track') }}">Trilha</a>
+  </div>
+{% endblock %}

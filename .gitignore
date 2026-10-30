@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Ambientes virtuais
+.venv/
+venv/
+env/
+
+# Segredos
+.env
+.env.*
+
+# Bancos de dados e dados pessoais de estudo (histórico, backups)
+instance/
+*.db
+*.sqlite
+*.sqlite3
+
+# Banco de conteúdo pessoal (pode conter material com direitos autorais) — o repositório publica só sample_bank/
+content_bank/
+
+# Logs
+*.log
+
+# Editores / SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% from "study/_question_types/_macros.html" import level_badge %}
+{% block title %}Prática — {{ state.label }}{% endblock %}
+{% block page_class %}{{ 'wide' if question.question_set else '' }}{% endblock %}
+{% block content %}
+  <div class="q-toolbar">
+    <div>
+      <strong>{{ state.label }}</strong>
+      <span class="muted">· questão {{ (state.done_before or 0) + state.count + 1 }}{% if state.goal %} de {{ state.goal }}{% endif %}
+        · {{ state.correct }}/{{ state.count }} certas</span>
+    </div>
+    {% include "study/_stopwatch.html" %}
+  </div>
+  <p class="muted small" style="margin-top:-4px">
+    {{ question.section.code }} · {{ question.content_area.name }} · {{ question.subtopic.name }} ·
+    {{ level_badge(question.difficulty) }}
+    {% if question.source == 'official' %}<span class="badge accent">oficial</span>{% endif %}
+  </p>
+
+  <form method="post" action="{{ url_for('study.answer') }}" class="card">
+    <input type="hidden" name="question_id" value="{{ question.id }}">
+    {% include "study/_question_body.html" %}
+    <div class="spread" style="margin-top:10px">
+      <label class="muted"><input type="checkbox" name="guessed" value="1"> Chutei / não tenho certeza</label>
+      <button class="btn" type="submit">Responder</button>
+    </div>
+  </form>
+
+  <form method="post" action="{{ url_for('study.end_session') }}">
+    <button class="btn ghost small" type="submit">Encerrar prática e ver relatório</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,35 @@
+{# Renders any question: passage/tabs on the left (RC, MSR) like the real test, question on the right. #}
+{% if answer_groups is not defined %}{% set answer_groups = groups_for(question) %}{% endif %}
+{% set qset = question.question_set %}
+{% if qset and (qset.stimulus_text or qset.tabs_json) %}
+  <div class="split">
+    <div class="passage-pane card flat">
+      {% if qset.tabs_json %}
+        <div class="tabs" id="tabs-{{ question.id }}">
+          {% for tab in qset.tabs_json %}<button type="button" class="{{ 'active' if loop.first }}" data-tab="{{ loop.index0 }}">{{ tab.title }}</button>{% endfor %}
+        </div>
+        {% for tab in qset.tabs_json %}
+          <div class="tab-body {{ 'hidden' if not loop.first }}" data-tabbody="{{ loop.index0 }}">
+            {% if '|' in tab.content %}<div class="mono">{{ tab.content }}</div>{% else %}<div class="passage">{{ tab.content | reflow }}</div>{% endif %}
+          </div>
+        {% endfor %}
+        <script>
+          (function () {
+            const root = document.getElementById('tabs-{{ question.id }}').parentElement;
+            root.querySelectorAll('[data-tab]').forEach(function (btn) {
+              btn.addEventListener('click', function () {
+                root.querySelectorAll('[data-tab]').forEach(b => b.classList.toggle('active', b === btn));
+                root.querySelectorAll('[data-tabbody]').forEach(d => d.classList.toggle('hidden', d.dataset.tabbody !== btn.dataset.tab));
+              });
+            });
+          })();
+        </script>
+      {% else %}
+        <div class="passage">{{ qset.stimulus_text | reflow }}</div>
+      {% endif %}
+    </div>
+    <div>{% include "study/_question_types/" ~ question.question_type.code ~ ".html" %}</div>
+  </div>
+{% else %}
+  {% include "study/_question_types/" ~ question.question_type.code ~ ".html" %}
+{% endif %}

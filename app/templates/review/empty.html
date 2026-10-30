@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Revisão{% endblock %}
+{% block content %}
+  <h1>Revisão espaçada</h1>
+  <div class="feedback correct">
+    <strong>Nada para revisar agora. 🎉</strong>
+    {% if next_due %}<p style="margin:6px 0 0">Próximo item vence em {{ next_due.strftime('%d/%m') }}.</p>{% endif %}
+  </div>
+  <p class="muted">
+    Aqui entram: questões que você errou, chutou ou demorou demais (em prática ou simulado) e os flashcards
+    das lições que você estudou. Cada item volta depois de 1, 3, 7, 14, 30 e 60 dias — acertou, ele
+    espaça; errou, volta para o começo. Isso é o que impede você de esquecer o que já aprendeu.
+  </p>
+  <a class="btn" href="{{ url_for('home.index') }}">Voltar para o plano de hoje</a>
+  <a class="btn ghost" href="{{ url_for('review.errors') }}">Caderno de erros</a>
+{% endblock %}

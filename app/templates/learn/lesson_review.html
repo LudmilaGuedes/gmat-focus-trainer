@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Revisar teoria — {{ subtopic.name }}{% endblock %}
+{% block content %}
+  <a class="muted small" href="{{ url_for('home.index') }}">&larr; Hoje</a>
+  <h1>Revisão de teoria: {{ subtopic.name }}</h1>
+  <p class="muted">
+    <strong>Antes de abrir:</strong> tente lembrar em voz alta (ou escrever num papel) as regras e fórmulas
+    principais deste assunto. Recuperar da memória é o que fixa — só depois confira.
+  </p>
+
+  <div class="card">
+    <button class="btn secondary" type="button" onclick="document.getElementById('kp').classList.remove('hidden'); this.remove();">Mostrar pontos-chave</button>
+    <div id="kp" class="hidden">
+      {% if lesson and lesson.key_points_markdown %}
+        <div class="keypoints lesson">{{ lesson.key_points_markdown | md }}</div>
+      {% elif lesson %}
+        <div class="lesson">{{ lesson.content_markdown | md }}</div>
+      {% else %}
+        <p class="muted">Sem lição cadastrada para este assunto.</p>
+      {% endif %}
+      {% if lesson and lesson.flashcards %}
+        <h3>Flashcards</h3>
+        <table class="stats-table">
+          {% for card in lesson.flashcards %}<tr><td style="width:45%">{{ card.front | mathfmt }}</td><td>{{ card.back | mathfmt }}</td></tr>{% endfor %}
+        </table>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <form method="post" class="inline-form">
+      <input type="hidden" name="next" value="{{ url_for('home.index') }}">
+      <button class="btn" type="submit">Revisei ✓</button>
+    </form>
+    <a class="btn ghost" href="{{ url_for('learn.lesson', subtopic_id=subtopic.id) }}">Reler a lição completa</a>
+    <a class="btn ghost" href="{{ url_for('study.subtopic', subtopic_id=subtopic.id) }}">Praticar este assunto</a>
+  </div>
+  <p class="muted small" style="margin-top:12px">Próximas revisões de teoria: 2, 7, 21, 45 e 90 dias depois de estudar.</p>
+{% endblock %}

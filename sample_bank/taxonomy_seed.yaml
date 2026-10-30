@@ -1,0 +1,104 @@
+# Taxonomia do banco de exemplo: as 3 seções do GMAT Focus Edition com um recorte de assuntos.
+# Os códigos seguem o mesmo padrão da taxonomia completa, então um banco maior pode ser trocado sem mudar código.
+# Rode `python scripts/init_db.py` (ou `seed_taxonomy.py`) após editar (upsert idempotente por `code`).
+
+question_types:
+  - code: multiple_choice
+    name: Múltipla escolha
+  - code: data_sufficiency
+    name: Data Sufficiency
+  - code: table_analysis
+    name: Table Analysis
+  - code: graphics_interpretation
+    name: Graphics Interpretation
+  - code: two_part_analysis
+    name: Two-Part Analysis
+  - code: multi_source_reasoning
+    name: Multi-Source Reasoning
+
+sections:
+  - code: QR
+    name: Quantitative Reasoning
+    description: >
+      21 questões, 45 minutos, sem calculadora. Só Problem Solving.
+    content_areas:
+      - code: qr_arithmetic
+        name: Aritmética
+        description: Percentuais, propriedades de números e valor absoluto.
+        subtopics:
+          - code: qr_arithmetic_fractions_decimals_percent
+            name: Frações, decimais e percentuais
+          - code: qr_arithmetic_number_properties
+            name: Propriedades de números (divisibilidade, primos, restos)
+          - code: qr_arithmetic_absolute_value
+            name: Valor absoluto
+      - code: qr_algebra
+        name: Álgebra
+        description: Equações e sistemas lineares.
+        subtopics:
+          - code: qr_algebra_linear_equations
+            name: Equações lineares (simples e sistemas)
+
+  - code: VR
+    name: Verbal Reasoning
+    description: >
+      23 questões, 45 minutos. Critical Reasoning e Reading Comprehension.
+    content_areas:
+      - code: vr_critical_reasoning
+        name: Critical Reasoning
+        description: Cerca de 9-10 questões da seção.
+        subtopics:
+          - code: vr_cr_assumption
+            name: Assumption
+          - code: vr_cr_strengthen
+            name: Strengthen the argument
+          - code: vr_cr_weaken
+            name: Weaken the argument
+      - code: vr_reading_comprehension
+        name: Reading Comprehension
+        description: Cerca de 13-14 questões da seção, agrupadas sob passagens de 200-350 palavras.
+        subtopics:
+          - code: vr_rc_main_idea
+            name: Ideia principal / propósito
+          - code: vr_rc_specific_detail
+            name: Detalhe específico
+          - code: vr_rc_inference
+            name: Inferência
+          - code: vr_rc_structure
+            name: Estrutura/organização do texto
+
+  - code: DI
+    name: Data Insights
+    description: >
+      20 questões, 45 minutos, com calculadora on-screen.
+    content_areas:
+      - code: di_data_sufficiency
+        name: Data Sufficiency
+        description: Decidir se as informações bastam para responder, sem resolver até o fim.
+        subtopics:
+          - code: di_ds_quantitative
+            name: Data Sufficiency quantitativa
+      - code: di_table_analysis
+        name: Table Analysis
+        description: Tabela ordenável e afirmações Sim/Não.
+        subtopics:
+          - code: di_ta_statement_evaluation
+            name: Avaliação de afirmações sobre a tabela
+      - code: di_graphics_interpretation
+        name: Graphics Interpretation
+        description: Gráficos com lacunas para completar.
+        subtopics:
+          - code: di_gi_chart_reading
+            name: Leitura de gráfico
+      - code: di_two_part_analysis
+        name: Two-Part Analysis
+        description: Duas respostas relacionadas, uma em cada coluna.
+        subtopics:
+          - code: di_tpa_quantitative
+            name: Two-Part quantitativa
+      - code: di_multi_source_reasoning
+        name: Multi-Source Reasoning
+        description: Várias abas (texto, tabela, e-mail) para cruzar.
+        subtopics:
+          - code: di_msr_synthesis
+            name: Síntese entre fontes

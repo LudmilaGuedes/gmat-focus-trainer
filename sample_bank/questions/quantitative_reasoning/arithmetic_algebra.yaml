@@ -1,0 +1,436 @@
+# Banco de exemplo — Quantitative Reasoning, N3-N5 (questões originais no estilo Problem Solving do GMAT Focus).
+# `answer_check`: expressão Python cujo valor deve bater com a alternativa correta.
+
+questions:
+  # ------------------------------------------------------------------ frações, decimais e porcentagem
+  - slug: qr-fdp-b6-n4-1
+    subtopic: qr_arithmetic_fractions_decimals_percent
+    question_type: multiple_choice
+    difficulty: 4
+    stem: |
+      A bookseller priced a rare book 40 percent above what the bookseller paid for it. During a sale, the
+      bookseller reduced that price by 25 percent and sold the book for $63. What was the bookseller's profit on
+      the sale?
+    options:
+      - { label: A, text: "$3", correct: true }
+      - { label: B, text: "$6", correct: false }
+      - { label: C, text: "$9", correct: false }
+      - { label: D, text: "$12", correct: false }
+      - { label: E, text: "$18", correct: false }
+    answer_check: 63 - 63 / (1.4 * 0.75)
+    explanation: |
+      Custo c. Preço final = c × 1,40 × 0,75 = 1,05c = 63 → c = 60. Lucro = 63 − 60 = $3.
+      Armadilha (E): fazer 40% − 25% = 15% e calcular 15% de algo. Aumento seguido de desconto se multiplica.
+
+  - slug: qr-fdp-b6-n4-2
+    subtopic: qr_arithmetic_fractions_decimals_percent
+    question_type: multiple_choice
+    difficulty: 4
+    stem: |
+      At a language school, 3/5 of the students take Spanish, and 1/3 of the students who take Spanish also take
+      French. If 2/5 of all the students take French, what fraction of the students who take French do not take
+      Spanish?
+    options:
+      - { label: A, text: "1/3", correct: false }
+      - { label: B, text: "2/5", correct: false }
+      - { label: C, text: "1/2", correct: true }
+      - { label: D, text: "3/5", correct: false }
+      - { label: E, text: "2/3", correct: false }
+    answer_check: (Fraction(2, 5) - Fraction(3, 5) * Fraction(1, 3)) / Fraction(2, 5)
+    explanation: |
+      Espanhol e francês: 1/3 × 3/5 = 1/5 do total. Francês sem espanhol: 2/5 − 1/5 = 1/5 do total.
+      A pergunta é sobre os alunos de FRANCÊS: (1/5) ÷ (2/5) = 1/2.
+      Armadilha: responder 1/5 (fração do total) ou 1/3 (fração de quem faz espanhol).
+
+  - slug: qr-fdp-b6-n4-3
+    subtopic: qr_arithmetic_fractions_decimals_percent
+    question_type: multiple_choice
+    difficulty: 4
+    stem: |
+      A charity spent 1/4 of its annual budget in the first quarter, 1/3 of the remaining budget in the second
+      quarter, and 2/5 of what was then left in the third quarter. If $54,000 of the budget remained at the end of
+      the third quarter, what was the charity's annual budget?
+    options:
+      - { label: A, text: "$162,000", correct: false }
+      - { label: B, text: "$180,000", correct: true }
+      - { label: C, text: "$192,000", correct: false }
+      - { label: D, text: "$216,000", correct: false }
+      - { label: E, text: "$240,000", correct: false }
+    answer_check: 54000 / (Fraction(3, 4) * Fraction(2, 3) * Fraction(3, 5))
+    explanation: |
+      Sobra após cada trimestre: 3/4 → 3/4 × 2/3 = 1/2 → 1/2 × 3/5 = 3/10 do orçamento.
+      3/10 × B = 54.000 → B = 180.000.
+      Armadilha: somar 1/4 + 1/3 + 2/5 como se fossem frações do total. Cada fração é do que RESTOU.
+
+  - slug: qr-fdp-b6-n4-4
+    subtopic: qr_arithmetic_fractions_decimals_percent
+    question_type: multiple_choice
+    difficulty: 4
+    stem: |
+      When 1/7 is written as a decimal, what is the 100th digit to the right of the decimal point?
+    options:
+      - { label: A, text: "1", correct: false }
+      - { label: B, text: "2", correct: false }
+      - { label: C, text: "4", correct: false }
+      - { label: D, text: "5", correct: false }
+      - { label: E, text: "8", correct: true }
+    answer_check: (10**100 // 7) % 10
+    explanation: |
+      1/7 = 0,142857 142857… → bloco de 6 algarismos que se repete.
+      100 = 6 × 16 + 4 → o 100º algarismo é o 4º do bloco: 1, 4, 2, **8**.
+
+  - slug: qr-fdp-b6-n5-1
+    subtopic: qr_arithmetic_fractions_decimals_percent
+    question_type: multiple_choice
+    difficulty: 5
+    stem: |
+      A merchant sold a shipment of goods at a price 25 percent above the merchant's cost. Had the merchant paid
+      20 percent less for the shipment and sold it for $6 less, the merchant's profit would have been 50 percent
+      of the reduced cost. What was the merchant's original cost for the shipment?
+    options:
+      - { label: A, text: "$100", correct: false }
+      - { label: B, text: "$108", correct: false }
+      - { label: C, text: "$112", correct: false }
+      - { label: D, text: "$120", correct: true }
+      - { label: E, text: "$125", correct: false }
+    answer_check: 6 / (1.25 - 1.5 * 0.8)
+    explanation: |
+      Custo C, preço 1,25C. No cenário hipotético: custo 0,8C e preço 1,25C − 6.
+      Lucro de 50% sobre o novo custo → preço = 1,5 × 0,8C = 1,2C.
+      1,25C − 6 = 1,2C → 0,05C = 6 → C = 120.
+      Armadilha: aplicar os 50% sobre o custo original (1,5C), o que dá preço negativo e nenhuma alternativa.
+
+  - slug: qr-fdp-b6-n5-2
+    subtopic: qr_arithmetic_fractions_decimals_percent
+    question_type: multiple_choice
+    difficulty: 5
+    stem: |
+      If x = 0.363636... and y = 0.3666..., where the digits continue in the patterns shown, what is the value of
+      y − x ?
+    options:
+      - { label: A, text: "1/330", correct: true }
+      - { label: B, text: "1/300", correct: false }
+      - { label: C, text: "1/110", correct: false }
+      - { label: D, text: "3/110", correct: false }
+      - { label: E, text: "1/33", correct: false }
+    answer_check: Fraction(11, 30) - Fraction(4, 11)
+    explanation: |
+      x = 36/99 = 4/11. y = 0,3 + 0,0666… = 3/10 + 1/15 = 11/30.
+      y − x = 11/30 − 4/11 = (121 − 120)/330 = 1/330.
+      Armadilha (B): truncar em 0,3667 − 0,3633 ≈ 0,0033 e escolher 1/300 (≈ 0,00333). 1/330 ≈ 0,00303.
+
+  - slug: qr-fdp-b6-n5-3
+    subtopic: qr_arithmetic_fractions_decimals_percent
+    question_type: multiple_choice
+    difficulty: 5
+    stem: |
+      The list price of an appliance is p dollars. If the list price were increased by x percent and the
+      resulting price were then decreased by x percent, the final price would be $9 less than p. If instead the
+      list price were decreased by 2x percent, the resulting price would be $60 less than p. What is the value of
+      p ?
+    options:
+      - { label: A, text: "75", correct: false }
+      - { label: B, text: "90", correct: false }
+      - { label: C, text: "100", correct: true }
+      - { label: D, text: "120", correct: false }
+      - { label: E, text: "150", correct: false }
+    answer_check: (60 / 2 * 100) ** 2 / (9 * 100**2)
+    explanation: |
+      Aumentar e depois reduzir x%: p(1 + x/100)(1 − x/100) = p − p·x²/10.000 → p·x²/10.000 = 9.
+      Reduzir 2x%: p·2x/100 = 60 → p·x = 3.000.
+      Divida: (p·x²)/(p·x) = x = 90.000/3.000 = 30. Então p = 3.000/30 = 100.
+      Conferindo: 100 × 1,3 × 0,7 = 91 = 100 − 9; 100 × 0,4 = 40 = 100 − 60.
+
+  # ------------------------------------------------------------------ propriedades dos números
+  - slug: qr-np-b6-n4-1
+    subtopic: qr_arithmetic_number_properties
+    question_type: multiple_choice
+    difficulty: 4
+    stem: |
+      How many positive integers are divisors of 720 ?
+    options:
+      - { label: A, text: "24", correct: false }
+      - { label: B, text: "28", correct: false }
+      - { label: C, text: "30", correct: true }
+      - { label: D, text: "32", correct: false }
+      - { label: E, text: "36", correct: false }
+    answer_check: (4 + 1) * (2 + 1) * (1 + 1)
+    explanation: |
+      720 = 2^4 · 3^2 · 5. Número de divisores = (4 + 1)(2 + 1)(1 + 1) = 30.
+
+  - slug: qr-np-b6-n4-2
+    subtopic: qr_arithmetic_number_properties
+    question_type: multiple_choice
+    difficulty: 4
+    stem: |
+      When the positive integer n is divided by 6, the remainder is 4. When n is divided by 9, the remainder is
+      7. What is the remainder when n is divided by 18 ?
+    options:
+      - { label: A, text: "4", correct: false }
+      - { label: B, text: "7", correct: false }
+      - { label: C, text: "10", correct: false }
+      - { label: D, text: "13", correct: false }
+      - { label: E, text: "16", correct: true }
+    answer_check: 16 if 16 % 6 == 4 and 16 % 9 == 7 else 0
+    explanation: |
+      Resto 7 na divisão por 9 → n é 7 ou 16 módulo 18.
+      7 dividido por 6 deixa resto 1. 16 dividido por 6 deixa resto 4 ✓. Logo n deixa resto 16 na divisão por 18
+      (n = 16, 34, 52…).
+
+  - slug: qr-np-b6-n4-3
+    subtopic: qr_arithmetic_number_properties
+    question_type: multiple_choice
+    difficulty: 4
+    stem: |
+      If n is the product of the integers from 1 to 20, inclusive, what is the greatest integer k for which 12^k
+      is a factor of n ?
+    options:
+      - { label: A, text: "6", correct: false }
+      - { label: B, text: "8", correct: true }
+      - { label: C, text: "9", correct: false }
+      - { label: D, text: "10", correct: false }
+      - { label: E, text: "18", correct: false }
+    answer_check: 20 // 3 + 20 // 9
+    explanation: |
+      12^k = 2^(2k) · 3^k. Em 20!: fatores 2 = 10 + 5 + 2 + 1 = 18; fatores 3 = 6 + 2 = 8.
+      Pelos 2: 2k ≤ 18 → k ≤ 9. Pelos 3: k ≤ 8. O limite é k = 8.
+      Armadilha (C): olhar só os fatores 2.
+
+  - slug: qr-np-b6-n5-1
+    subtopic: qr_arithmetic_number_properties
+    question_type: multiple_choice
+    difficulty: 5
+    stem: |
+      If x and y are positive integers such that x/y = 2.35, which of the following could be the remainder when
+      x is divided by y ?
+    options:
+      - { label: A, text: "3", correct: false }
+      - { label: B, text: "5", correct: false }
+      - { label: C, text: "8", correct: false }
+      - { label: D, text: "14", correct: true }
+      - { label: E, text: "15", correct: false }
+    answer_check: 0.35 * 40
+    explanation: |
+      x/y = 2 + 0,35 → resto r = 0,35y = 7y/20. Para r ser inteiro, y é múltiplo de 20, e r é múltiplo de 7
+      (7, 14, 21…). Das alternativas, só 14 (y = 40, x = 94).
+      Armadilha (B): achar que o resto é 35 "reduzido" a 5.
+
+  - slug: qr-np-b6-n5-2
+    subtopic: qr_arithmetic_number_properties
+    question_type: multiple_choice
+    difficulty: 5
+    stem: |
+      If p is a prime number greater than 3, which of the following must be true?
+
+      I. p^2 − 1 is divisible by 24.
+      II. p^2 + 2 is divisible by 3.
+      III. p^2 + 1 is divisible by 4.
+    options:
+      - { label: A, text: "I only", correct: false }
+      - { label: B, text: "I and II only", correct: true }
+      - { label: C, text: "I and III only", correct: false }
+      - { label: D, text: "II and III only", correct: false }
+      - { label: E, text: "I, II, and III", correct: false }
+    explanation: |
+      I: (p − 1)(p + 1) são dois pares consecutivos (um deles múltiplo de 4 → fator 8) e um deles é múltiplo de 3
+      (p não é). Logo divisível por 24 ✓.
+      II: p não é múltiplo de 3 → p² deixa resto 1 na divisão por 3 → p² + 2 deixa resto 0 ✓.
+      III: p ímpar → p² deixa resto 1 na divisão por 4 → p² + 1 deixa resto 2 ✗ (p = 5: 26).
+
+  # ------------------------------------------------------------------ equações lineares
+  - slug: qr-lin-b6-n4-1
+    subtopic: qr_algebra_linear_equations
+    question_type: multiple_choice
+    difficulty: 4
+    stem: |
+      Lena has only $5, $10, and $20 bills. She has twice as many $5 bills as $20 bills and 3 more $10 bills than
+      $20 bills. If the total value of her bills is $350, how many $10 bills does she have?
+    options:
+      - { label: A, text: "8", correct: false }
+      - { label: B, text: "10", correct: false }
+      - { label: C, text: "11", correct: true }
+      - { label: D, text: "13", correct: false }
+      - { label: E, text: "16", correct: false }
+    answer_check: (350 - 30) / 40 + 3
+    explanation: |
+      t notas de $20, 2t de $5, t + 3 de $10: 20t + 10t + 10(t + 3) = 350 → 40t = 320 → t = 8.
+      Notas de $10: 8 + 3 = 11.
+      Armadilhas: (A) é o número de notas de $20; (E) o de notas de $5.
+
+  - slug: qr-lin-b6-n4-2
+    subtopic: qr_algebra_linear_equations
+    question_type: multiple_choice
+    difficulty: 4
+    stem: |
+      If 3x + 2y = 17 and 2x + 3y = 13, what is the value of x^2 − y^2 ?
+    options:
+      - { label: A, text: "12", correct: false }
+      - { label: B, text: "16", correct: false }
+      - { label: C, text: "20", correct: false }
+      - { label: D, text: "24", correct: true }
+      - { label: E, text: "30", correct: false }
+    answer_check: ((17 + 13) / 5) * (17 - 13)
+    explanation: |
+      Some: 5x + 5y = 30 → x + y = 6. Subtraia: x − y = 4.
+      x² − y² = (x + y)(x − y) = 24. Não é preciso achar x e y.
+
+  - slug: qr-lin-b6-n4-3
+    subtopic: qr_algebra_linear_equations
+    question_type: multiple_choice
+    difficulty: 4
+    stem: |
+      A caterer charges a fixed fee for each event plus a constant amount per guest. An event with 40 guests costs
+      $1,240, and an event with 65 guests costs $1,840. How much does an event with 50 guests cost?
+    options:
+      - { label: A, text: "$1,440", correct: false }
+      - { label: B, text: "$1,480", correct: true }
+      - { label: C, text: "$1,520", correct: false }
+      - { label: D, text: "$1,550", correct: false }
+      - { label: E, text: "$1,600", correct: false }
+    answer_check: 1240 + 10 * (1840 - 1240) / 25
+    explanation: |
+      Por convidado: (1.840 − 1.240)/(65 − 40) = 600/25 = $24. Taxa fixa: 1.240 − 40 × 24 = $280.
+      50 convidados: 280 + 1.200 = $1.480.
+      Armadilha (D): regra de três com 1.240 (1.240 × 50/40 = 1.550), ignorando a taxa fixa.
+
+  - slug: qr-lin-b6-n4-4
+    subtopic: qr_algebra_linear_equations
+    question_type: multiple_choice
+    difficulty: 4
+    stem: |
+      A jar contains 27 coins, all of which are nickels, dimes, or quarters, with a total value of $4.25. If the
+      jar contains twice as many dimes as nickels, how many quarters does it contain?
+    options:
+      - { label: A, text: "6", correct: false }
+      - { label: B, text: "9", correct: false }
+      - { label: C, text: "10", correct: false }
+      - { label: D, text: "12", correct: true }
+      - { label: E, text: "15", correct: false }
+    answer_check: 17 - (27 - 17) / 2
+    explanation: |
+      n nickels, 2n dimes, q quarters. Moedas: 3n + q = 27. Valor (em centavos): 5n + 20n + 25q = 425 → n + q = 17.
+      Subtraindo: 2n = 10 → n = 5, q = 12. (5 × 5 + 10 × 10 + 12 × 25 = 425 ✓)
+
+  - slug: qr-lin-b6-n5-1
+    subtopic: qr_algebra_linear_equations
+    question_type: multiple_choice
+    difficulty: 5
+    stem: |
+      A store sells batteries only in packs of 6 and packs of 10. A customer bought exactly 74 batteries,
+      including at least one pack of each size, and bought more packs of 10 than packs of 6. How many packs of 6
+      did the customer buy?
+    options:
+      - { label: A, text: "2", correct: false }
+      - { label: B, text: "4", correct: true }
+      - { label: C, text: "5", correct: false }
+      - { label: D, text: "7", correct: false }
+      - { label: E, text: "9", correct: false }
+    answer_check: (74 - 10 * 5) / 6
+    explanation: |
+      6a + 10b = 74 → 3a + 5b = 37. Soluções inteiras positivas: b = 2 → a = 9; b = 5 → a = 4.
+      (b = 8 daria 3a = −3.) Como há mais pacotes de 10 que de 6, b = 5 e a = 4.
+      Armadilha (E): parar na primeira solução encontrada (a = 9, b = 2).
+
+  - slug: qr-lin-b6-n5-2
+    subtopic: qr_algebra_linear_equations
+    question_type: multiple_choice
+    difficulty: 5
+    stem: |
+      If Ana gave Bruno $20, they would have equal amounts of money. If instead Bruno gave Ana $30, Ana would have
+      twice as much money as Bruno. What is the total amount of money Ana and Bruno have?
+    options:
+      - { label: A, text: "$210", correct: false }
+      - { label: B, text: "$240", correct: false }
+      - { label: C, text: "$270", correct: false }
+      - { label: D, text: "$280", correct: false }
+      - { label: E, text: "$300", correct: true }
+    answer_check: 170 + 130 if (170 - 20 == 130 + 20 and 170 + 30 == 2 * (130 - 30)) else 0
+    explanation: |
+      A − 20 = B + 20 → A = B + 40.
+      A + 30 = 2(B − 30) → B + 70 = 2B − 60 → B = 130, A = 170. Total 300.
+      Armadilha: achar que dar $20 cria diferença de $20 (é de $40: um perde, o outro ganha).
+
+  # ------------------------------------------------------------------ valor absoluto
+  - slug: qr-abs-b6-n3-1
+    subtopic: qr_arithmetic_absolute_value
+    question_type: multiple_choice
+    difficulty: 3
+    stem: |
+      How many integers x satisfy |x − 3| < 5 ?
+    options:
+      - { label: A, text: "7", correct: false }
+      - { label: B, text: "8", correct: false }
+      - { label: C, text: "9", correct: true }
+      - { label: D, text: "10", correct: false }
+      - { label: E, text: "11", correct: false }
+    answer_check: 7 - (-1) + 1
+    explanation: |
+      −5 < x − 3 < 5 → −2 < x < 8. Inteiros: −1, 0, 1, …, 7 → 9 valores.
+      Armadilha (E): incluir −2 e 8, mas a desigualdade é estrita.
+
+  - slug: qr-abs-b6-n3-2
+    subtopic: qr_arithmetic_absolute_value
+    question_type: multiple_choice
+    difficulty: 3
+    stem: |
+      What is the sum of all values of x for which |2x − 7| = 11 ?
+    options:
+      - { label: A, text: "−11", correct: false }
+      - { label: B, text: "−2", correct: false }
+      - { label: C, text: "4", correct: false }
+      - { label: D, text: "7", correct: true }
+      - { label: E, text: "9", correct: false }
+    answer_check: (7 + 11) / 2 + (7 - 11) / 2
+    explanation: |
+      2x − 7 = 11 → x = 9; 2x − 7 = −11 → x = −2. Soma: 9 + (−2) = 7.
+
+  - slug: qr-abs-b6-n4-1
+    subtopic: qr_arithmetic_absolute_value
+    question_type: multiple_choice
+    difficulty: 4
+    stem: |
+      If |x + 2| = |x − 6|, what is the value of x ?
+    options:
+      - { label: A, text: "−4", correct: false }
+      - { label: B, text: "−2", correct: false }
+      - { label: C, text: "0", correct: false }
+      - { label: D, text: "2", correct: true }
+      - { label: E, text: "4", correct: false }
+    answer_check: (-2 + 6) / 2
+    explanation: |
+      |x + 2| é a distância de x a −2 e |x − 6| a distância a 6. Equidistante → ponto médio: (−2 + 6)/2 = 2.
+      Algebricamente: x + 2 = −(x − 6) → 2x = 4 → x = 2 (o caso x + 2 = x − 6 é impossível).
+
+  - slug: qr-abs-b6-n4-2
+    subtopic: qr_arithmetic_absolute_value
+    question_type: multiple_choice
+    difficulty: 4
+    stem: |
+      If x < 0 < y, which of the following is equal to |x − y| + |x| − |y| ?
+    options:
+      - { label: A, text: "−2x", correct: true }
+      - { label: B, text: "−2y", correct: false }
+      - { label: C, text: "0", correct: false }
+      - { label: D, text: "2x", correct: false }
+      - { label: E, text: "2y − 2x", correct: false }
+    explanation: |
+      x − y < 0 → |x − y| = y − x. |x| = −x. |y| = y.
+      Soma: (y − x) + (−x) − y = −2x. Teste: x = −1, y = 3 → 4 + 1 − 3 = 2 = −2(−1) ✓.
+
+  - slug: qr-abs-b6-n5-1
+    subtopic: qr_arithmetic_absolute_value
+    question_type: multiple_choice
+    difficulty: 5
+    stem: |
+      For how many integers n is |n − 4| + |n + 2| = 6 ?
+    options:
+      - { label: A, text: "1", correct: false }
+      - { label: B, text: "2", correct: false }
+      - { label: C, text: "5", correct: false }
+      - { label: D, text: "6", correct: false }
+      - { label: E, text: "7", correct: true }
+    answer_check: 4 - (-2) + 1
+    explanation: |
+      A soma das distâncias de n a 4 e a −2 vale no mínimo 6 (a distância entre −2 e 4), e esse mínimo vale para
+      TODO n entre −2 e 4. Inteiros de −2 a 4: 7.
+      Armadilha (B): resolver só os casos "de fora" e achar duas soluções (−2 e 4).

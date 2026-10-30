@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Configurações{% endblock %}
+{% block content %}
+  <h1>Configurações</h1>
+  <form method="post">
+    <div class="card">
+      <h2>Seu plano</h2>
+      <div class="form-grid">
+        <label for="exam_date">Data da prova</label>
+        <input type="date" id="exam_date" name="exam_date" value="{{ values.exam_date or '' }}">
+        <label for="target_score">Nota-meta</label>
+        <div><input type="number" id="target_score" name="target_score" min="405" max="805" step="10" value="{{ values.target_score }}">
+          <span class="muted small">→ cada assunto precisa chegar ao N{{ target_level }} ({{ level_info[target_level].name }})</span></div>
+        <label for="daily_minutes">Minutos por dia</label>
+        <div><input type="number" id="daily_minutes" name="daily_minutes" min="15" max="600" step="5" value="{{ values.daily_minutes }}">
+          <span class="muted small">Para sair do zero até 645, o comum é 100-150h no total (ex.: 90 min/dia por ~3 meses).</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Adaptação de nível</h2>
+      <div class="form-grid">
+        <label>Subir de nível com ≥ % de acerto</label>
+        <input type="number" name="promotion_threshold_pct" min="50" max="100" value="{{ values.promotion_threshold_pct }}">
+        <label>… nas últimas N questões (mín.)</label>
+        <input type="number" name="min_attempts_before_promotion" min="3" max="10" value="{{ values.min_attempts_before_promotion }}">
+        <label>Descer de nível automaticamente</label>
+        <label><input type="checkbox" name="auto_demotion" value="1" {{ 'checked' if values.auto_demotion == '1' }}> sim</label>
+        <label>Descer se acerto &lt; %</label>
+        <input type="number" name="demotion_threshold_pct" min="0" max="60" value="{{ values.demotion_threshold_pct }}">
+        <label>… nas últimas N questões</label>
+        <input type="number" name="min_attempts_before_demotion" min="3" max="10" value="{{ values.min_attempts_before_demotion }}">
+        <label>Teste de fixação: nº de questões</label>
+        <input type="number" name="checkpoint_questions" min="3" max="10" value="{{ values.checkpoint_questions }}">
+        <label>… acertos para passar</label>
+        <input type="number" name="checkpoint_pass_count" min="1" max="10" value="{{ values.checkpoint_pass_count }}">
+        <label>Mandar para revisão se demorar mais que (× meta)</label>
+        <input type="number" name="slow_answer_factor" min="1" max="5" step="0.1" value="{{ values.slow_answer_factor }}">
+        <label>Calibrar estimativa com simulados oficiais</label>
+        <label><input type="checkbox" name="use_calibration" value="1" {{ 'checked' if values.use_calibration == '1' }}> sim</label>
+      </div>
+    </div>
+    <button class="btn" type="submit">Salvar</button>
+  </form>
+
+  <div class="card" style="margin-top:18px">
+    <h2>Níveis de dificuldade</h2>
+    <table class="stats-table">
+      <thead><tr><th>Nível</th><th>Faixa de nota em que ele "separa" candidatos</th></tr></thead>
+      {% for lvl, info in level_info | dictsort %}
+        <tr><td><span class="badge lv{{ lvl }}">N{{ lvl }} · {{ info.name }}</span></td><td>{{ info.band }}</td></tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Dados</h2>
+    <p class="small">Tudo fica em <code>instance/gmat_trainer.sqlite3</code>. Faça backup com <code>python scripts/backup_db.py</code>.
+      Curadoria do banco: {% if not config.DEMO_MODE %}<a href="/admin">/admin</a> · {% endif %}<a href="{{ url_for('questions.flagged') }}">questões reportadas</a>.</p>
+  </div>
+{% endblock %}

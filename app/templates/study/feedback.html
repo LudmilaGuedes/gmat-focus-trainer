@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% from "study/_question_types/_macros.html" import level_badge, level_bar %}
+{% block title %}Correção — {{ state.label }}{% endblock %}
+{% block page_class %}{{ 'wide' if question.question_set else '' }}{% endblock %}
+{% block content %}
+  <div class="q-toolbar">
+    <div><strong>{{ state.label }}</strong> <span class="muted">· {{ state.correct }}/{{ state.count }} certas nesta prática</span></div>
+    <div class="row">
+      <a class="btn" href="{{ url_for('study.question') }}" autofocus>Próxima questão →</a>
+    </div>
+  </div>
+
+  <div class="feedback {{ 'correct' if last.correct else 'incorrect' }}">
+    <div class="spread">
+      <strong>{{ 'Você acertou!' if last.correct else 'Você errou.' }}</strong>
+      <span class="num">
+        ⏱ {{ last.seconds | mmss }}
+        {% if last.seconds and last.seconds > target_seconds %}<span class="badge warn">acima da meta de {{ target_seconds | mmss }}</span>{% elif last.seconds %}<span class="badge ok">dentro da meta</span>{% endif %}
+      </span>
+    </div>
+    {% if last.queued %}
+      <p class="small" style="margin:6px 0 0">
+        {% if not last.correct %}Esta questão foi para a fila de revisão espaçada (volta amanhã).
+        {% elif last.guessed %}Você marcou que chutou — ela volta amanhã para confirmar.
+        {% else %}Certa, mas lenta: ela volta em 3 dias para você ganhar velocidade.{% endif %}
+      </p>
+    {% endif %}
+    {% if last.correct %}{% with question_id=question.id, known=known %}{% include "review/_known_button.html" %}{% endwith %}{% endif %}
+  </div>
+
+  {% if last.level_change %}
+    {% set old, new = last.level_change %}
+    <div class="feedback info">
+      {% if new > old %}🎉 <strong>Subiu de nível!</strong> {{ question.subtopic.name }}: N{{ old }} → {{ level_badge(new) }}. As próximas questões deste assunto serão mais difíceis.
+      {% else %}<strong>Nível ajustado:</strong> {{ question.subtopic.name }}: N{{ old }} → {{ level_badge(new) }}. Consolide a base antes de voltar a subir — revise a lição.{% endif %}
+    </div>
+  {% endif %}
+
+  {% if weak and lesson %}
+    <div class="feedback warn">
+      Você está errando bastante em <strong>{{ question.subtopic.name }}</strong>.
+      <a href="{{ url_for('learn.lesson_review', subtopic_id=question.subtopic_id) }}">Revise os pontos-chave</a>
+      ou <a href="{{ url_for('learn.lesson', subtopic_id=question.subtopic_id) }}">releia a lição completa</a> antes de continuar.
+    </div>
+  {% endif %}
+
+  <div class="card">
+    <p class="muted small">{{ question.subtopic.name }} · {{ level_badge(question.difficulty) }} · nível do assunto: {{ level_bar(progress.level) }} N{{ progress.level }}</p>
+    {% set selected_answer = last.selected %}
+    {% include "study/_question_body.html" %}
+  </div>
+
+  <div class="card">
+    <h2>Sua resposta</h2>
+    {% include "study/_breakdown.html" %}
+    <h2 style="margin-top:14px">Solução</h2>
+    <div class="explanation">{{ question.explanation_text | mathfmt }}</div>
+  </div>
+
+  {% if not last.correct or last.guessed %}
+    <div class="card">
+      <h2>Por que errou?</h2>
+      <p class="muted small">Classificar o erro é o que transforma erro em aprendizado — o caderno de erros mostra seus padrões.</p>
+      <div id="reason-box">{% set item = None %}{% include "review/_reason_form.html" %}</div>
+    </div>
+  {% endif %}
+
+  <div class="spread">
+    <div class="row">
+      <a class="btn" href="{{ url_for('study.question') }}">Próxima questão →</a>
+      <form method="post" action="{{ url_for('study.end_session') }}" class="inline-form">
+        <button class="btn secondary" type="submit">Encerrar e ver relatório</button>
+      </form>
+    </div>
+    <details>
+      <summary class="muted small">Essa questão tem um erro?</summary>
+      <form method="post" action="{{ url_for('questions.flag', question_id=question.id) }}" class="row" style="margin-top:6px">
+        <input type="hidden" name="next" value="{{ url_for('study.question') }}">
+        <input type="text" name="note" placeholder="O que está errado?" style="min-width:240px">
+        <button class="btn small danger" type="submit">Reportar e pular</button>
+      </form>
+    </details>
+  </div>
+
+  {% if goal_reached %}
+    <div class="feedback correct">✅ Meta de {{ state.goal }} questões de hoje cumprida! Pode continuar ou encerrar.</div>
+  {% endif %}
+{% endblock %}
+{% block scripts %}
+<script>
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+      window.location = "{{ url_for('study.question') }}";
+    }
+  });
+</script>
+{% endblock %}

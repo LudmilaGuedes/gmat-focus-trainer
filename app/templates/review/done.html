@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Revisão concluída{% endblock %}
+{% block content %}
+  <h1>Revisão concluída</h1>
+  <div class="feedback correct">
+    <div class="big num">{{ result.correct }}/{{ result.done }}</div>
+    <p style="margin:4px 0 0">itens lembrados corretamente.</p>
+  </div>
+  {% if due_now %}<p>Ainda há <strong>{{ due_now }}</strong> itens vencidos. <a href="{{ url_for('review.start') }}">Continuar revisando</a>.</p>
+  {% elif next_due %}<p class="muted">Próximo item vence em {{ next_due.strftime('%d/%m') }}.</p>{% endif %}
+  <a class="btn" href="{{ url_for('home.index') }}">Voltar para o plano de hoje</a>
+{% endblock %}

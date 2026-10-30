@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% set hide_nav = true %}
+{% block title %}Simulado — {{ msec.section.name }}{% endblock %}
+{% block content %}
+  <div class="card" style="margin-top:40px; text-align:center">
+    <div class="muted">Seção {{ msec.order + 1 }} de {{ mock_exam.sections | length }}</div>
+    <h1>{{ msec.section.name }}</h1>
+    <p>{{ msec.questions_planned }} questões · {{ (msec.time_limit_seconds // 60) }} minutos</p>
+    <p class="muted small">
+      Ritmo-alvo: ~{{ ((msec.time_limit_seconds / msec.questions_planned) | int) | mmss }} por questão.
+      {% if msec.section.code == 'DI' %}Calculadora permitida nesta seção.{% elif msec.section.code == 'QR' %}Sem calculadora.{% endif %}
+    </p>
+    <a class="btn" href="{{ url_for('mock_exam.section_view', mock_exam_id=mock_exam.id, mock_section_id=msec.id) }}">Começar (o tempo começa a contar)</a>
+  </div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Simulados{% endblock %}
+{% block content %}
+  <div class="spread">
+    <h1>Simulados</h1>
+    <a class="btn" href="{{ url_for('mock_exam.start_form') }}">Novo simulado</a>
+  </div>
+  {% if in_progress %}
+    <div class="feedback warn">Simulado em andamento. <a href="{{ url_for('mock_exam.resume', mock_exam_id=in_progress.id) }}">Continuar</a></div>
+  {% endif %}
+
+  {% if chart_totals or officials %}
+    <div class="card"><canvas id="history-chart" height="220"></canvas></div>
+  {% endif %}
+
+  <div class="card">
+    <table class="stats-table">
+      <thead><tr><th>Data</th><th>Tipo</th><th>Total</th><th>QR</th><th>VR</th><th>DI</th><th></th></tr></thead>
+      <tbody>
+        {% for r in results %}
+          <tr>
+            <td>{{ r.completed_at.strftime('%d/%m/%Y') }}</td>
+            <td class="small">{{ 'completa' if r.mock_exam.kind == 'full' else 'seção' }}{% if r.mock_exam.pause_count %} <span title="Feito com pausa — não foi em condições reais de prova">⏸</span>{% endif %}</td>
+            <td><strong>{{ r.total_scaled_score or '—' }}</strong></td>
+            <td>{{ r.qr_scaled_score or '—' }}</td>
+            <td>{{ r.vr_scaled_score or '—' }}</td>
+            <td>{{ r.di_scaled_score or '—' }}</td>
+            <td><a class="small" href="{{ url_for('mock_exam.results', mock_exam_id=r.mock_exam_id) }}">revisar</a></td>
+          </tr>
+        {% else %}
+          <tr><td colspan="7" class="muted">Nenhum simulado concluído ainda.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="muted small">Notas de simulados oficiais (mba.com) são registradas em <a href="{{ url_for('progress.index') }}#oficiais">Progresso</a>.</p>
+{% endblock %}
+{% block scripts %}
+  {% if chart_totals or officials %}
+    <script src="{{ url_for('static', filename='js/chart.min.js') }}"></script>
+    <script>
+      new Chart(document.getElementById('history-chart'), {
+        type: 'line',
+        data: {
+          labels: {{ chart_labels | tojson }},
+          datasets: [{ label: 'Simulados do app (total)', data: {{ chart_totals | tojson }}, borderColor: '#5b45c9', tension: 0.2 }]
+        },
+        options: { scales: { y: { min: 405, max: 805 } } }
+      });
+    </script>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{# htmx: "Já sei" on a correct answer. Needs: question_id, known. #}
+<div id="known-box" class="small" style="margin-top:6px">
+  {% if known %}
+    ✓ <strong>Já sei</strong> — esta questão não volta mais na revisão nem na prática.
+  {% else %}
+    <form hx-post="{{ url_for('review.known', question_id=question_id) }}" hx-target="#known-box" hx-swap="outerHTML" class="inline-form">
+      <button class="btn small secondary" type="submit">✓ Já sei esse conteúdo</button>
+      <span class="muted">não mostrar esta questão de novo</span>
+    </form>
+  {% endif %}
+</div>

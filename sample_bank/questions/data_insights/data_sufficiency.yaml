@@ -1,0 +1,151 @@
+# Banco de exemplo — Data Sufficiency quantitativa (questões originais).
+
+questions:
+  - slug: di-ds-q-b6-n4-1
+    subtopic: di_ds_quantitative
+    question_type: data_sufficiency
+    difficulty: 4
+    stem: |
+      Is x > y ?
+    stimulus: |
+      (1) x^2 > y^2
+      (2) x + y > 0
+    options:
+      - { label: A, text: "Statement (1) ALONE is sufficient, but statement (2) alone is not sufficient.", correct: false }
+      - { label: B, text: "Statement (2) ALONE is sufficient, but statement (1) alone is not sufficient.", correct: false }
+      - { label: C, text: "BOTH statements TOGETHER are sufficient, but NEITHER statement ALONE is sufficient.", correct: true }
+      - { label: D, text: "EACH statement ALONE is sufficient.", correct: false }
+      - { label: E, text: "Statements (1) and (2) TOGETHER are NOT sufficient.", correct: false }
+    explanation: |
+      (1) x = 3, y = 1 → sim; x = −3, y = 1 → não. Insuficiente.
+      (2) x = 1, y = 0 → sim; x = 0, y = 1 → não. Insuficiente.
+      Juntas: x² − y² = (x − y)(x + y) > 0 e x + y > 0 → x − y > 0 → sim. Resposta: C.
+
+  - slug: di-ds-q-b6-n4-2
+    subtopic: di_ds_quantitative
+    question_type: data_sufficiency
+    difficulty: 4
+    stem: |
+      If n is a positive integer, what is the remainder when n is divided by 6 ?
+    stimulus: |
+      (1) When n is divided by 12, the remainder is 7.
+      (2) When n is divided by 4, the remainder is 3.
+    options:
+      - { label: A, text: "Statement (1) ALONE is sufficient, but statement (2) alone is not sufficient.", correct: true }
+      - { label: B, text: "Statement (2) ALONE is sufficient, but statement (1) alone is not sufficient.", correct: false }
+      - { label: C, text: "BOTH statements TOGETHER are sufficient, but NEITHER statement ALONE is sufficient.", correct: false }
+      - { label: D, text: "EACH statement ALONE is sufficient.", correct: false }
+      - { label: E, text: "Statements (1) and (2) TOGETHER are NOT sufficient.", correct: false }
+    explanation: |
+      (1) n = 12k + 7 = 6(2k + 1) + 1 → resto 1 sempre. Suficiente.
+      (2) n = 3, 7, 11… → restos 3, 1, 5 na divisão por 6. Insuficiente.
+      Resposta: A. (Como 12 é múltiplo de 6, o resto por 12 determina o resto por 6; o resto por 4 não.)
+
+  - slug: di-ds-q-b6-n4-3
+    subtopic: di_ds_quantitative
+    question_type: data_sufficiency
+    difficulty: 4
+    stem: |
+      A store sold shirts for $15 each and hats for $9 each, and its revenue from these sales was $201. How many
+      shirts did the store sell?
+    stimulus: |
+      (1) The store sold a total of 17 shirts and hats.
+      (2) The store sold more shirts than hats.
+    options:
+      - { label: A, text: "Statement (1) ALONE is sufficient, but statement (2) alone is not sufficient.", correct: false }
+      - { label: B, text: "Statement (2) ALONE is sufficient, but statement (1) alone is not sufficient.", correct: false }
+      - { label: C, text: "BOTH statements TOGETHER are sufficient, but NEITHER statement ALONE is sufficient.", correct: false }
+      - { label: D, text: "EACH statement ALONE is sufficient.", correct: true }
+      - { label: E, text: "Statements (1) and (2) TOGETHER are NOT sufficient.", correct: false }
+    explanation: |
+      15s + 9h = 201 → 5s + 3h = 67. Soluções inteiras não negativas: (s, h) = (2, 19), (5, 14), (8, 9), (11, 4).
+      (1) s + h = 17 → só (8, 9). Suficiente.
+      (2) s > h → só (11, 4). Suficiente.
+      Resposta: D. Armadilha: achar que a equação de receita sozinha tem "infinitas" soluções e marcar C;
+      com inteiros, liste os casos.
+
+  - slug: di-ds-q-b6-n4-4
+    subtopic: di_ds_quantitative
+    question_type: data_sufficiency
+    difficulty: 4
+    stem: |
+      If k is a positive integer, is k divisible by 6 ?
+    stimulus: |
+      (1) k is divisible by 3.
+      (2) k^2 is divisible by 12.
+    options:
+      - { label: A, text: "Statement (1) ALONE is sufficient, but statement (2) alone is not sufficient.", correct: false }
+      - { label: B, text: "Statement (2) ALONE is sufficient, but statement (1) alone is not sufficient.", correct: true }
+      - { label: C, text: "BOTH statements TOGETHER are sufficient, but NEITHER statement ALONE is sufficient.", correct: false }
+      - { label: D, text: "EACH statement ALONE is sufficient.", correct: false }
+      - { label: E, text: "Statements (1) and (2) TOGETHER are NOT sufficient.", correct: false }
+    explanation: |
+      (1) k = 3 → não; k = 6 → sim. Insuficiente.
+      (2) 12 = 2² · 3 divide k². Se 2 divide k², 2 divide k; se 3 divide k², 3 divide k. Logo 6 divide k → sim.
+      Suficiente. Resposta: B.
+      Armadilha: achar que k² divisível por 12 exige k divisível por 12 (k = 6: k² = 36 ✓).
+
+  - slug: di-ds-q-b6-n5-1
+    subtopic: di_ds_quantitative
+    question_type: data_sufficiency
+    difficulty: 5
+    stem: |
+      If x and y are positive, is x/y > (x + 3)/(y + 3) ?
+    stimulus: |
+      (1) xy > y^2
+      (2) x > 3
+    options:
+      - { label: A, text: "Statement (1) ALONE is sufficient, but statement (2) alone is not sufficient.", correct: true }
+      - { label: B, text: "Statement (2) ALONE is sufficient, but statement (1) alone is not sufficient.", correct: false }
+      - { label: C, text: "BOTH statements TOGETHER are sufficient, but NEITHER statement ALONE is sufficient.", correct: false }
+      - { label: D, text: "EACH statement ALONE is sufficient.", correct: false }
+      - { label: E, text: "Statements (1) and (2) TOGETHER are NOT sufficient.", correct: false }
+    explanation: |
+      Reformule (y e y + 3 positivos): x(y + 3) > y(x + 3) ⇔ 3x > 3y ⇔ x > y. A pergunta é "x > y?".
+      (1) y > 0 → divida por y: x > y → sim. Suficiente.
+      (2) x = 4, y = 1 → sim; x = 4, y = 10 → não. Insuficiente.
+      Resposta: A.
+
+  - slug: di-ds-q-b6-n5-2
+    subtopic: di_ds_quantitative
+    question_type: data_sufficiency
+    difficulty: 5
+    stem: |
+      Set S consists of five different positive integers whose average (arithmetic mean) is 10. Is the greatest
+      integer in S at least 20 ?
+    stimulus: |
+      (1) The median of S is 13.
+      (2) The least integer in S is 1.
+    options:
+      - { label: A, text: "Statement (1) ALONE is sufficient, but statement (2) alone is not sufficient.", correct: false }
+      - { label: B, text: "Statement (2) ALONE is sufficient, but statement (1) alone is not sufficient.", correct: false }
+      - { label: C, text: "BOTH statements TOGETHER are sufficient, but NEITHER statement ALONE is sufficient.", correct: false }
+      - { label: D, text: "EACH statement ALONE is sufficient.", correct: false }
+      - { label: E, text: "Statements (1) and (2) TOGETHER are NOT sufficient.", correct: true }
+    explanation: |
+      Soma = 50.
+      (1) {1, 2, 13, 14, 20} → sim; {3, 5, 13, 14, 15} → não. Insuficiente.
+      (2) {1, 2, 3, 4, 40} → sim; {1, 10, 12, 13, 14} → não. Insuficiente.
+      Juntas: {1, 2, 13, 14, 20} → sim; {1, 7, 13, 14, 15} → não (soma 50 ✓). Insuficiente. Resposta: E.
+      Armadilha: supor que fixar mínimo e mediana "trava" o máximo. Ainda sobra folga no 2º e no 4º termos.
+
+  - slug: di-ds-q-b6-n5-3
+    subtopic: di_ds_quantitative
+    question_type: data_sufficiency
+    difficulty: 5
+    stem: |
+      Is |x − 3| < |x + 1| ?
+    stimulus: |
+      (1) x > 0
+      (2) x^2 > 4
+    options:
+      - { label: A, text: "Statement (1) ALONE is sufficient, but statement (2) alone is not sufficient.", correct: false }
+      - { label: B, text: "Statement (2) ALONE is sufficient, but statement (1) alone is not sufficient.", correct: false }
+      - { label: C, text: "BOTH statements TOGETHER are sufficient, but NEITHER statement ALONE is sufficient.", correct: true }
+      - { label: D, text: "EACH statement ALONE is sufficient.", correct: false }
+      - { label: E, text: "Statements (1) and (2) TOGETHER are NOT sufficient.", correct: false }
+    explanation: |
+      Reformule: x está mais perto de 3 do que de −1 ⇔ x > 1 (ponto médio entre −1 e 3).
+      (1) x = 0,5 → não; x = 5 → sim. Insuficiente.
+      (2) x > 2 ou x < −2: x = 3 → sim; x = −3 → não. Insuficiente.
+      Juntas: x > 2 → x > 1 → sim. Resposta: C.

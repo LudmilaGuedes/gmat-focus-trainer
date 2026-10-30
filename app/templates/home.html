@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% from "study/_question_types/_macros.html" import level_badge, level_bar %}
+{% block title %}Hoje — GMAT Focus Trainer{% endblock %}
+{% block content %}
+  <div class="spread">
+    <div>
+      <h1>Plano de hoje</h1>
+      <p class="muted" style="margin:0">
+        Fase {{ plan.phase }} de 4 — <strong>{{ plan.phase_name }}</strong>: {{ plan.phase_goal }}
+      </p>
+    </div>
+    <div class="muted small" style="text-align:right">
+      {% if plan.days_left is not none %}
+        <div class="big num">{{ plan.days_left }}</div>dias até a prova ({{ exam_date.strftime('%d/%m/%Y') }})
+      {% else %}
+        <a href="{{ url_for('settings.index') }}">Defina a data da sua prova</a><br>para o plano calcular o ritmo.
+      {% endif %}
+    </div>
+  </div>
+
+  {% if plan.overview.lessons_done == 0 and estimate.n == 0 %}
+    <div class="card hl" style="margin-top:16px">
+      <h2>Boas-vindas! Como usar</h2>
+      <ol class="stack" style="margin:0; padding-left:20px">
+        <li>Em <a href="{{ url_for('settings.index') }}">⚙ Configurações</a>, coloque a data da prova, a meta (645) e quantos minutos por dia você tem.</li>
+        <li>Leia o <a href="{{ url_for('resources.guide') }}">Guia</a> (10 min) para entender a prova e o método.</li>
+        <li>Opcional mas recomendado: faça o <strong>simulado oficial gratuito</strong> da GMAC como diagnóstico e registre a nota em Progresso.</li>
+        <li>Depois é só abrir esta página todo dia e fazer as tarefas de cima para baixo.</li>
+      </ol>
+    </div>
+  {% endif %}
+
+  <div class="card" style="margin-top:16px">
+    <div class="spread">
+      <h2 style="margin:0">Tarefas</h2>
+      <span class="muted small">~{{ plan.planned_minutes }} min planejados de {{ plan.daily_minutes }} · {{ plan.activity.practice }} questões praticadas hoje · {{ plan.activity.question_minutes }} min em questões</span>
+    </div>
+    {% for task in plan.tasks %}
+      <div class="task {{ 'done' if task.done }}">
+        <div class="check">{% if task.done %}✓{% endif %}</div>
+        <div class="body">
+          <div class="title">{{ task.title }}</div>
+          <div class="muted small">{{ task.detail }}</div>
+        </div>
+        <div class="row" style="flex:none">
+          <span class="muted small num">{% if task.progress %}{{ task.progress }} · {% endif %}~{{ task.minutes }} min</span>
+          {% if task.url and not task.done %}
+            <a class="btn small" href="{{ url_for(task.url[0], **task.url[1]) }}">Começar</a>
+          {% elif task.url and task.kind == 'practice' %}
+            <a class="btn small ghost" href="{{ url_for(task.url[0], **task.url[1]) }}">Mais</a>
+          {% endif %}
+        </div>
+      </div>
+    {% else %}
+      <p class="muted">Nada pendente — ótimo dia para um simulado ou para praticar livremente.</p>
+    {% endfor %}
+  </div>
+
+  {% if plan.suggestions %}
+    <div class="grid">
+      {% for s in plan.suggestions %}
+        <div class="card">
+          <h2>💡 {{ s.title }}</h2>
+          <p class="muted small">{{ s.detail }}</p>
+          <a class="btn small secondary" href="{{ url_for(s.url[0], **s.url[1]) }}">Abrir</a>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <h2 style="margin-top:24px">Onde você está</h2>
+  <div class="grid">
+    <div class="card">
+      <div class="muted small">Nota estimada (total)</div>
+      {% if estimate.complete %}
+        <div class="big num">{{ estimate.total }}</div>
+        <div class="muted small">faixa provável {{ estimate.low }}–{{ estimate.high }} · meta {{ plan.target_score }}
+          {% if estimate.offset %}· calibrada com simulados oficiais ({{ '%+d' % estimate.offset }}){% endif %}</div>
+        {% if not estimate.reliable %}<div class="small" style="margin-top:6px">⚠ Ainda poucos dados — a estimativa fica confiável com ~15+ questões por seção.</div>{% endif %}
+      {% else %}
+        <div class="big muted">—</div>
+        <div class="muted small">Aparece quando as 3 seções tiverem pelo menos 5 questões respondidas (prática, testes ou simulado).</div>
+      {% endif %}
+    </div>
+    {% for code, s in estimate.sections.items() %}
+      {% set lv = section_levels.get(code, {}) %}
+      <div class="card">
+        <div class="muted small">{{ s.name }}</div>
+        <div class="spread">
+          <div><span class="big num">{{ s.score if s.n else '—' }}</span> <span class="muted small">/ 90</span></div>
+          <a class="btn small ghost" href="{{ url_for('content.section_detail', section_code=code) }}">Detalhes</a>
+        </div>
+        <div class="muted small">{{ s.n }} questões consideradas{% if s.n %} · ±{{ ((s.high - s.low) / 2) | round | int }}{% endif %}</div>
+        <div class="small" style="margin-top:6px">
+          Assuntos iniciados: {{ lv.started or 0 }}/{{ lv.total or 0 }}
+          {% if lv.avg_level %} · nível médio N{{ lv.avg_level }}{% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="card">
+    <div class="spread">
+      <h2 style="margin:0">Trilha</h2>
+      <a class="small" href="{{ url_for('learn.track') }}">ver trilha completa →</a>
+    </div>
+    <div class="grid three" style="margin-top:10px">
+      <div><div class="muted small">Lições</div><div class="num"><strong>{{ plan.overview.lessons_done }}</strong>/{{ plan.overview.total }}</div>
+        <div class="progress"><span style="width:{{ (100 * plan.overview.lessons_done / plan.overview.total) if plan.overview.total else 0 }}%"></span></div></div>
+      <div><div class="muted small">No N3 ou acima</div><div class="num"><strong>{{ plan.overview.at_level3 }}</strong>/{{ plan.overview.total }}</div>
+        <div class="progress"><span style="width:{{ (100 * plan.overview.at_level3 / plan.overview.total) if plan.overview.total else 0 }}%"></span></div></div>
+      <div><div class="muted small">Na meta ({{ level_badge(plan.target_level) }})</div><div class="num"><strong>{{ plan.overview.at_target }}</strong>/{{ plan.overview.total }}</div>
+        <div class="progress"><span style="width:{{ (100 * plan.overview.at_target / plan.overview.total) if plan.overview.total else 0 }}%"></span></div></div>
+    </div>
+    {% if plan.remaining_lessons and plan.lessons_per_day %}
+      <p class="muted small" style="margin-bottom:0">Ritmo: {{ plan.lessons_per_day }} lição(ões) nova(s) por dia para terminar a teoria com folga para treinar antes da prova.</p>
+    {% endif %}
+  </div>
+{% endblock %}

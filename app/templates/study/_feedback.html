@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Resultado — {{ content_area.name }}{% endblock %}
+{% block content %}
+  <a class="muted" href="{{ url_for('content.content_detail', content_area_id=content_area.id) }}">&larr; {{ content_area.name }}</a>
+  <h1>{{ content_area.name }}</h1>
+  <span class="badge {{ question.difficulty }}">{{ question.difficulty }}</span>
+
+  <div class="feedback {{ 'correct' if is_correct else 'incorrect' }}">
+    <strong>{{ 'Você acertou!' if is_correct else 'Você errou.' }}</strong>
+  </div>
+
+  <div class="card">
+    <h2>Solução</h2>
+    <p style="white-space:pre-wrap">{{ question.explanation_text }}</p>
+  </div>
+
+  <a class="btn" href="{{ url_for('study.practice', content_area_id=content_area.id) }}">Próxima questão</a>
+  <form method="post" action="{{ url_for('study.end_session') }}" style="display:inline">
+    <button class="btn secondary" type="submit">Encerrar sessão e ver relatório</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,150 @@
+# Banco de exemplo — Quantitative Reasoning, N1-N2 (questões originais). Alimentam o teste de fixação de cada assunto.
+
+questions:
+  - slug: qr-abs-s-n1-1
+    subtopic: qr_arithmetic_absolute_value
+    question_type: multiple_choice
+    difficulty: 1
+    stem: |
+      What is the value of |−7| − |3 − 10| ?
+    options:
+      - { label: A, text: "−14", correct: false }
+      - { label: B, text: "−7", correct: false }
+      - { label: C, text: "0", correct: true }
+      - { label: D, text: "7", correct: false }
+      - { label: E, text: "14", correct: false }
+    answer_check: 7 - 7
+    explanation: |
+      |−7| = 7 e |3 − 10| = |−7| = 7. Então 7 − 7 = 0.
+
+  - slug: qr-abs-s-n2-1
+    subtopic: qr_arithmetic_absolute_value
+    question_type: multiple_choice
+    difficulty: 2
+    stem: |
+      If |x − 4| = 9, which of the following could be the value of x ?
+    options:
+      - { label: A, text: "−13", correct: false }
+      - { label: B, text: "−5", correct: true }
+      - { label: C, text: "5", correct: false }
+      - { label: D, text: "9", correct: false }
+      - { label: E, text: "14", correct: false }
+    answer_check: 4 - 9
+    explanation: |
+      x − 4 = 9 → x = 13, ou x − 4 = −9 → x = −5. Só −5 aparece nas alternativas.
+
+  - slug: qr-abs-s-n2-2
+    subtopic: qr_arithmetic_absolute_value
+    question_type: multiple_choice
+    difficulty: 2
+    stem: |
+      If x < 0, which of the following is equal to |x| + x ?
+    options:
+      - { label: A, text: "0", correct: true }
+      - { label: B, text: "x", correct: false }
+      - { label: C, text: "−x", correct: false }
+      - { label: D, text: "2x", correct: false }
+      - { label: E, text: "−2x", correct: false }
+    explanation: |
+      Com x negativo, |x| = −x. Então |x| + x = −x + x = 0. Teste: x = −3 → 3 + (−3) = 0.
+
+  - slug: qr-fdp-s-n1-1
+    subtopic: qr_arithmetic_fractions_decimals_percent
+    question_type: multiple_choice
+    difficulty: 1
+    stem: |
+      What is 15 percent of 240 ?
+    options:
+      - { label: A, text: "24", correct: false }
+      - { label: B, text: "30", correct: false }
+      - { label: C, text: "36", correct: true }
+      - { label: D, text: "40", correct: false }
+      - { label: E, text: "48", correct: false }
+    answer_check: 0.15 * 240
+    explanation: |
+      10% de 240 = 24 e 5% = 12. 15% = 24 + 12 = 36.
+
+  - slug: qr-fdp-s-n2-1
+    subtopic: qr_arithmetic_fractions_decimals_percent
+    question_type: multiple_choice
+    difficulty: 2
+    stem: |
+      A jacket originally priced at $120 is on sale for 25 percent off. A sales tax of 8 percent is then added to the
+      sale price. What is the total cost of the jacket?
+    options:
+      - { label: A, text: "$87.20", correct: false }
+      - { label: B, text: "$90.00", correct: false }
+      - { label: C, text: "$92.40", correct: false }
+      - { label: D, text: "$97.20", correct: true }
+      - { label: E, text: "$99.60", correct: false }
+    answer_check: 120 * 0.75 * 1.08
+    explanation: |
+      Preço com desconto: 120 × 0,75 = 90. Com imposto: 90 × 1,08 = 97,20.
+      Armadilha: fazer 25% − 8% = 17% de desconto (120 × 0,83 = 99,60).
+
+  - slug: qr-np-s-n1-1
+    subtopic: qr_arithmetic_number_properties
+    question_type: multiple_choice
+    difficulty: 1
+    stem: |
+      What is the remainder when 85 is divided by 6 ?
+    options:
+      - { label: A, text: "1", correct: true }
+      - { label: B, text: "2", correct: false }
+      - { label: C, text: "3", correct: false }
+      - { label: D, text: "4", correct: false }
+      - { label: E, text: "5", correct: false }
+    answer_check: 85 % 6
+    explanation: |
+      6 × 14 = 84, e 85 − 84 = 1.
+
+  - slug: qr-np-s-n2-1
+    subtopic: qr_arithmetic_number_properties
+    question_type: multiple_choice
+    difficulty: 2
+    stem: |
+      Which of the following is a prime number?
+    options:
+      - { label: A, text: "51", correct: false }
+      - { label: B, text: "57", correct: false }
+      - { label: C, text: "87", correct: false }
+      - { label: D, text: "89", correct: true }
+      - { label: E, text: "91", correct: false }
+    answer_check: 89
+    explanation: |
+      51 = 3 × 17, 57 = 3 × 19, 87 = 3 × 29 (a soma dos algarismos é múltiplo de 3) e 91 = 7 × 13.
+      89 não é divisível por 2, 3, 5 nem 7 (e 7² = 49 < 89 < 100 = 10²), logo é primo.
+
+  - slug: qr-lin-s-n1-1
+    subtopic: qr_algebra_linear_equations
+    question_type: multiple_choice
+    difficulty: 1
+    stem: |
+      If 4x − 7 = 21, what is the value of x ?
+    options:
+      - { label: A, text: "3", correct: false }
+      - { label: B, text: "3.5", correct: false }
+      - { label: C, text: "5", correct: false }
+      - { label: D, text: "7", correct: true }
+      - { label: E, text: "14", correct: false }
+    answer_check: (21 + 7) / 4
+    explanation: |
+      4x = 28 → x = 7. Armadilha (B): fazer (21 − 7)/4.
+
+  - slug: qr-lin-s-n2-1
+    subtopic: qr_algebra_linear_equations
+    question_type: multiple_choice
+    difficulty: 2
+    stem: |
+      A phone plan costs $20 per month plus $0.05 for each text message sent. If one month's bill was $27.50, how
+      many text messages were sent that month?
+    options:
+      - { label: A, text: "125", correct: false }
+      - { label: B, text: "150", correct: true }
+      - { label: C, text: "175", correct: false }
+      - { label: D, text: "200", correct: false }
+      - { label: E, text: "550", correct: false }
+    answer_check: (27.50 - 20) / 0.05
+    explanation: |
+      20 + 0,05t = 27,50 → 0,05t = 7,50 → t = 150.
+      Armadilha (E): dividir a conta inteira por 0,05, esquecendo a mensalidade fixa.

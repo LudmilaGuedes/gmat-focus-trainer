@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Teste de fixação — {{ subtopic.name }}{% endblock %}
+{% block page_class %}{{ 'wide' if question.question_set else '' }}{% endblock %}
+{% block content %}
+  <div class="q-toolbar">
+    <div><strong>Teste de fixação: {{ subtopic.name }}</strong> <span class="muted">· questão {{ number }} de {{ total }}</span></div>
+    {% set target_seconds = 150 %}{% include "study/_stopwatch.html" %}
+  </div>
+  <form method="post" action="{{ url_for('learn.checkpoint_answer') }}" class="card">
+    <input type="hidden" name="question_id" value="{{ question.id }}">
+    {% include "study/_question_body.html" %}
+    <div class="spread" style="margin-top:10px">
+      <label class="muted"><input type="checkbox" name="guessed" value="1"> Chutei / não tenho certeza</label>
+      <button class="btn" type="submit">Responder</button>
+    </div>
+  </form>
+{% endblock %}

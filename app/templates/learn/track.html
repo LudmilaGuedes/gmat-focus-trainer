@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% from "study/_question_types/_macros.html" import level_badge, level_bar %}
+{% block title %}Trilha de estudo{% endblock %}
+{% block content %}
+  <h1>Trilha de estudo</h1>
+  <p class="muted">
+    Cada assunto passa por: <strong>lição</strong> → <strong>teste de fixação</strong> → <strong>prática N1…N5</strong>.
+    Sua meta exige chegar ao {{ level_badge(overview.target_level) }} em cada assunto.
+    A ordem abaixo já intercala Quant, Verbal e Data Insights e respeita pré-requisitos — siga de cima para baixo.
+  </p>
+
+  <div class="grid three">
+    <div class="card kpi"><div class="label">Fase atual</div><div class="value">{{ phase }}. {{ phases[phase][0] }}</div><div class="muted small">{{ phases[phase][1] }}</div></div>
+    <div class="card kpi"><div class="label">Lições estudadas</div><div class="value">{{ overview.lessons_done }}/{{ overview.total }}</div>
+      <div class="progress"><span style="width:{{ (100 * overview.lessons_done / overview.total) if overview.total else 0 }}%"></span></div></div>
+    <div class="card kpi"><div class="label">No nível 3+</div><div class="value">{{ overview.at_level3 }}/{{ overview.total }}</div>
+      <div class="progress"><span style="width:{{ (100 * overview.at_level3 / overview.total) if overview.total else 0 }}%"></span></div></div>
+    <div class="card kpi"><div class="label">Na meta (N{{ overview.target_level }}+)</div><div class="value">{{ overview.at_target }}/{{ overview.total }}</div>
+      <div class="progress"><span style="width:{{ (100 * overview.at_target / overview.total) if overview.total else 0 }}%"></span></div></div>
+  </div>
+
+  {% if next_item %}
+    <div class="card hl">
+      <div class="spread">
+        <div>
+          <div class="muted small">Próximo passo na trilha</div>
+          <h2 style="margin:2px 0">{{ next_item.subtopic.name }}</h2>
+          <div class="muted small">{{ next_item.subtopic.content_area.section.code }} · {{ next_item.subtopic.content_area.name }}</div>
+        </div>
+        {% if next_item.status == 'new' %}
+          <a class="btn" href="{{ url_for('learn.lesson', subtopic_id=next_item.subtopic.id) }}">Estudar a lição</a>
+        {% else %}
+          <a class="btn" href="{{ url_for('learn.checkpoint_start', subtopic_id=next_item.subtopic.id) }}">Fazer o teste de fixação</a>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% for phase_no, items in groups | dictsort %}
+    <h2 style="margin-top:22px">Bloco {{ phase_no }}</h2>
+    <div class="card">
+      <table class="stats-table">
+        <thead><tr><th>#</th><th>Assunto</th><th>Status</th><th>Nível</th><th>Últimas</th><th></th></tr></thead>
+        <tbody>
+        {% for item in items %}
+          <tr>
+            <td class="muted num">{{ item.subtopic.track_order or loop.index }}</td>
+            <td>
+              <a href="{{ url_for('learn.lesson', subtopic_id=item.subtopic.id) }}">{{ item.subtopic.name }}</a>
+              <div class="muted small">{{ item.subtopic.content_area.section.code }} · {{ item.subtopic.content_area.name }}</div>
+            </td>
+            <td>
+              {% if item.status == 'new' %}<span class="badge ghost">não iniciado</span>
+              {% elif item.status == 'checkpoint' %}<span class="badge warn">falta o teste</span>
+              {% elif item.at_target %}<span class="badge ok">na meta</span>
+              {% else %}<span class="badge accent">praticando</span>{% endif %}
+            </td>
+            <td>{% if item.status == 'practicing' %}{{ level_bar(item.level, overview.target_level) }} <span class="small">N{{ item.level }}</span>{% else %}<span class="muted small">—</span>{% endif %}</td>
+            <td class="num small">{% if item.recent_total %}{{ item.recent_correct }}/{{ item.recent_total }}{% else %}<span class="muted">—</span>{% endif %}</td>
+            <td style="white-space:nowrap">
+              {% if item.status == 'new' %}
+                <a class="btn small" href="{{ url_for('learn.lesson', subtopic_id=item.subtopic.id) }}">Lição</a>
+              {% elif item.status == 'checkpoint' %}
+                <a class="btn small" href="{{ url_for('learn.checkpoint_start', subtopic_id=item.subtopic.id) }}">Teste</a>
+              {% else %}
+                <a class="btn small secondary" href="{{ url_for('study.subtopic', subtopic_id=item.subtopic.id) }}">Praticar</a>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endfor %}
+{% endblock %}

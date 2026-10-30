@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% from "study/_question_types/_macros.html" import level_bar %}
+{% block title %}{{ section.name }}{% endblock %}
+{% block content %}
+  <a class="muted small" href="{{ url_for('content.sections') }}">&larr; Praticar</a>
+  <div class="spread">
+    <h1>{{ section.name }}</h1>
+    <a class="btn" href="{{ url_for('study.section', section_code=section.code) }}">Prática mista da seção</a>
+  </div>
+  <p class="muted">{{ section.description or '' }}</p>
+
+  {% for ca in content_areas %}
+    <div class="card">
+      <div class="spread">
+        <h2 style="margin:0"><a href="{{ url_for('content.content_detail', content_area_id=ca.id) }}">{{ ca.name }}</a></h2>
+        <a class="btn small secondary" href="{{ url_for('study.area', content_area_id=ca.id) }}">Praticar {{ ca.name }}</a>
+      </div>
+      <p class="muted small">{{ ca.description or '' }}</p>
+      <table class="stats-table">
+        {% for row in rows_by_area[ca.id] %}
+          <tr>
+            <td><a href="{{ url_for('learn.lesson', subtopic_id=row.subtopic.id) }}">{{ row.subtopic.name }}</a>
+              {% if row.weak %}<span class="badge bad">fraco</span>{% endif %}</td>
+            <td>{% if row.status == 'practicing' %}{{ level_bar(row.level, target_level) }} <span class="small">N{{ row.level }}</span>{% elif row.status == 'checkpoint' %}<span class="badge warn">falta teste</span>{% else %}<span class="badge ghost">não iniciado</span>{% endif %}</td>
+            <td class="num small">{% if row.recent_total %}{{ row.recent_correct }}/{{ row.recent_total }} recentes{% endif %}</td>
+            <td style="text-align:right"><a class="btn small ghost" href="{{ url_for('study.subtopic', subtopic_id=row.subtopic.id) }}">Praticar</a></td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  {% endfor %}
+{% endblock %}

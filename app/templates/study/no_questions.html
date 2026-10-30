@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Sem questões{% endblock %}
+{% block content %}
+  <h1>{{ subtopic.name if subtopic else 'Sem questões' }}</h1>
+  <p class="muted">
+    Ainda não há questões ativas cadastradas para este assunto (ou todas foram reportadas com erro).
+    Adicione questões em <code>sample_bank/questions/</code> e rode
+    <code>python scripts/import_questions.py</code>.
+  </p>
+  <a class="btn secondary" href="{{ url_for('home.index') }}">Voltar</a>
+{% endblock %}

@@ -1,0 +1,124 @@
+# Lições de exemplo — Data Insights. Schema: sample_bank/README.md ("Schema de uma lição").
+
+lessons:
+  - slug: lesson-s-di-ds-quantitative
+    subtopic: di_ds_quantitative
+    title: "Data Sufficiency: suficiência, não resposta"
+    minutes: 12
+    content: |
+      Em DS você decide se as informações **bastam** para responder. Não precisa achar o valor.
+
+      ## Método AD/BCE
+      1. Avalie (1) sozinha. Se basta, a resposta é A ou D; se não, B, C ou E.
+      2. Avalie (2) sozinha, **esquecendo** a (1).
+      3. Só junte as duas se nenhuma bastar sozinha.
+
+      ## Perguntas sim/não
+      "Sim sempre" e "não sempre" são ambos suficientes. Só "às vezes sim, às vezes não" é insuficiente.
+
+      ## Armadilhas
+      - Usar a informação de (1) ao avaliar (2).
+      - Esquecer números negativos, zero e frações ao testar casos.
+      - Achar que uma equação com duas variáveis nunca basta: com inteiros, liste os casos.
+    key_points: |
+      - Suficiência ≠ resolver.
+      - Avalie cada afirmação isoladamente.
+      - "Não" definitivo também é suficiente.
+    flashcards:
+      - { front: "Pergunta sim/não e a afirmação garante 'não'. Suficiente?", back: "Sim" }
+      - { front: "x² = 25 basta para achar x?", back: "Não: x = 5 ou −5" }
+      - { front: "Ordem do método", back: "(1) sozinha → (2) sozinha → juntas" }
+
+  - slug: lesson-s-di-table-analysis
+    subtopic: di_ta_statement_evaluation
+    title: "Table Analysis: ordene antes de calcular"
+    minutes: 10
+    content: |
+      Na prova a tabela pode ser **ordenada** por qualquer coluna. Use isso para máximos, mínimos e medianas.
+
+      ## Método
+      1. Leia o título das colunas e as unidades.
+      2. Para cada afirmação, decida qual coluna ordenar.
+      3. Faça contas só quando a comparação estiver apertada.
+
+      ## Armadilhas
+      - "Maior que" × "pelo menos": a mediana igual a 13 não é "maior que 13".
+      - Razões (viagens por vaga) não seguem a ordem de nenhuma coluna isolada.
+    key_points: |
+      - Ordene pela coluna relevante.
+      - Mediana de um número par de itens = média dos dois centrais.
+      - Leia "maior que" × "pelo menos" com cuidado.
+    flashcards:
+      - { front: "Mediana de 9, 11, 12, 14, 18, 22", back: "13" }
+      - { front: "Primeiro passo em Table Analysis", back: "Ordenar pela coluna que a afirmação usa" }
+      - { front: "Há crédito parcial em Table Analysis?", back: "Não, todas as afirmações precisam estar certas" }
+
+  - slug: lesson-s-di-graphics
+    subtopic: di_gi_chart_reading
+    title: "Graphics Interpretation: leia eixos e base"
+    minutes: 8
+    content: |
+      ## Método
+      1. Leia título, eixos e unidades antes da pergunta.
+      2. Em variação percentual, a **base** é o valor inicial.
+      3. Para totais, some com cuidado ou estime e confira com as opções.
+
+      ## Armadilhas
+      - Dividir pelo valor final em vez do inicial.
+      - Confundir diferença absoluta (50 MWh) com porcentagem (50%).
+    key_points: |
+      - Variação % = (final − inicial)/inicial.
+      - Confira eixos e unidades.
+      - Diferença absoluta ≠ diferença percentual.
+    flashcards:
+      - { front: "De 210 para 260: variação percentual?", back: "≈ 23,8%" }
+      - { front: "Base da variação percentual", back: "O valor inicial" }
+      - { front: "Primeiro passo num gráfico", back: "Ler título, eixos e unidades" }
+
+  - slug: lesson-s-di-two-part
+    subtopic: di_tpa_quantitative
+    title: "Two-Part Analysis: duas incógnitas ligadas"
+    minutes: 8
+    content: |
+      As duas colunas são respostas **ligadas** pela mesma situação. Em geral, resolver uma leva à outra.
+
+      ## Método
+      1. Monte as equações do enunciado.
+      2. Ache primeiro a incógnita que sai mais fácil (muitas vezes pela diferença entre duas situações).
+      3. Use-a para achar a outra e confira nas duas condições.
+
+      ## Armadilhas
+      - Marcar o mesmo valor nas duas colunas sem checar.
+      - Trocar as colunas (o rótulo de cada coluna importa).
+    key_points: |
+      - As duas partes vêm do mesmo sistema.
+      - Diferença entre situações isola a taxa.
+      - Confira o rótulo de cada coluna.
+    flashcards:
+      - { front: "6 meses = $330, 10 meses = $510. Mensalidade?", back: "$45" }
+      - { front: "Two-Part tem crédito parcial?", back: "Não" }
+      - { front: "Como isolar a taxa em 'fixo + taxa × n'?", back: "Diferença de custos ÷ diferença de n" }
+
+  - slug: lesson-s-di-msr
+    subtopic: di_msr_synthesis
+    title: "Multi-Source Reasoning: qual aba vale?"
+    minutes: 10
+    content: |
+      MSR traz 2-3 abas (regras, e-mails, tabelas) que muitas vezes **se atualizam** umas às outras.
+
+      ## Método
+      1. Leia as abas rapidamente e anote o papel de cada uma (regra, exceção, dados).
+      2. Procure datas e condições: um e-mail pode mudar a regra a partir de certo dia.
+      3. Em "can be determined", responda Sim só se as abas **garantem** o fato.
+
+      ## Armadilhas
+      - Aplicar a regra antiga a um caso posterior à mudança.
+      - Marcar Sim para algo provável, mas não garantido (ex.: horário do pedido desconhecido).
+    key_points: |
+      - Mapeie o papel de cada aba.
+      - Datas definem qual regra vale.
+      - "Can be determined" exige garantia.
+    flashcards:
+      - { front: "Um e-mail muda a regra a partir de 10/5. Pedido de 6/5 usa…", back: "A regra antiga" }
+      - { front: "'Can be determined' com dado faltando?", back: "Não" }
+      - { front: "Primeiro passo em MSR", back: "Anotar o papel de cada aba" }

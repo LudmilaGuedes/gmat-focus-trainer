@@ -1,0 +1,118 @@
+# Lições de exemplo — Quantitative Reasoning. Schema: sample_bank/README.md ("Schema de uma lição").
+
+lessons:
+  - slug: lesson-s-qr-absolute-value
+    subtopic: qr_arithmetic_absolute_value
+    title: Valor absoluto como distância
+    minutes: 10
+    content: |
+      |x| é a **distância** de x até 0 na reta, e |x − a| é a distância de x até a. Pensar em distância resolve
+      quase todas as questões sem abrir casos.
+
+      ## 1. Equações
+      |x − a| = k (com k > 0) tem duas soluções: x = a + k e x = a − k.
+      Ex.: |x − 4| = 9 → x = 13 ou x = −5.
+
+      ## 2. Desigualdades
+      - |x − a| < k → a − k < x < a + k (um intervalo).
+      - |x − a| > k → x < a − k ou x > a + k (fora do intervalo).
+
+      ## 3. Sinais
+      Se x < 0, então |x| = −x. Essa é a armadilha mais comum: "−x" é positivo quando x é negativo.
+
+      ## Armadilhas
+      - Esquecer a solução negativa.
+      - Incluir os extremos numa desigualdade estrita.
+    key_points: |
+      - |x − a| = distância de x até a.
+      - |x − a| = k → x = a ± k.
+      - x < 0 → |x| = −x.
+    flashcards:
+      - { front: "|x − 3| < 5 equivale a…", back: "−2 < x < 8" }
+      - { front: "Se x < 0, |x| = ?", back: "−x" }
+      - { front: "|x + 2| = |x − 6| → x = ?", back: "2 (ponto médio entre −2 e 6)" }
+
+  - slug: lesson-s-qr-fractions-percent
+    subtopic: qr_arithmetic_fractions_decimals_percent
+    title: Porcentagens e variações sucessivas
+    minutes: 12
+    content: |
+      ## 1. Porcentagem como multiplicador
+      Aumentar p% = multiplicar por (1 + p/100). Reduzir p% = multiplicar por (1 − p/100).
+      Variações sucessivas **se multiplicam**, não se somam: +40% e depois −25% → 1,4 × 0,75 = 1,05 (+5%).
+
+      ## 2. "Do que restou"
+      Quando o enunciado gasta frações do saldo, multiplique o que sobra a cada passo:
+      gasta 1/4, depois 1/3 do resto → sobra 3/4 × 2/3 = 1/2.
+
+      ## 3. Atalhos
+      10% = mover a vírgula; 5% = metade de 10%; 15% = 10% + 5%.
+
+      ## Armadilhas
+      - Somar porcentagens de bases diferentes.
+      - Responder a fração do total quando a pergunta pede a fração de um subgrupo.
+    key_points: |
+      - Aumento de p% → × (1 + p/100); desconto → × (1 − p/100).
+      - Variações sucessivas se multiplicam.
+      - Frações "do resto" se multiplicam pelo que sobrou.
+    flashcards:
+      - { front: "+20% seguido de −20% dá…", back: "× 0,96 → queda de 4%" }
+      - { front: "15% de 240", back: "36 (24 + 12)" }
+      - { front: "Gasta 1/4 e depois 1/3 do resto: quanto sobra?", back: "1/2 do total" }
+
+  - slug: lesson-s-qr-number-properties
+    subtopic: qr_arithmetic_number_properties
+    title: Divisibilidade, primos e restos
+    minutes: 12
+    content: |
+      ## 1. Fatoração em primos
+      Todo inteiro > 1 é um produto de primos. Com n = 2^a · 3^b · 5^c…, o número de divisores positivos é
+      (a + 1)(b + 1)(c + 1)… Ex.: 720 = 2^4 · 3^2 · 5 → 5 · 3 · 2 = 30 divisores.
+
+      ## 2. Restos
+      n = d·q + r, com 0 ≤ r < d. Para combinar condições ("resto 4 por 6 e resto 7 por 9"), liste candidatos pelo
+      maior divisor e teste o outro.
+
+      ## 3. Testes rápidos
+      Divisível por 3 ou 9: soma dos algarismos. Para testar se n é primo, basta dividir pelos primos até √n.
+
+      ## Armadilhas
+      - Esquecer que 1 não é primo e que 2 é o único primo par.
+      - Achar que o resto pode ser maior que o divisor.
+    key_points: |
+      - Nº de divisores: some 1 a cada expoente e multiplique.
+      - n = dq + r, 0 ≤ r < d.
+      - Primalidade: teste primos até √n.
+    flashcards:
+      - { front: "Quantos divisores tem 2^4 · 3^2 · 5?", back: "30" }
+      - { front: "Resto de 85 ÷ 6", back: "1" }
+      - { front: "Primo > 3 ao quadrado, menos 1, é divisível por…", back: "24" }
+
+  - slug: lesson-s-qr-linear-equations
+    subtopic: qr_algebra_linear_equations
+    title: Equações lineares e sistemas
+    minutes: 12
+    content: |
+      ## 1. Montar a equação
+      Em word problems, nomeie uma variável para o que é pedido e traduza cada frase. "Taxa fixa + valor por unidade"
+      vira C = F + p·n.
+
+      ## 2. Sistemas
+      - **Eliminação**: some ou subtraia equações para cancelar uma variável.
+      - Muitas vezes a pergunta pede uma combinação (x + y, x − y, x² − y²) que sai direto da soma ou da diferença
+        das equações, sem achar x e y.
+
+      ## 3. Duas medições → taxa
+      Com dois pontos (40 convidados = $1.240; 65 = $1.840), a taxa é a diferença de custo ÷ diferença de quantidade.
+
+      ## Armadilhas
+      - Regra de três quando há uma parte fixa.
+      - Responder o valor de outra variável (a que você calculou primeiro).
+    key_points: |
+      - Some/subtraia equações antes de isolar variáveis.
+      - Custo = fixo + taxa × quantidade; taxa = Δcusto/Δquantidade.
+      - Releia o que a pergunta pede.
+    flashcards:
+      - { front: "3x + 2y = 17 e 2x + 3y = 13: x + y = ?", back: "6 (some as equações)" }
+      - { front: "4x − 7 = 21 → x = ?", back: "7" }
+      - { front: "Plano: $20 + $0,05/mensagem; conta de $27,50 → mensagens?", back: "150" }

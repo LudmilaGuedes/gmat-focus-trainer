@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% set hide_nav = true %}
+{% block title %}Pausa opcional{% endblock %}
+{% block content %}
+  <div class="card" style="margin-top:40px; text-align:center">
+    <h1>Pausa opcional de 10 minutos</h1>
+    <p class="muted">Na prova real você tem direito a <strong>uma</strong> pausa de até 10 min, depois da 1ª ou da 2ª seção.
+      Próxima seção: <strong>{{ msec.section.name }}</strong>.</p>
+    <form method="post" class="row" style="justify-content:center">
+      <button class="btn" name="take" value="1">Fazer a pausa agora</button>
+      <button class="btn secondary" name="take" value="0">Seguir sem pausa</button>
+    </form>
+  </div>
+{% endblock %}

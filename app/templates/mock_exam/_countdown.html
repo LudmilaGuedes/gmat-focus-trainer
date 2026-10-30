@@ -1,0 +1,22 @@
+{# Section countdown. Needs: remaining_seconds, mock_exam, msec. The server is the authority on time. #}
+<span class="muted">Tempo restante: <span class="timer" id="countdown">--:--</span></span>
+<form method="post" action="{{ url_for('mock_exam.pause', mock_exam_id=mock_exam.id, mock_section_id=msec.id) }}" style="display:inline">
+  <button class="btn ghost small" type="submit" title="Congela o cronômetro — a prova real não tem pausa">⏸ Pausar</button>
+</form>
+<script>
+  (function () {
+    const deadline = Date.now() + {{ remaining_seconds | int }} * 1000;
+    const el = document.getElementById('countdown');
+    function tick() {
+      const remaining = Math.max(0, Math.round((deadline - Date.now()) / 1000));
+      el.textContent = Math.floor(remaining / 60) + ':' + String(remaining % 60).padStart(2, '0');
+      el.classList.toggle('over', remaining <= 300);
+      if (remaining <= 0) {
+        window.location = "{{ url_for('mock_exam.section_timeout', mock_exam_id=mock_exam.id, mock_section_id=msec.id) }}";
+        return;
+      }
+      setTimeout(tick, 500);
+    }
+    tick();
+  })();
+</script>

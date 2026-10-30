@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Revisão — flashcard{% endblock %}
+{% block content %}
+  <div class="q-toolbar">
+    <div><strong>Revisão</strong> <span class="muted">· item {{ position }} de {{ total }} · flashcard · {{ card.subtopic.name }}</span></div>
+  </div>
+  <div class="card flashcard" id="card">
+    <div>
+      <div class="front">{{ card.front | mathfmt }}</div>
+      <div class="back">{{ card.back | mathfmt }}</div>
+    </div>
+  </div>
+  <div id="reveal" class="row">
+    <button class="btn" type="button" onclick="document.getElementById('card').classList.add('revealed'); document.getElementById('reveal').classList.add('hidden'); document.getElementById('grades').classList.remove('hidden');">Mostrar resposta (espaço)</button>
+    <span class="muted small">Tente responder de cabeça antes.</span>
+  </div>
+  <form id="grades" method="post" action="{{ url_for('review.flashcard_grade') }}" class="row hidden">
+    <button class="btn danger" name="grade" value="again">Errei (1)</button>
+    <button class="btn ghost" name="grade" value="hard">Difícil (2)</button>
+    <button class="btn" name="grade" value="good">Bom (3)</button>
+    <button class="btn secondary" name="grade" value="easy">Fácil (4)</button>
+  </form>
+{% endblock %}
+{% block scripts %}
+<script>
+  document.addEventListener('keydown', function (e) {
+    if (e.code === 'Space') { e.preventDefault(); document.querySelector('#reveal button') && document.querySelector('#reveal button').click(); }
+    const map = { '1': 'again', '2': 'hard', '3': 'good', '4': 'easy' };
+    if (map[e.key] && document.getElementById('card').classList.contains('revealed')) {
+      document.querySelector('#grades button[value=' + map[e.key] + ']').click();
+    }
+  });
+</script>
+{% endblock %}

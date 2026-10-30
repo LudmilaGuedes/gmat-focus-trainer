@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% from "study/_question_types/_macros.html" import level_badge, level_bar %}
+{% block title %}{{ lesson.title if lesson else subtopic.name }}{% endblock %}
+{% block content %}
+  <a class="muted small" href="{{ url_for('learn.track') }}">&larr; Trilha</a>
+  <div class="muted small" style="margin-top:8px">{{ subtopic.content_area.section.name }} · {{ subtopic.content_area.name }}</div>
+  <h1>{{ lesson.title if lesson else subtopic.name }}</h1>
+  <p class="muted small">
+    {% if lesson %}~{{ lesson.estimated_minutes }} min de leitura · {% endif %}{{ n_questions }} questões no banco ·
+    {% if progress.status == 'practicing' %}você está no {{ level_badge(progress.level) }}
+    {% elif progress.status == 'checkpoint' %}lição estudada, falta o teste de fixação
+    {% else %}ainda não estudado{% endif %}
+  </p>
+
+  {% if lesson %}
+    <div class="card lesson">{{ lesson.content_markdown | md }}</div>
+
+    {% if lesson.key_points_markdown %}
+      <div class="card">
+        <h2>Pontos-chave (o que você precisa lembrar)</h2>
+        <div class="keypoints lesson">{{ lesson.key_points_markdown | md }}</div>
+      </div>
+    {% endif %}
+
+    {% if lesson.flashcards %}
+      <div class="card">
+        <h2>Flashcards desta lição</h2>
+        <p class="muted small">Ao concluir a lição, eles entram na sua revisão espaçada (voltam amanhã, depois em 3, 7, 14… dias).</p>
+        <table class="stats-table">
+          {% for card in lesson.flashcards %}
+            <tr><td style="width:45%">{{ card.front | mathfmt }}</td><td>{{ card.back | mathfmt }}</td></tr>
+          {% endfor %}
+        </table>
+      </div>
+    {% endif %}
+  {% else %}
+    <div class="card"><p class="muted">Ainda não há lição escrita para este assunto. Você pode ir direto ao teste de fixação.</p></div>
+  {% endif %}
+
+  <div class="card hl">
+    {% if progress.status == 'new' %}
+      <h2>Terminou de estudar?</h2>
+      <p class="muted">Próximo passo: um teste de fixação curto (5 questões dos níveis 1-2). Passando, o assunto entra na sua prática diária.</p>
+      <div class="row">
+        <form method="post" action="{{ url_for('learn.lesson_complete', subtopic_id=subtopic.id) }}" class="inline-form">
+          <button class="btn" type="submit">Concluí a lição → teste de fixação</button>
+        </form>
+        <a class="btn ghost" href="{{ url_for('learn.checkpoint_start', subtopic_id=subtopic.id) }}" title="Se você já domina o assunto, passar no teste libera a prática direto">Já sei isso, quero só fazer o teste</a>
+      </div>
+    {% elif progress.status == 'checkpoint' %}
+      <h2>Falta o teste de fixação</h2>
+      <a class="btn" href="{{ url_for('learn.checkpoint_start', subtopic_id=subtopic.id) }}">Fazer o teste de fixação</a>
+    {% else %}
+      <h2>Continue praticando</h2>
+      <p>Nível atual: {{ level_bar(progress.level) }} {{ level_badge(progress.level) }}</p>
+      <div class="row">
+        <a class="btn" href="{{ url_for('study.subtopic', subtopic_id=subtopic.id) }}">Praticar este assunto</a>
+        <a class="btn ghost" href="{{ url_for('learn.checkpoint_start', subtopic_id=subtopic.id) }}">Refazer teste de fixação</a>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

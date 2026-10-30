@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% set hide_nav = true %}
+{% block title %}Pausa{% endblock %}
+{% block content %}
+  <div class="card" style="margin-top:40px; text-align:center">
+    <h1>Pausa</h1>
+    <div class="big num" id="brk">10:00</div>
+    <p class="muted">Levante, beba água, não pense nas questões. A próxima seção é {{ msec.section.name }}.</p>
+    <a class="btn" href="{{ url_for('mock_exam.section_intro', mock_exam_id=mock_exam.id, mock_section_id=msec.id) }}">Voltar para a prova</a>
+  </div>
+{% endblock %}
+{% block scripts %}
+<script>
+  (function () {
+    const end = Date.now() + {{ seconds }} * 1000;
+    const el = document.getElementById('brk');
+    function tick() {
+      const r = Math.max(0, Math.round((end - Date.now()) / 1000));
+      el.textContent = Math.floor(r / 60) + ':' + String(r % 60).padStart(2, '0');
+      if (r <= 0) { window.location = "{{ url_for('mock_exam.section_intro', mock_exam_id=mock_exam.id, mock_section_id=msec.id) }}"; return; }
+      setTimeout(tick, 500);
+    }
+    tick();
+  })();
+</script>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Recursos oficiais{% endblock %}
+{% block content %}
+  <h1>Recursos oficiais e complementares</h1>
+  <p class="muted">
+    As questões do app são escritas no formato e no nível das oficiais, mas não são cópias de questões da GMAC.
+    O material oficial serve para duas coisas: <strong>calibrar</strong> a nota estimada do app (registre as notas
+    em <a href="{{ url_for('progress.index') }}#oficiais">Progresso</a>) e <strong>praticar com questões reais</strong>.
+    Se você tiver o Official Guide, dá para cadastrar essas questões no seu banco pessoal <code>content_bank/</code>,
+    que fica fora do git (com <code>source: official</code>, veja <code>sample_bank/README.md</code>), e usar a revisão
+    espaçada nelas também.
+  </p>
+  <p><a href="{{ url_for('resources.guide') }}">→ Guia da prova e do método de estudo</a></p>
+  {% for r in resources %}
+    <div class="card">
+      <div class="spread"><h2 style="margin:0">{{ r.name }}</h2><span class="badge ghost">{{ r.price }}</span></div>
+      <p>{{ r.description }}</p>
+      <a class="btn small secondary" href="{{ r.url }}" target="_blank" rel="noopener noreferrer">Abrir</a>
+    </div>
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% set hide_nav = true %}
+{% block title %}Revisão da seção — {{ msec.section.name }}{% endblock %}
+{% block content %}
+  <div class="q-toolbar card" style="padding:10px 14px">
+    <strong>Revisão & edição — {{ msec.section.name }}</strong>
+    <span class="num">Trocas restantes: <strong>{{ edits_left }}</strong>/3</span>
+    {% include "mock_exam/_countdown.html" %}
+  </div>
+  <p class="muted">
+    Você respondeu {{ msec.attempts | length }} de {{ msec.questions_planned }} questões. Enquanto houver tempo, pode
+    rever qualquer uma e trocar até 3 respostas. Estratégia: comece pelas marcadas 🔖.
+  </p>
+  <div class="card">
+    <table class="stats-table">
+      <thead><tr><th>#</th><th>Questão</th><th>🔖</th><th>Status</th><th></th></tr></thead>
+      {% for a in msec.attempts %}
+        <tr>
+          <td class="num">{{ a.sequence_number }}</td>
+          <td class="small">{{ a.question.stem_text[:80] | mathfmt }}{% if a.question.stem_text | length > 80 %}…{% endif %}</td>
+          <td>
+            <form method="post" action="{{ url_for('mock_exam.toggle_bookmark', mock_exam_id=mock_exam.id, mock_section_id=msec.id, attempt_id=a.id) }}" class="inline-form">
+              <button class="btn small {{ '' if a.bookmarked else 'ghost' }}" title="Marcar/desmarcar">{{ '🔖' if a.bookmarked else '—' }}</button>
+            </form>
+          </td>
+          <td class="small">{% if a.edited %}<span class="badge warn">alterada</span>{% else %}respondida{% endif %}</td>
+          <td><a class="btn small secondary" href="{{ url_for('mock_exam.edit_answer', mock_exam_id=mock_exam.id, mock_section_id=msec.id, attempt_id=a.id) }}">Rever</a></td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <form method="post" action="{{ url_for('mock_exam.finish_section', mock_exam_id=mock_exam.id, mock_section_id=msec.id) }}"
+        onsubmit="return confirm('Encerrar a seção? Não dá para voltar.');">
+    <button class="btn" type="submit">Encerrar seção</button>
+  </form>
+{% endblock %}

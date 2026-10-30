@@ -1,0 +1,199 @@
+# Banco de exemplo — Data Insights: Data Sufficiency (N2), Table Analysis, Graphics Interpretation, Two-Part Analysis
+# e Multi-Source Reasoning (questões originais), nos formatos do GMAT Focus.
+
+question_sets:
+  - slug: msr-s-online-store
+    section: DI
+    set_type: multi_source_reasoning
+    tabs:
+      - title: "Delivery policy"
+        content: |
+          Orders with a subtotal over $75 ship free; all other orders pay a flat $8 shipping fee.
+          Express delivery adds $12 to the shipping charge of any order.
+          Orders placed after 2 p.m. ship on the next business day; earlier orders ship the same day.
+      - title: "Customer service e-mail (May 3)"
+        content: |
+          For orders placed on or after May 10, the free-shipping threshold rises from $75 to $100, and express delivery
+          will add $15 instead of $12. All other delivery rules are unchanged.
+      - title: "Orders"
+        content: |
+          Order | Date placed | Subtotal | Express?
+          1041  | May 6       | $82      | No
+          1042  | May 12      | $82      | Yes
+          1043  | May 14      | $120     | No
+
+questions:
+  - slug: di-ds-s-n2-1
+    subtopic: di_ds_quantitative
+    question_type: data_sufficiency
+    difficulty: 2
+    stem: |
+      What is the value of x ?
+    stimulus: |
+      (1) 3x + 5 = 20
+      (2) x^2 = 25
+    options:
+      - { label: A, text: "Statement (1) ALONE is sufficient, but statement (2) alone is not sufficient.", correct: true }
+      - { label: B, text: "Statement (2) ALONE is sufficient, but statement (1) alone is not sufficient.", correct: false }
+      - { label: C, text: "BOTH statements TOGETHER are sufficient, but NEITHER statement ALONE is sufficient.", correct: false }
+      - { label: D, text: "EACH statement ALONE is sufficient.", correct: false }
+      - { label: E, text: "Statements (1) and (2) TOGETHER are NOT sufficient.", correct: false }
+    explanation: |
+      (1) x = 5. Suficiente. (2) x = 5 ou x = −5. Insuficiente. Resposta: A.
+      Armadilha (D): esquecer a raiz negativa em (2).
+
+  - slug: di-ds-s-n2-2
+    subtopic: di_ds_quantitative
+    question_type: data_sufficiency
+    difficulty: 2
+    stem: |
+      If n is an integer, is n even?
+    stimulus: |
+      (1) n^2 is even.
+      (2) n + 1 is odd.
+    options:
+      - { label: A, text: "Statement (1) ALONE is sufficient, but statement (2) alone is not sufficient.", correct: false }
+      - { label: B, text: "Statement (2) ALONE is sufficient, but statement (1) alone is not sufficient.", correct: false }
+      - { label: C, text: "BOTH statements TOGETHER are sufficient, but NEITHER statement ALONE is sufficient.", correct: false }
+      - { label: D, text: "EACH statement ALONE is sufficient.", correct: true }
+      - { label: E, text: "Statements (1) and (2) TOGETHER are NOT sufficient.", correct: false }
+    explanation: |
+      (1) O quadrado de um ímpar é ímpar. Se n² é par, n é par. Suficiente.
+      (2) n + 1 ímpar → n par. Suficiente. Resposta: D.
+
+  - slug: di-ta-s-bikeshare-n3
+    subtopic: di_ta_statement_evaluation
+    question_type: table_analysis
+    difficulty: 3
+    stem: |
+      The table shows data for the six stations of a city's bike-share program on a typical weekday. For each of the
+      following statements, select Yes if the statement is true based on the information in the table; otherwise
+      select No.
+    media:
+      table:
+        columns: ["Station", "Docks", "Daily trips", "Average trip (min)"]
+        rows:
+          - ["Harbor", "24", "310", "14"]
+          - ["Market", "30", "420", "11"]
+          - ["Central", "36", "520", "9"]
+          - ["Park", "18", "150", "22"]
+          - ["Campus", "28", "390", "12"]
+          - ["Museum", "20", "210", "18"]
+      statements:
+        - { key: s1, text: "The station with the most daily trips also has the shortest average trip." }
+        - { key: s2, text: "At least half of the stations have more than 400 daily trips." }
+        - { key: s3, text: "Market has more daily trips per dock than Campus has." }
+        - { key: s4, text: "The median average trip length of the six stations is greater than 13 minutes." }
+    options:
+      - { label: A, text: "Yes", group: s1, correct: true }
+      - { label: B, text: "No", group: s1, correct: false }
+      - { label: A, text: "Yes", group: s2, correct: false }
+      - { label: B, text: "No", group: s2, correct: true }
+      - { label: A, text: "Yes", group: s3, correct: true }
+      - { label: B, text: "No", group: s3, correct: false }
+      - { label: A, text: "Yes", group: s4, correct: false }
+      - { label: B, text: "No", group: s4, correct: true }
+    explanation: |
+      1) Central tem mais viagens (520) e a menor média (9 min) → Yes.
+      2) Mais de 400: Market e Central, ou seja, 2 de 6 → No.
+      3) Market: 420/30 = 14,0; Campus: 390/28 ≈ 13,9 → Yes (por pouco; ordene e calcule, não estime).
+      4) Médias em ordem: 9, 11, 12, 14, 18, 22 → mediana (12 + 14)/2 = 13, que não é MAIOR que 13 → No.
+
+  - slug: di-gi-s-solar-n3
+    subtopic: di_gi_chart_reading
+    question_type: graphics_interpretation
+    difficulty: 3
+    stem: |
+      The bar chart shows the electricity generated by a solar farm, in megawatt-hours (MWh), in each of the first six
+      months of a year. Select the option that best completes each statement.
+    media:
+      chart_data:
+        type: bar
+        data:
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
+          datasets:
+            - { label: "Electricity generated (MWh)", data: [120, 150, 210, 260, 300, 290], backgroundColor: "#e0a030" }
+      statements:
+        - { key: g1, text: "The percent increase in generation from March to April was closest to ___." }
+        - { key: g2, text: "Total generation from January through June was ___ MWh." }
+    options:
+      - { label: A, text: "24%", group: g1, correct: true }
+      - { label: B, text: "31%", group: g1, correct: false }
+      - { label: C, text: "50%", group: g1, correct: false }
+      - { label: A, text: "1,230", group: g2, correct: false }
+      - { label: B, text: "1,280", group: g2, correct: false }
+      - { label: C, text: "1,330", group: g2, correct: true }
+    explanation: |
+      1) (260 − 210)/210 = 50/210 ≈ 23,8% → 24%. Armadilha: dividir pelo valor de abril (≈ 19%) ou confundir os
+      50 MWh de diferença com 50%.
+      2) 120 + 150 + 210 + 260 + 300 + 290 = 1.330.
+
+  - slug: di-tpa-s-gym-n3
+    subtopic: di_tpa_quantitative
+    question_type: two_part_analysis
+    difficulty: 3
+    stem: |
+      A gym charges a one-time sign-up fee of S dollars plus a monthly fee of m dollars. A 6-month membership costs a
+      total of $330, and a 10-month membership costs a total of $510. In the table, select the value of S and the value
+      of m. Make only two selections, one in each column.
+    media:
+      part_labels: { part1: "S", part2: "m" }
+    options:
+      - { label: A, text: "30", group: part1, correct: false }
+      - { label: B, text: "45", group: part1, correct: false }
+      - { label: C, text: "60", group: part1, correct: true }
+      - { label: D, text: "75", group: part1, correct: false }
+      - { label: E, text: "90", group: part1, correct: false }
+      - { label: A, text: "30", group: part2, correct: false }
+      - { label: B, text: "45", group: part2, correct: true }
+      - { label: C, text: "60", group: part2, correct: false }
+      - { label: D, text: "75", group: part2, correct: false }
+      - { label: E, text: "90", group: part2, correct: false }
+    explanation: |
+      4 meses a mais custam 510 − 330 = $180 → m = 45. Taxa de adesão: 330 − 6 × 45 = $60 → S = 60.
+
+  - slug: di-msr-s-store-q1
+    subtopic: di_msr_synthesis
+    question_type: multi_source_reasoning
+    question_set: msr-s-online-store
+    set_order: 1
+    difficulty: 3
+    stem: |
+      Based on the information provided, what was the total charge, including shipping, for order 1042?
+    options:
+      - { label: A, text: "$82", correct: false }
+      - { label: B, text: "$94", correct: false }
+      - { label: C, text: "$97", correct: false }
+      - { label: D, text: "$102", correct: false }
+      - { label: E, text: "$105", correct: true }
+    answer_check: 82 + 8 + 15
+    explanation: |
+      O pedido 1042 é de 12 de maio, depois da mudança: o frete grátis agora exige mais de $100, então paga $8, e o
+      expresso custa $15. Total: 82 + 8 + 15 = $105.
+      Armadilhas: (B) regras antigas (frete grátis + expresso de $12); (D) frete de $8 com o expresso antigo.
+
+  - slug: di-msr-s-store-q2
+    subtopic: di_msr_synthesis
+    question_type: multi_source_reasoning
+    question_set: msr-s-online-store
+    set_order: 2
+    difficulty: 4
+    stem: |
+      For each of the following statements, select Yes if the statement can be determined to be true based on the
+      information provided. Otherwise, select No.
+    media:
+      statements:
+        - { key: s1, text: "Order 1041 was shipped free of charge." }
+        - { key: s2, text: "Order 1043 shipped on May 14." }
+        - { key: s3, text: "Under the rules in effect on May 14, an order with a $90 subtotal and express delivery would cost $113 in total." }
+    options:
+      - { label: A, text: "Yes", group: s1, correct: true }
+      - { label: B, text: "No", group: s1, correct: false }
+      - { label: A, text: "Yes", group: s2, correct: false }
+      - { label: B, text: "No", group: s2, correct: true }
+      - { label: A, text: "Yes", group: s3, correct: true }
+      - { label: B, text: "No", group: s3, correct: false }
+    explanation: |
+      1) 6 de maio, regra antiga: $82 > $75 e sem expresso → frete grátis → Yes.
+      2) Não sabemos o horário do pedido. Se foi depois das 14h, saiu no dia útil seguinte → não dá para determinar → No.
+      3) Regra nova: $90 não passa de $100 → $8 + expresso $15 → 90 + 8 + 15 = $113 → Yes.

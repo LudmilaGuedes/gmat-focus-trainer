@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Guia da prova e do método{% endblock %}
+{% block content %}
+<div class="lesson">
+  <h1>Guia: a prova e o método</h1>
+  <p class="muted">Leia uma vez no começo e volte aqui quando bater dúvida sobre como estudar.</p>
+
+  <h2>1. Como é o GMAT Focus Edition</h2>
+  <table>
+    <tr><th>Seção</th><th>Questões</th><th>Tempo</th><th>O que cai</th></tr>
+    <tr><td>Quantitative Reasoning</td><td>21</td><td>45 min</td><td>Só Problem Solving: aritmética, álgebra, word problems, estatística/probabilidade. <strong>Sem calculadora. Sem geometria plana.</strong></td></tr>
+    <tr><td>Verbal Reasoning</td><td>23</td><td>45 min</td><td>Critical Reasoning (~10) e Reading Comprehension (~13). Não tem mais Sentence Correction.</td></tr>
+    <tr><td>Data Insights</td><td>20</td><td>45 min</td><td>Data Sufficiency, Table Analysis, Graphics Interpretation, Two-Part Analysis, Multi-Source Reasoning. <strong>Com calculadora.</strong></td></tr>
+  </table>
+  <ul>
+    <li>Você escolhe a ordem das seções e tem <strong>uma pausa opcional de 10 min</strong> após a 1ª ou a 2ª seção.</li>
+    <li>É <strong>adaptativa</strong>: acertou, a próxima tende a ser mais difícil; errou, mais fácil. A nota depende do nível das questões que você acerta, não só da quantidade.</li>
+    <li>Dá para <strong>marcar questões</strong> e, ao final de cada seção, revisar e <strong>trocar até 3 respostas</strong>.</li>
+    <li>Cada seção vale de 60 a 90; o total vai de 205 a 805 (205, 215, …, 805). A mediana mundial fica perto de 555. <strong>645 é por volta do 80º percentil</strong> — cerca de 82 em cada seção.</li>
+    <li><strong>Não terminar uma seção é penalizado pesadamente.</strong> Sempre marque alguma resposta em todas.</li>
+  </ul>
+
+  <h2>2. Os níveis do app (N1 a N5)</h2>
+  <table>
+    <tr><th>Nível</th><th>Faixa de nota que ele "separa"</th><th>O que significa</th></tr>
+    {% for lvl, info in LEVEL_INFO | dictsort %}
+      <tr><td><span class="badge lv{{ lvl }}">N{{ lvl }} · {{ info.name }}</span></td><td>{{ info.band }}</td>
+        <td>{{ ['Base escolar: contas, frações, leitura atenta.', 'Questões fáceis da prova real.', 'Questões médias da prova real — o grosso da prova para quem mira 600+.', 'Médias-difíceis: é aqui que se ganha 645-705.', 'As mais difíceis da prova (700+).'][lvl - 1] }}</td></tr>
+    {% endfor %}
+  </table>
+  <p>Para <strong>645</strong> você precisa acertar com segurança o N3 (~70%+) e metade do N4. Por isso o app define o <strong>N4 como meta</strong> de cada assunto.</p>
+
+  <h2>3. O método (o que o app faz por você)</h2>
+  <ol>
+    <li><strong>Aprender</strong> (Trilha): cada assunto tem uma lição com teoria, exemplos resolvidos e armadilhas. Leia com papel na mão e refaça os exemplos antes de ler a solução.</li>
+    <li><strong>Testar</strong> (teste de fixação): 5 questões fáceis logo depois da lição. Passou, o assunto entra na prática. Não passou, releia.</li>
+    <li><strong>Praticar no seu nível</strong>: cada assunto tem o seu nível. Acertou ≥75% das últimas, sobe; desabou, desce. A prática do dia mistura seus assuntos mais fracos (misturar assuntos é mais eficaz do que blocos de um só).</li>
+    <li><strong>Revisar para não esquecer</strong>: o que você erra, chuta ou demora volta depois de 1, 3, 7, 14, 30 e 60 dias. Os flashcards das lições também. A teoria em si volta em 2, 7, 21, 45 e 90 dias.</li>
+    <li><strong>Analisar erros</strong>: marque <em>por que</em> errou. O caderno de erros mostra se o problema é conceito, leitura, descuido ou tempo — cada um tem um remédio diferente.</li>
+    <li><strong>Simular</strong>: a partir da fase 2, um simulado completo a cada 1-2 semanas, e simulados oficiais da GMAC a cada ~4 semanas para calibrar a estimativa.</li>
+  </ol>
+
+  <h2>4. As 4 fases da preparação</h2>
+  <ul>
+    <li><strong>Fundamentos</strong> — trilha de lições (o plano calcula quantas por dia para caber no seu prazo), com prática leve dos assuntos já vistos.</li>
+    <li><strong>Construção</strong> — todo assunto até o N3. Simulado a cada 2 semanas.</li>
+    <li><strong>Nível-alvo</strong> — todo assunto até o N4; foco em tempo. Simulado semanal + oficial mensal.</li>
+    <li><strong>Reta final</strong> (últimas 3 semanas) — sem assunto novo: simulados, revisões e caderno de erros. Na última semana, diminua o volume e durma bem.</li>
+  </ul>
+
+  <h2>5. Estratégias de prova que você deve treinar desde já</h2>
+  <h3>Tempo</h3>
+  <ul>
+    <li>Média de ~2 min por questão (Quant 2:08, Verbal 1:57, DI 2:15). O app mostra um cronômetro e marca como "lenta" a questão que passa de 1,6× a meta.</li>
+    <li><strong>Regra dos 3 minutos</strong>: passou de ~3 min sem caminho claro, elimine o que der, chute e siga. Uma questão difícil vale o mesmo que uma fácil no fim da seção.</li>
+    <li>Confira o relógio nas questões 7 e 14: você deveria ter usado ~15 e ~30 min.</li>
+  </ul>
+  <h3>Chute inteligente</h3>
+  <ul>
+    <li>Nunca deixe em branco. Elimine alternativas impossíveis (sinal, ordem de grandeza, número inteiro quando precisa ser) antes de chutar.</li>
+    <li>Marque a questão (🔖) e, se sobrar tempo na tela de revisão, volte a ela.</li>
+  </ul>
+  <h3>Data Sufficiency (resumo — a lição completa está na trilha)</h3>
+  <ul>
+    <li>Você <em>não</em> precisa resolver: só decidir se dá para resolver. Para perguntas sim/não, "sempre não" também é suficiente.</li>
+    <li>Método AD/BCE: teste (1). Se suficiente, a resposta é A ou D; se não, B, C ou E. Depois (2).</li>
+    <li>Teste números: inteiros, frações, negativos, zero. A armadilha clássica é esquecer os negativos.</li>
+  </ul>
+  <h3>Critical Reasoning</h3>
+  <ul>
+    <li>Leia a <strong>pergunta primeiro</strong> (é assumption? weaken?). Depois ache a conclusão do argumento e o "buraco" entre evidência e conclusão.</li>
+    <li>A resposta certa mexe no buraco. Alternativas "fora do escopo" ou mais extremas que o argumento costumam estar erradas.</li>
+  </ul>
+  <h3>Reading Comprehension</h3>
+  <ul>
+    <li>Leia buscando a <strong>estrutura</strong> (o que cada parágrafo faz e qual a opinião do autor), não os detalhes. Os detalhes você volta para buscar quando a pergunta pedir.</li>
+    <li>Toda resposta certa tem apoio no texto. Se você precisa "imaginar" algo para defender a alternativa, ela está errada.</li>
+  </ul>
+
+  <h2>6. Uma semana típica (90 min/dia)</h2>
+  <table>
+    <tr><th>Dia</th><th>O que fazer</th></tr>
+    <tr><td>Seg-Sex</td><td>Abrir <strong>Hoje</strong> e fazer as tarefas na ordem: revisões → teoria → lição nova → prática focada.</td></tr>
+    <tr><td>Sábado</td><td>Fase 1: plano do dia + uma seção cronometrada. Fases 2-4: simulado completo e revisão dele.</td></tr>
+    <tr><td>Domingo</td><td>Revisões + caderno de erros (refaça sem olhar as questões erradas da semana). Descanso é parte do plano.</td></tr>
+  </table>
+
+  <h2>7. Sobre as questões e a nota estimada</h2>
+  <ul>
+    <li>As questões são originais, escritas no formato e no nível das oficiais. Se achar uma questão com erro, use "reportar erro" — ela sai de circulação até você corrigir.</li>
+    <li>A estimativa de nota é honesta, mas é uma estimativa. A régua de verdade são os <strong>simulados oficiais</strong>: faça o Official Practice Exam 1 no começo (diagnóstico) e registre em Progresso.</li>
+  </ul>
+</div>
+{% endblock %}

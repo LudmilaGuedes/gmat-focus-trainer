@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Praticar{% endblock %}
+{% block content %}
+  <h1>Praticar</h1>
+  <p class="muted">
+    Prática livre por seção, conteúdo ou assunto. Cada assunto serve questões no <em>seu</em> nível atual
+    dele e sobe/desce sozinho conforme você acerta. Para o dia a dia, prefira a <a href="{{ url_for('home.index') }}">prática focada do plano de hoje</a>.
+  </p>
+  <div class="grid">
+    {% for section in sections %}
+      <div class="card link">
+        <a class="block-link" href="{{ url_for('content.section_detail', section_code=section.code) }}">
+          <h2>{{ section.name }}</h2>
+          <p class="muted small">{{ section.description or '' }}</p>
+        </a>
+        <a class="btn small secondary" href="{{ url_for('study.section', section_code=section.code) }}">Prática mista da seção</a>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="card">
+    <h2>Simulados</h2>
+    <p class="muted small">Prova completa (3 seções, ~2h15) ou uma seção cronometrada de 45 min.</p>
+    <a class="btn" href="{{ url_for('mock_exam.start_form') }}">Começar simulado</a>
+  </div>
+{% endblock %}

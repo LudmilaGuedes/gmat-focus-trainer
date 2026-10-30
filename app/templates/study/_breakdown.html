@@ -1,0 +1,17 @@
+{# What you chose vs. the correct answer, per answer group. Needs: breakdown. #}
+{% for group in breakdown %}
+  <div style="margin-bottom:10px">
+    {% if group.label %}<div><strong>{{ group.label | mathfmt }}</strong> {% if group.ok %}<span class="badge ok">certo</span>{% else %}<span class="badge bad">errado</span>{% endif %}</div>{% endif %}
+    {% for o in group.options %}
+      {% if o.correct or o.selected %}
+        <div class="opt-review {{ 'correct' if o.correct else 'wrong' }}">
+          <strong>{{ o.option.option_label }}.</strong> {{ o.option.option_text | mathfmt }}
+          <span class="small muted">
+            {% if o.correct and o.selected %}— sua resposta ✓{% elif o.correct %}— resposta correta{% else %}— sua resposta ✗{% endif %}
+          </span>
+        </div>
+      {% endif %}
+    {% endfor %}
+    {% if not group.options | selectattr('selected') | list %}<div class="muted small">(sem resposta)</div>{% endif %}
+  </div>
+{% endfor %}

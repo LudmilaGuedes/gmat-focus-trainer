@@ -1,0 +1,12 @@
+{# htmx: why did I miss it? Needs: question, reasons, item (optional ReviewItem). #}
+<form hx-post="{{ url_for('review.set_reason', question_id=question.id) }}" hx-target="#reason-box" hx-swap="outerHTML">
+  <div class="row" style="margin-bottom:8px">
+    {% for key, label in reasons.items() %}
+      <button class="btn small {{ '' if item and item.error_reason == key else 'ghost' }}" type="submit" name="reason" value="{{ key }}">{{ label }}</button>
+    {% endfor %}
+  </div>
+  <div class="row">
+    <input type="text" name="note" placeholder="Nota para você mesmo (ex.: 'esqueci de testar números negativos')" value="{{ item.note if item and item.note else '' }}" style="flex:1; min-width:240px">
+    <button class="btn small secondary" type="submit">Salvar nota</button>
+  </div>
+</form>

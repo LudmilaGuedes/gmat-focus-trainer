@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% set hide_nav = true %}
+{% block title %}Simulado — {{ msec.section.name }}{% endblock %}
+{% block page_class %}{{ 'wide' if question.question_set else '' }}{% endblock %}
+{% block content %}
+  <div class="q-toolbar card" style="padding:10px 14px">
+    <strong>{{ msec.section.name }}</strong>
+    <span class="num">Questão {{ number }} de {{ msec.questions_planned }}</span>
+    {% include "mock_exam/_countdown.html" %}
+  </div>
+
+  <form method="post" action="{{ url_for('mock_exam.section_answer', mock_exam_id=mock_exam.id, mock_section_id=msec.id) }}" class="card" id="qform">
+    <input type="hidden" name="question_id" value="{{ question.id }}">
+    {% include "study/_question_body.html" %}
+    <div class="spread" style="margin-top:10px">
+      <label class="muted"><input type="checkbox" name="bookmark" value="1"> 🔖 Marcar para revisão</label>
+      <button class="btn" type="submit" onclick="return confirmNext()">Confirmar e seguir →</button>
+    </div>
+  </form>
+  <p class="muted small">Não dá para voltar a uma questão depois de confirmar — só na tela de revisão, no fim da seção.</p>
+{% endblock %}
+{% block scripts %}
+<script>
+  function confirmNext() {
+    const form = document.getElementById('qform');
+    return form.checkValidity() || (form.reportValidity(), false);
+  }
+</script>
+{% endblock %}

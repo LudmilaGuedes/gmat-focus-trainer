@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% from "study/_question_types/_macros.html" import level_badge %}
+{% block title %}Relatório da sessão{% endblock %}
+{% block content %}
+  <h1>Relatório da sessão</h1>
+  <p class="muted">
+    Modo: {{ {'study':'prática','review':'revisão','checkpoint':'teste de fixação','mock_exam':'simulado'}.get(study_session.mode, study_session.mode) }}
+    · início: {{ study_session.started_at.strftime('%d/%m/%Y %H:%M') }} UTC
+  </p>
+
+  <div class="grid three">
+    <div class="card kpi"><div class="label">Acertos</div><div class="value">{{ summary.total_correct }}/{{ summary.total_attempts }}</div></div>
+    <div class="card kpi"><div class="label">Tempo em questões</div><div class="value">{{ ((summary.total_seconds or 0) // 60) }} min</div></div>
+    <div class="card kpi"><div class="label">Tempo médio</div><div class="value">{{ summary.avg_seconds | mmss }}</div></div>
+  </div>
+
+  {% for ca in summary.content_areas %}
+    <div class="card">
+      <h2>{{ ca.content_area_name }} <span class="muted small">({{ ca.section_name }})</span></h2>
+      <p>{{ ca.correct }} / {{ ca.attempts }} corretas</p>
+      <table class="stats-table">
+        <thead><tr><th>Nível</th><th>Tentativas</th><th>Acertos</th></tr></thead>
+        {% for level, stats in ca.by_difficulty | dictsort %}
+          <tr><td>{% if level|int in LEVEL_INFO %}{{ level_badge(level|int) }}{% else %}{{ level }}{% endif %}</td><td>{{ stats.attempts }}</td><td>{{ stats.correct }}</td></tr>
+        {% endfor %}
+      </table>
+    </div>
+  {% else %}
+    <p class="muted">Nenhuma questão respondida nesta sessão.</p>
+  {% endfor %}
+
+  <a class="btn" href="{{ url_for('home.index') }}">Voltar para o plano de hoje</a>
+  {% if summary.wrong_question_ids %}<a class="btn secondary" href="{{ url_for('review.errors') }}">Caderno de erros</a>{% endif %}
+{% endblock %}

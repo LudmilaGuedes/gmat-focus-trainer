@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% from "study/_question_types/_macros.html" import level_badge %}
+{% block title %}Simulado — questão {{ attempt.sequence_number }}{% endblock %}
+{% block page_class %}{{ 'wide' if question.question_set else '' }}{% endblock %}
+{% block content %}
+  <a class="muted small" href="{{ url_for('mock_exam.results', mock_exam_id=mock_exam.id) }}">&larr; Resultado do simulado</a>
+  <h1>{{ attempt.mock_exam_section.section.name }} — questão {{ attempt.sequence_number }}</h1>
+  <p class="muted small">{{ question.subtopic.name }} · {{ level_badge(question.difficulty) }} · ⏱ {{ attempt.time_spent_seconds | mmss }} (meta {{ target_seconds | mmss }})</p>
+  <div class="feedback {{ 'correct' if attempt.is_correct else 'incorrect' }}"><strong>{{ 'Certo' if attempt.is_correct else 'Errado' }}</strong></div>
+  <div class="card">{% set selected_answer = attempt.selected_answer_json %}{% include "study/_question_body.html" %}</div>
+  <div class="card">
+    <h2>Sua resposta</h2>
+    {% include "study/_breakdown.html" %}
+    <h2>Solução</h2>
+    <div class="explanation">{{ question.explanation_text | mathfmt }}</div>
+  </div>
+  <a class="small" href="{{ url_for('questions.detail', question_id=question.id) }}">Anotar motivo do erro / reportar problema</a>
+{% endblock %}

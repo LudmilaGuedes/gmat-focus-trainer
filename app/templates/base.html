@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}GMAT Focus Trainer{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="{{ url_for('static', filename='js/htmx.min.js') }}"></script>
+  {% block head %}{% endblock %}
+</head>
+<body>
+  {% set ep = request.endpoint or '' %}
+  {% if not hide_nav %}
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('home.index') }}">GMAT Focus Trainer</a>
+    <nav>
+      <a href="{{ url_for('home.index') }}" class="{{ 'active' if ep == 'home.index' }}">Hoje</a>
+      <a href="{{ url_for('learn.track') }}" class="{{ 'active' if ep.startswith('learn.') }}">Trilha</a>
+      <a href="{{ url_for('content.sections') }}" class="{{ 'active' if ep.startswith('content.') or ep.startswith('study.') }}">Praticar</a>
+      <a href="{{ url_for('review.start') }}" class="{{ 'active' if ep in ('review.start','review.item','review.feedback') }}">Revisão{% if nav_due_reviews %}<span class="pill">{{ nav_due_reviews }}</span>{% endif %}</a>
+      <a href="{{ url_for('review.errors') }}" class="{{ 'active' if ep == 'review.errors' }}">Caderno de erros</a>
+      <a href="{{ url_for('mock_exam.history') }}" class="{{ 'active' if ep.startswith('mock_exam.') }}">Simulados</a>
+      <a href="{{ url_for('progress.index') }}" class="{{ 'active' if ep.startswith('progress.') }}">Progresso</a>
+      <a href="{{ url_for('resources.guide') }}" class="{{ 'active' if ep.startswith('resources.') }}">Guia</a>
+      <a href="{{ url_for('settings.index') }}" class="{{ 'active' if ep.startswith('settings.') }}">⚙</a>
+    </nav>
+  </header>
+  {% endif %}
+  <main class="page {% block page_class %}{% endblock %}">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash">{% for m in messages %}<p style="margin:0">{{ m }}</p>{% endfor %}</div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

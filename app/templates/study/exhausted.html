@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Questões inéditas esgotadas{% endblock %}
+{% block content %}
+  <h1>Você já fez todas as questões inéditas destes assuntos</h1>
+  <p class="muted">
+    {% for s in subtopics %}{{ s.name }}{% if not loop.last %}, {% endif %}{% endfor %}.
+    Para não repetir questões, a prática para aqui. As que você errou, chutou ou fez devagar voltam
+    sozinhas nas <strong>revisões espaçadas</strong> dos próximos dias.
+  </p>
+  <p>Fez {{ state.count }} questões nesta prática ({{ state.correct }} certas). Para continuar estudando hoje,
+    avance para a próxima lição da trilha — ela libera um assunto novo, com questões novas.</p>
+  <div class="row">
+    <form method="post" action="{{ url_for('study.end_session') }}" class="inline-form">
+      <button class="btn" type="submit">Encerrar e ver relatório</button>
+    </form>
+    <a class="btn secondary" href="{{ url_for('home.index') }}">Voltar para Hoje</a>
+  </div>
+{% endblock %}

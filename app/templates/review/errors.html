@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% from "study/_question_types/_macros.html" import level_badge %}
+{% block title %}Caderno de erros{% endblock %}
+{% block content %}
+  <h1>Caderno de erros</h1>
+  <p class="muted">Toda questão que você errou, chutou ou fez devagar. Os padrões aqui dizem mais sobre o que estudar do que a nota.</p>
+
+  <div class="grid three">
+    <div class="card kpi"><div class="label">Questões no caderno</div><div class="value">{{ total }}</div></div>
+    <div class="card kpi"><div class="label">Já dominadas</div><div class="value">{{ graduated }}</div></div>
+    <div class="card kpi"><div class="label">Sem motivo anotado</div><div class="value">{{ by_reason.get('none', 0) }}</div></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Por motivo</h2>
+      <table class="stats-table">
+        {% for key, label in reasons.items() %}
+          <tr><td><a href="{{ url_for('review.errors', reason=key) }}">{{ label }}</a></td><td class="num">{{ by_reason.get(key, 0) }}</td></tr>
+        {% endfor %}
+      </table>
+      <p class="muted small">Muito "conceito"? Volte às lições. Muito "descuido"/"leitura"? Crie o hábito de reler a pergunta antes de marcar. Muito "tempo"? Treine a regra dos 2 minutos e aprenda a chutar.</p>
+    </div>
+    <div class="card">
+      <h2>Assuntos que mais pesam</h2>
+      <table class="stats-table">
+        {% for name, count in top_subtopics %}<tr><td>{{ name }}</td><td class="num">{{ count }}</td></tr>{% else %}<tr><td class="muted">Nada ainda.</td></tr>{% endfor %}
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="spread">
+      <h2 style="margin:0">Questões</h2>
+      <form method="get" class="row">
+        <select name="section"><option value="">Todas as seções</option>{% for s in sections %}<option value="{{ s.code }}" {{ 'selected' if s.code == section_code }}>{{ s.code }}</option>{% endfor %}</select>
+        <select name="reason"><option value="">Todos os motivos</option>{% for key, label in reasons.items() %}<option value="{{ key }}" {{ 'selected' if key == reason }}>{{ label }}</option>{% endfor %}</select>
+        <button class="btn small secondary">Filtrar</button>
+      </form>
+    </div>
+    <table class="stats-table">
+      <thead><tr><th>Questão</th><th>Assunto</th><th>Origem</th><th>Motivo / nota</th><th>Revisão</th></tr></thead>
+      <tbody>
+      {% for it in items %}
+        <tr>
+          <td><a href="{{ url_for('questions.detail', question_id=it.question.id) }}">{{ it.question.stem_text[:70] }}{% if it.question.stem_text|length > 70 %}…{% endif %}</a>
+            <div>{{ level_badge(it.question.difficulty) }}</div></td>
+          <td class="small">{{ it.question.section.code }} · {{ it.question.subtopic.name }}</td>
+          <td class="small">{{ {'wrong':'errou','guessed':'chutou','slow':'lenta','mock':'simulado','manual':'manual'}.get(it.origin, it.origin) }}</td>
+          <td class="small">{{ reasons.get(it.error_reason, '—') }}{% if it.note %}<div class="muted">{{ it.note }}</div>{% endif %}</td>
+          <td class="small num">{% if it.graduated %}<span class="badge ok">dominada</span>{% else %}caixa {{ it.box + 1 }} · {{ it.due_at.strftime('%d/%m') }}{% endif %}{% if it.lapses %}<div class="muted">{{ it.lapses }} recaída(s)</div>{% endif %}</td>
+        </tr>
+      {% else %}
+        <tr><td colspan="5" class="muted">Nenhuma questão aqui ainda.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

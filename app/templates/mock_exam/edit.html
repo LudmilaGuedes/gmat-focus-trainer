@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% set hide_nav = true %}
+{% block title %}Rever questão {{ attempt.sequence_number }}{% endblock %}
+{% block page_class %}{{ 'wide' if question.question_set else '' }}{% endblock %}
+{% block content %}
+  <div class="q-toolbar card" style="padding:10px 14px">
+    <strong>Rever questão {{ attempt.sequence_number }}</strong>
+    <span class="num">Trocas restantes: {{ edits_left }}/3{% if attempt.edited %} (esta já foi alterada — pode mudar de novo sem gastar){% endif %}</span>
+    {% include "mock_exam/_countdown.html" %}
+  </div>
+  <form method="post" class="card">
+    {% include "study/_question_body.html" %}
+    <div class="row" style="margin-top:10px">
+      <a class="btn ghost" href="{{ url_for('mock_exam.section_review', mock_exam_id=mock_exam.id, mock_section_id=msec.id) }}">Voltar sem mudar</a>
+      {% if edits_left > 0 or attempt.edited %}
+        <button class="btn" type="submit">Salvar resposta</button>
+      {% else %}
+        <span class="muted small">Você já usou as 3 trocas desta seção.</span>
+      {% endif %}
+    </div>
+  </form>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% from "study/_question_types/_macros.html" import render_group with context %}
+{% if question.stimulus_text %}<div class="stimulus">{{ question.stimulus_text | mathfmt }}</div>{% endif %}
+{% set media = question.media_json or {} %}
+{% if media.table %}
+  <p class="muted small">Clique no cabeçalho de uma coluna para ordenar (como na prova).</p>
+  <table class="di-table sortable">
+    <thead><tr>{% for col in media.table.columns %}<th>{{ col }}</th>{% endfor %}</tr></thead>
+    <tbody>
+      {% for row in media.table.rows %}<tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>{% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+<div class="question-text">{{ question.stem_text | reflow }}</div>
+{% for statement in media.statements or [] %}
+  {{ render_group(statement.key, answer_groups.get(statement.key, []), label=statement.text) }}
+{% endfor %}
+<script>
+  document.querySelectorAll('table.sortable').forEach(function (table) {
+    table.querySelectorAll('th').forEach(function (th, idx) {
+      th.addEventListener('click', function () {
+        const body = table.tBodies[0];
+        const rows = Array.from(body.rows);
+        const asc = th.dataset.dir !== 'asc';
+        const num = s => parseFloat(String(s).replace(/[^0-9.\-]/g, ''));
+        rows.sort(function (a, b) {
+          const x = a.cells[idx].textContent.trim(), y = b.cells[idx].textContent.trim();
+          const nx = num(x), ny = num(y);
+          const cmp = (!isNaN(nx) && !isNaN(ny)) ? nx - ny : x.localeCompare(y);
+          return asc ? cmp : -cmp;
+        });
+        table.querySelectorAll('th').forEach(h => delete h.dataset.dir);
+        th.dataset.dir = asc ? 'asc' : 'desc';
+        rows.forEach(r => body.appendChild(r));
+      });
+    });
+  });
+</script>
