@@ -179,3 +179,7 @@ O `Dockerfile` sobe o app com o banco de exemplo, em modo demo, e o [`render.yam
 contêiner no plano gratuito do Render. Passo a passo em
 [`docs/deploy-render.md`](docs/deploy-render.md). Na demo o banco SQLite é compartilhado entre visitantes e recriado a
 cada deploy; no plano gratuito o app "dorme" após ~15 minutos sem uso e leva cerca de 1 minuto para acordar.
+
+## Licença
+
+Código sob a licença [MIT](LICENSE). As questões e lições do `sample_bank/` são originais e seguem a mesma licença.
