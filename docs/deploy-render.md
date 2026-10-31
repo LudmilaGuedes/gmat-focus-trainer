@@ -24,7 +24,9 @@ gunicorn.
    em `https://gmat-focus-trainer.onrender.com` (ou num endereço parecido, se esse nome já estiver em uso).
 6. Coloque o link no topo do `README.md`.
 
-Depois disso, cada push na branch `main` gera um novo deploy automaticamente.
+Atualizações: com o GitHub conectado ao Render, cada push na branch `main` gera um novo deploy automaticamente. Se o
+Blueprint foi criado pela opção **Public Git Repository** (sem conectar o GitHub), o deploy automático não fica
+ativo: use **Manual Deploy → Deploy latest commit** no serviço, ou conecte o GitHub depois.
 
 ## Testar a imagem localmente (opcional)
 

@@ -1,5 +1,5 @@
 # Blueprint do Render (https://render.com/docs/blueprint-spec): demo pública no plano gratuito,
-# construída a partir do Dockerfile. Cada push na branch main atualiza a demo.
+# construída a partir do Dockerfile (com o GitHub conectado, cada push na branch main atualiza a demo).
 services:
   - type: web
     name: gmat-focus-trainer

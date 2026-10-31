@@ -11,7 +11,7 @@ Plataforma de estudo adaptativa para o **GMAT Focus Edition**, rodando localment
 preparação inteira: trilha de teoria, testes de fixação, prática adaptativa por assunto, revisão espaçada, caderno de
 erros, simulados no estilo CAT e estimativa de nota.
 
-**Demo:** _link do Render (a publicar)_
+**Demo:** https://gmat-focus-trainer.onrender.com (banco de exemplo; no plano gratuito o primeiro acesso pode levar ~1 minuto)
 
 ---
 
@@ -176,6 +176,6 @@ O **Guia** (no menu) explica a prova, os níveis e o método.
 ## Demo pública (Render)
 
 O `Dockerfile` sobe o app com o banco de exemplo, em modo demo, e o [`render.yaml`](render.yaml) publica esse
-contêiner no plano gratuito do Render, com deploy automático a cada push. Passo a passo em
+contêiner no plano gratuito do Render. Passo a passo em
 [`docs/deploy-render.md`](docs/deploy-render.md). Na demo o banco SQLite é compartilhado entre visitantes e recriado a
 cada deploy; no plano gratuito o app "dorme" após ~15 minutos sem uso e leva cerca de 1 minuto para acordar.
